@@ -1,0 +1,21 @@
+{
+  "name": "gos-header",
+  "version": "0.0.0",
+  "authors": [
+    "Euan Willcox <euan@tui.co.uk>"
+  ],
+  "moduleType": [
+    "amd",
+    "globals",
+    "node"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "component/bower_components",
+    "test",
+    "tests"
+  ]
+}
