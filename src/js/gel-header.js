@@ -43,10 +43,6 @@ var Header = (function() {
                 }
             };
 
-            // set height of panel to 75% of total page height
-            console.log(window.innerHeight * 0.75);
-
-
         }
 
         // bind events to card elements
