@@ -8,7 +8,7 @@ $gel-notify-color: #1886d1;
     height: 40px;
     border-bottom: $gel-header-border;
     position: relative;
-
+    transition: margin 0.4s;
 
     // ------------------------------------------ //
 
@@ -77,7 +77,19 @@ $gel-notify-color: #1886d1;
 
     &__notify-panel {
         position: absolute;
-        display: none;
+        top: 40px;
+        left: 0;
+        right: 0;
+        background: #fff;
+        overflow-Y: scroll;
+        pointer-events: none;
+        opacity: 0;
+            transition: opacity 0.7s 0s;
+        &.is-open {
+        transition: opacity 0.7s 0.3s;
+            pointer-events: auto;
+            opacity: 1;
+        }
     }
 
 
@@ -152,6 +164,7 @@ $gel-notify-color: #1886d1;
 }
 
 
+
 .notify-panel {
 
 
@@ -165,7 +178,9 @@ $gel-notify-color: #1886d1;
     // ------------------------------------------ //
 
     &__items {
-
+        margin: 0;
+        padding: 0;
+        list-style: none;
     }
 
         &__item {
@@ -175,6 +190,35 @@ $gel-notify-color: #1886d1;
 }
 
 
+html, body, .gel-content-wrap {
+    height: 100%;
+}
+.gel-content-wrap {
+    background: #fff;
+    position: relative;
+    z-index: 1;
+}
+
+
+
+.gel-content,
+.gel-masthead {
+    &__inner {
+        @extend %gel-wrapper;
+    }
+}
+
+.gel-masthead {
+    background: #444444;
+    padding: $base-spacing-unit*2 0;
+    h1 {
+        margin: 0;
+        color: #fff;
+    }
+}
+.gel-content {
+
+}
 
 
 %gel-wrapper {
@@ -195,6 +239,7 @@ $gel-notify-color: #1886d1;
             content: '\E009';
         }
     }
+
     &--alert {
         font-family: 'bbcicons--core';
         &:before {
@@ -239,7 +284,6 @@ Currently only works in WebKit browsers but let's hope others start implementing
     37% { transform: rotate(2deg); }
     39% { transform: rotate(-1deg); }
     41% { transform: rotate(1deg); }
-
     43% { transform: rotate(0); }
     100% { transform: rotate(0); }
 }

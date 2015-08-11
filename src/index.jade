@@ -1,6 +1,7 @@
 extends layouts/base
 block content
-  div.gel-header
+
+  div.gel-header.js-header
     div.gel-header__inner
 
       div.gel-header__logo
@@ -18,44 +19,44 @@ block content
       div.gel-header__notify-panel.notify-panel.js-notify-panel
         div.notify-panel__header
           h3 Notifications
-          button settings
-          button close
+          button.js-notify-settings settings
+          button.js-notify-close close
 
         ul.notify-panel__items
-          li.notify-panel__item
+          li.notify-panel__item.js-notify-item
             h4 Curabitur viverra porttitor ex non pharetra. Nunc lorem elit, imperdiet in feugiat sit amet.
             p Phasellus arcu ipsum | 1 minute ago
-          li.notify-panel__item
+          li.notify-panel__item.js-notify-item
             h4 Curabitur viverra porttitor ex non pharetra. Nunc lorem elit, imperdiet in feugiat sit amet.
             p Phasellus arcu ipsum | 1 minute ago
-          li.notify-panel__item
+          li.notify-panel__item.js-notify-item
             h4 Curabitur viverra porttitor ex non pharetra. Nunc lorem elit, imperdiet in feugiat sit amet.
             p Phasellus arcu ipsum | 1 minute ago
-          li.notify-panel__item
+          li.notify-panel__item.js-notify-item
             h4 Curabitur viverra porttitor ex non pharetra. Nunc lorem elit, imperdiet in feugiat sit amet.
             p Phasellus arcu ipsum | 1 minute ago
-          li.notify-panel__item
+          li.notify-panel__item.js-notify-item
             h4 Curabitur viverra porttitor ex non pharetra. Nunc lorem elit, imperdiet in feugiat sit amet.
             p Phasellus arcu ipsum | 1 minute ago
-          li.notify-panel__item
+          li.notify-panel__item.js-notify-item
             h4 Curabitur viverra porttitor ex non pharetra. Nunc lorem elit, imperdiet in feugiat sit amet.
             p Phasellus arcu ipsum | 1 minute ago
-          li.notify-panel__item
+          li.notify-panel__item.js-notify-item
             h4 Curabitur viverra porttitor ex non pharetra. Nunc lorem elit, imperdiet in feugiat sit amet.
             p Phasellus arcu ipsum | 1 minute ago
-          li.notify-panel__item
+          li.notify-panel__item.js-notify-item
             h4 Curabitur viverra porttitor ex non pharetra. Nunc lorem elit, imperdiet in feugiat sit amet.
             p Phasellus arcu ipsum | 1 minute ago
-          li.notify-panel__item
+          li.notify-panel__item.js-notify-item
             h4 Curabitur viverra porttitor ex non pharetra. Nunc lorem elit, imperdiet in feugiat sit amet.
             p Phasellus arcu ipsum | 1 minute ago
-          li.notify-panel__item
+          li.notify-panel__item.js-notify-item
             h4 Curabitur viverra porttitor ex non pharetra. Nunc lorem elit, imperdiet in feugiat sit amet.
             p Phasellus arcu ipsum | 1 minute ago
-          li.notify-panel__item
+          li.notify-panel__item.js-notify-item
             h4 Curabitur viverra porttitor ex non pharetra. Nunc lorem elit, imperdiet in feugiat sit amet.
             p Phasellus arcu ipsum | 1 minute ago
-          li.notify-panel__item
+          li.notify-panel__item.js-notify-item
             h4 Curabitur viverra porttitor ex non pharetra. Nunc lorem elit, imperdiet in feugiat sit amet.
             p Phasellus arcu ipsum | 1 minute ago
 
@@ -82,6 +83,16 @@ block content
         input(type="text", placeholder="Search the BBC...")
         button(type="submit")
           i.icon.icon--search
-  div.gel-page-header
 
+  div.gel-content-wrap.js-content-wrap
 
+    div.gel-masthead
+      div.gel-masthead__inner
+        h1 Page Header
+
+    div.gel-content
+      div.gel-content__inner
+
+        p Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse mollis varius lobortis. Etiam hendrerit scelerisque facilisis. Vivamus blandit est mi, quis ullamcorper augue posuere mollis. Curabitur auctor tempor condimentum. Nulla maximus, eros non faucibus sodales, justo odio bibendum tellus, id ultricies quam sem sit amet nibh. Sed pharetra interdum tempor. Vestibulum vel urna vitae sem varius luctus. Fusce ullamcorper est at volutpat elementum. Proin odio neque, commodo ut tortor a, porttitor sagittis justo. Proin dapibus purus quis magna congue elementum. Mauris ultricies arcu odio. Donec ornare justo vitae eros sodales, in fermentum turpis cursus.
+
+        p Mauris ornare luctus nisl. Donec libero sem, lobortis ac mauris id, vehicula vehicula magna. Nunc id sagittis tortor. Nulla porta, est eu malesuada varius, metus erat hendrerit lectus, a tristique tortor ligula vel nisi. Vivamus vehicula ornare velit, vel pharetra enim sollicitudin quis. Aliquam non maximus ex. Donec elit sapien, egestas sit amet augue at, bibendum commodo erat. Integer nec dui ac leo pharetra faucibus nec nec mauris. Integer in molestie diam, vitae fringilla neque. Suspendisse aliquam scelerisque tincidunt. Mauris laoreet tincidunt nunc, eu faucibus nisi auctor euismod. Sed efficitur mauris non leo maximus molestie. Integer at diam et elit pharetra euismod eu non lectus.
