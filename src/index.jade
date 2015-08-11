@@ -1,5 +1,87 @@
 extends layouts/base
 block content
-    div.grid.grid--flex-cell
+  div.gel-header
+    div.gel-header__inner
+
+      div.gel-header__logo
+        img(src="http://clients.tui.co.uk/bbc-assets/logo.png")
+
+      div.gel-header__account
+        a(href="#")
+          img(src="http://static.bbci.co.uk/id/0.32.00/img/bbcid_orb_signin_dark.png")
+        span Sign In
+
+      div.gel-header__notify.js-notify
+        svg(version="1.1", xmlns="http://www.w3.org/2000/svg", xmlns:xlink="http://www.w3.org/1999/xlink", x="0px", y="0px", width="20.363px", height="20.363px", viewBox="0 0 20.363 20.363", xml:space="preserve")
+          path(fill-rule="evenodd", clip-rule="evenodd", d="M16.545,11.454V7.636c-0.146-2.934-2.29-5.352-5.091-5.918V0H8.909v1.718c-2.8,0.567-4.945,2.985-5.091,5.918v3.818L0,16.545h20.363L16.545,11.454z M7.636,20.363h5.091v-2.545H7.636V20.363z")
+
+      div.gel-header__notify-panel.notify-panel.js-notify-panel
+        div.notify-panel__header
+          h3 Notifications
+          button settings
+          button close
+
+        ul.notify-panel__items
+          li.notify-panel__item
+            h4 Curabitur viverra porttitor ex non pharetra. Nunc lorem elit, imperdiet in feugiat sit amet.
+            p Phasellus arcu ipsum | 1 minute ago
+          li.notify-panel__item
+            h4 Curabitur viverra porttitor ex non pharetra. Nunc lorem elit, imperdiet in feugiat sit amet.
+            p Phasellus arcu ipsum | 1 minute ago
+          li.notify-panel__item
+            h4 Curabitur viverra porttitor ex non pharetra. Nunc lorem elit, imperdiet in feugiat sit amet.
+            p Phasellus arcu ipsum | 1 minute ago
+          li.notify-panel__item
+            h4 Curabitur viverra porttitor ex non pharetra. Nunc lorem elit, imperdiet in feugiat sit amet.
+            p Phasellus arcu ipsum | 1 minute ago
+          li.notify-panel__item
+            h4 Curabitur viverra porttitor ex non pharetra. Nunc lorem elit, imperdiet in feugiat sit amet.
+            p Phasellus arcu ipsum | 1 minute ago
+          li.notify-panel__item
+            h4 Curabitur viverra porttitor ex non pharetra. Nunc lorem elit, imperdiet in feugiat sit amet.
+            p Phasellus arcu ipsum | 1 minute ago
+          li.notify-panel__item
+            h4 Curabitur viverra porttitor ex non pharetra. Nunc lorem elit, imperdiet in feugiat sit amet.
+            p Phasellus arcu ipsum | 1 minute ago
+          li.notify-panel__item
+            h4 Curabitur viverra porttitor ex non pharetra. Nunc lorem elit, imperdiet in feugiat sit amet.
+            p Phasellus arcu ipsum | 1 minute ago
+          li.notify-panel__item
+            h4 Curabitur viverra porttitor ex non pharetra. Nunc lorem elit, imperdiet in feugiat sit amet.
+            p Phasellus arcu ipsum | 1 minute ago
+          li.notify-panel__item
+            h4 Curabitur viverra porttitor ex non pharetra. Nunc lorem elit, imperdiet in feugiat sit amet.
+            p Phasellus arcu ipsum | 1 minute ago
+          li.notify-panel__item
+            h4 Curabitur viverra porttitor ex non pharetra. Nunc lorem elit, imperdiet in feugiat sit amet.
+            p Phasellus arcu ipsum | 1 minute ago
+          li.notify-panel__item
+            h4 Curabitur viverra porttitor ex non pharetra. Nunc lorem elit, imperdiet in feugiat sit amet.
+            p Phasellus arcu ipsum | 1 minute ago
+
+      div.gel-header__menu.js-menu
+        ul.gel-header__menu-items
+          li.gel-header__menu-item.js-menu-item
+            a(href="#") News
+          li.gel-header__menu-item.js-menu-item
+            a(href="#") Sport
+          li.gel-header__menu-item.js-menu-item
+            a(href="#") Weather
+          li.gel-header__menu-item.js-menu-item
+            a(href="#") iPlayer
+          li.gel-header__menu-item.js-menu-item
+            a(href="#") TV
+          li.gel-header__menu-item.js-menu-item
+            a(href="#") Radio
+          li.gel-header__menu-item.gel-header__menu-item--more.js-more
+            a(href="#") More
+
+        div.gel-header__menu-panel.js-menu-panel
+
+      form.gel-header__search
+        input(type="text", placeholder="Search the BBC...")
+        button(type="submit")
+          i.icon.icon--search
+  div.gel-page-header
 
 

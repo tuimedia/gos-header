@@ -1,9 +1,245 @@
-@import '../../bower_components/gos-core/component/scss/core.scss';
+@import '../../bower_components/gos-core/dist/styles/core.scss';
 
-@import '_cards';
+$gel-header-border: 1px solid #ccc;
+$gel-notify-color: #1886d1;
 
-.page {
+.gel-header {
+    background: #fff;
+    height: 40px;
+    border-bottom: $gel-header-border;
+    position: relative;
+
+
+    // ------------------------------------------ //
+
+    &__inner {
+        @extend %gel-wrapper;
+        display: flex;
+        align-items: stretch;
+        height: 100%;
+    }
+
+
+    // ------------------------------------------ //
+
+    &__logo {
+        padding-right: $half-spacing-unit;
+        border-right: $gel-header-border;
+        display: flex;
+        align-items: center;
+        img {
+            width: 84px;
+            height: auto;
+            display: block
+        }
+    }
+
+
+    // ------------------------------------------ //
+
+    &__account {
+        display: flex;
+        flex-basis: 40px;
+        border-right: $gel-header-border;
+        a {
+            flex-grow: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        span {
+            display: none;
+        }
+    }
+
+
+    // ------------------------------------------ //
+
+    &__notify {
+        display: flex;
+        flex-basis: 40px;
+        border-right: $gel-header-border;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        border-bottom: 3px solid transparent;
+        svg {
+            margin-bottom: -3px;
+        }
+        &:hover {
+            border-bottom: 3px solid $gel-notify-color;
+            svg {
+                animation: ring 10s 0s ease-in-out;
+                transform-origin: 50% 4px;
+            }
+        }
+    }
+
+    &__notify-panel {
+        position: absolute;
+        display: none;
+    }
+
+
+    // ------------------------------------------ //
+
+    &__menu {
+        flex-grow: 1;
+        display: flex;
+        align-items: center;
+    }
+
+        &__menu-items {
+            flex-grow: 1;
+            display: flex;
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            justify-content: flex-end;
+        }
+
+            &__menu-item {
+                flex-grow: 1;
+                a {
+
+                }
+                display: none;
+                @include mq(map-get($break, m)) {
+                    display: block;
+                }
+                &--more {
+                    flex-grow: 0;
+                    display: block;
+                }
+            }
+
+
+    // ------------------------------------------ //
+
+    &__search {
+        position: relative;
+        display: flex;
+        padding: 0;
+        flex-basis: 40px;
+        align-items: stretch;
+        border-left: $gel-header-border;
+        border-right: $gel-header-border;
+        input {
+            flex-grow: 1;
+            display: none;
+        }
+        button {
+            border: none;
+            margin: 0;
+            background: transparent;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-grow: 1;
+            padding: 0;
+            i {
+                width: auto;
+                height: auto;
+            }
+        }
+        @include mq(map-get($break, m)) {
+            flex-basis: 200px;
+        }
+
+    }
+
+}
+
+
+.notify-panel {
+
+
+    // ------------------------------------------ //
+
+    &__header {
+
+    }
+
+
+    // ------------------------------------------ //
+
+    &__items {
+
+    }
+
+        &__item {
+
+        }
+
+}
+
+
+
+
+%gel-wrapper {
     max-width: 1400px;
     margin: 0 auto;
-    padding: 16px;
+    padding: 0 $half-spacing-unit;
+    @include mq(map-get($break, s)) {
+        padding: 0 $base-spacing-unit;
+    }
+}
+
+
+.icon {
+
+    &--search {
+        font-family: 'bbcicons--core';
+        &:before {
+            content: '\E009';
+        }
+    }
+    &--alert {
+        font-family: 'bbcicons--core';
+        &:before {
+            content: '\E012';
+        }
+    }
+
+}
+
+
+
+
+
+
+
+/* -------------------------------------------------------------------------------------------------------------------------
+CSS3 Ringing Bell animation
+Currently only works in WebKit browsers but let's hope others start implementing it soon!
+---------------------------------------------------------------------------------------------------------------------------- */
+
+
+@keyframes ring {
+    0% { transform: rotate(0); }
+    1% { transform: rotate(30deg); }
+    3% { transform: rotate(-28deg); }
+    5% { transform: rotate(34deg); }
+    7% { transform: rotate(-32deg); }
+    9% { transform: rotate(30deg); }
+    11% { transform: rotate(-28deg); }
+    13% { transform: rotate(26deg); }
+    15% { transform: rotate(-24deg); }
+    17% { transform: rotate(22deg); }
+    19% { transform: rotate(-20deg); }
+    21% { transform: rotate(18deg); }
+    23% { transform: rotate(-16deg); }
+    25% { transform: rotate(14deg); }
+    27% { transform: rotate(-12deg); }
+    29% { transform: rotate(10deg); }
+    31% { transform: rotate(-8deg); }
+    33% { transform: rotate(6deg); }
+    35% { transform: rotate(-4deg); }
+    37% { transform: rotate(2deg); }
+    39% { transform: rotate(-1deg); }
+    41% { transform: rotate(1deg); }
+
+    43% { transform: rotate(0); }
+    100% { transform: rotate(0); }
 }
