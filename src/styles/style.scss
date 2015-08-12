@@ -72,7 +72,7 @@ $gel-notify-color: #1886d1;
         &:hover {
             border-bottom: 3px solid $gel-notify-color;
             svg {
-                animation: ring 10s 0s ease-in-out;
+                animation: ring 1s 0s ease-in-out;
                 transform-origin: 50% 4px;
             }
         }
@@ -84,17 +84,17 @@ $gel-notify-color: #1886d1;
         left: 0;
         right: 0;
         background: #fff;
-        overflow-Y: scroll;
+        overflow: hidden;
         // pointer-events: none;
         // opacity: 0;
         transition: opacity 0.7s 0s;
         &.is-open {
-        transition: opacity 0.7s 0.3s;
+            transition: opacity 0.7s 0.3s;
             pointer-events: auto;
             opacity: 1;
         }
 
-
+        height: 400px;
         z-index: 2;
     }
 
@@ -173,15 +173,35 @@ $gel-notify-color: #1886d1;
 // ------------------------------------------------------------------------------------ //
 
 .notify-panel {
-    @extend %gel-wrapper;
 
 
     // ------------------------------------------ //
 
     &__header {
+        @extend %gel-wrapper;
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        background: #fff;
+        display: flex;
+        height: 40px;
+        z-index: 1;
+        align-items: center;
+
         h3 {
+            flex-grow: 1;
             text-transform: uppercase;
             margin: 0;
+            font-family: 'gill';
+            font-weight: 500;
+        }
+        button {
+            margin: 0;
+            padding: 0;
+            border: none;
+            background: #fff;
+            cursor: pointer;
         }
     }
 
@@ -190,14 +210,28 @@ $gel-notify-color: #1886d1;
 
     &__items {
         margin: 0;
-        padding: 0;
+        padding: 40px 0 0 0;
         list-style: none;
+        overflow-Y: scroll;
+        position: absolute;
+        top: 0;
+        right: $half-spacing-unit;
+        bottom: 0;
+        left: $half-spacing-unit;
+        @include mq(map-get($break, s)) {
+            left: $base-spacing-unit;
+            right: $base-spacing-unit;
+        }
     }
 
         &__item {
             border-bottom: 1px solid #ccc;
             padding: $base-spacing-unit 0;
-            display: flex;
+            a {
+                display: flex;
+                text-decoration: none;
+                color: #000;
+            }
             h4 {
                 font-weight: 500;
                 margin: 0 0 $half-spacing-unit/2 0;
@@ -206,27 +240,81 @@ $gel-notify-color: #1886d1;
                 color: #949494;
                 margin: 0;
             }
+
             &.is-new {
                 h4 {
                     font-weight: 700;
+                }
+                .notify-panel__item-attribution {
+                    &:after {
+                        content: '';
+                        position: absolute;
+                        width: $half-spacing-unit;
+                        height: $half-spacing-unit;
+                        border-radius: 50%;
+                        background: $gel-notify-color;
+                        left: 0;
+                        margin-top: $half-spacing-unit;
+                    }
                 }
             }
             &.is-alert {
 
             }
-
         }
 
-            &__attribution {
-
+            &__item-attribution {
+                position: relative;
+                margin-top: $half-spacing-unit/2;
+                .icon {
+                    font-size: 20px;
+                }
             }
 
-            &__details {
-
+            &__item-details {
+                margin-left: $half-spacing-unit;
             }
+
+    &__settings {
+        position: absolute;
+        background: $gel-notify-color;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        z-index: 2;
+        display: none;
+        &.is-open {
+            display: block;
+        }
+    }
+
+    &__settings-header {
+        display: flex;
+        height: 40px;
+        z-index: 1;
+        align-items: center;
+
+        h3 {
+            color: #fff;
+            flex-grow: 1;
+            text-transform: uppercase;
+            margin: 0;
+            font-family: 'gill';
+            font-weight: 500;
+        }
+        button {
+            margin: 0;
+            padding: 0;
+            border: none;
+            background: transparent;
+            color: #fff;
+            cursor: pointer;
+        }
+
+    }
 
 }
-
 
 
 
@@ -263,8 +351,13 @@ html, body, .gel-content-wrap {
 .gel-masthead {
     display: none;
     &__inner {
-        @extend %gel-wrapper;
     }
+}
+
+.wrap {
+    @extend %gel-wrapper;
+    position: relative;
+    height: 100%;
 }
 
 .gel-masthead {
@@ -289,6 +382,9 @@ html, body, .gel-content-wrap {
         padding: 0 $base-spacing-unit;
     }
 }
+
+
+
 
 
 .icon {
@@ -327,7 +423,10 @@ html, body, .gel-content-wrap {
 
 
 
-
+@font-face {
+    font-family: 'gill';
+    src: url(http://clients.tuimedia.com/bbc-fonts/GillSansMT.ttf);
+}
 
 /* -------------------------------------------------------------------------------------------------------------------------
 CSS3 Ringing Bell animation
@@ -335,29 +434,43 @@ Currently only works in WebKit browsers but let's hope others start implementing
 ---------------------------------------------------------------------------------------------------------------------------- */
 
 
+// @keyframes ring {
+//     0% { transform: rotate(0); }
+//     1% { transform: rotate(30deg); }
+//     3% { transform: rotate(-28deg); }
+//     5% { transform: rotate(34deg); }
+//     7% { transform: rotate(-32deg); }
+//     9% { transform: rotate(30deg); }
+//     11% { transform: rotate(-28deg); }
+//     13% { transform: rotate(26deg); }
+//     15% { transform: rotate(-24deg); }
+//     17% { transform: rotate(22deg); }
+//     19% { transform: rotate(-20deg); }
+//     21% { transform: rotate(18deg); }
+//     23% { transform: rotate(-16deg); }
+//     25% { transform: rotate(14deg); }
+//     27% { transform: rotate(-12deg); }
+//     29% { transform: rotate(10deg); }
+//     31% { transform: rotate(-8deg); }
+//     33% { transform: rotate(6deg); }
+//     35% { transform: rotate(-4deg); }
+//     37% { transform: rotate(2deg); }
+//     39% { transform: rotate(-1deg); }
+//     41% { transform: rotate(1deg); }
+//     43% { transform: rotate(0); }
+//     100% { transform: rotate(0); }
+// }
+
 @keyframes ring {
     0% { transform: rotate(0); }
-    1% { transform: rotate(30deg); }
-    3% { transform: rotate(-28deg); }
-    5% { transform: rotate(34deg); }
-    7% { transform: rotate(-32deg); }
-    9% { transform: rotate(30deg); }
-    11% { transform: rotate(-28deg); }
-    13% { transform: rotate(26deg); }
-    15% { transform: rotate(-24deg); }
-    17% { transform: rotate(22deg); }
-    19% { transform: rotate(-20deg); }
-    21% { transform: rotate(18deg); }
-    23% { transform: rotate(-16deg); }
-    25% { transform: rotate(14deg); }
-    27% { transform: rotate(-12deg); }
-    29% { transform: rotate(10deg); }
-    31% { transform: rotate(-8deg); }
-    33% { transform: rotate(6deg); }
-    35% { transform: rotate(-4deg); }
-    37% { transform: rotate(2deg); }
-    39% { transform: rotate(-1deg); }
-    41% { transform: rotate(1deg); }
-    43% { transform: rotate(0); }
+    10% { transform: rotate(30deg); }
+    20% { transform: rotate(-28deg); }
+    30% { transform: rotate(34deg); }
+    40% { transform: rotate(-32deg); }
+    50% { transform: rotate(30deg); }
+    60% { transform: rotate(-28deg); }
+    70% { transform: rotate(26deg); }
+    80% { transform: rotate(-24deg); }
+    90% { transform: rotate(22deg); }
     100% { transform: rotate(0); }
 }

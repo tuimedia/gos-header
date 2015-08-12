@@ -36,6 +36,8 @@ var Header = (function() {
                 items: this.header.querySelectorAll('.js-notify-item'),
                 close: this.header.querySelectorAll('.js-notify-close')[0],
                 settingsCta: this.header.querySelectorAll('.js-notify-settings')[0],
+                settingsPanel: this.header.querySelectorAll('.js-notify-settings-panel')[0],
+                settingsClose: this.header.querySelectorAll('.js-notify-settings-close')[0],
                 states: {
                     notifyPanelOpen: false,
                     settingsPanelOpen: false,
@@ -43,6 +45,8 @@ var Header = (function() {
                 }
             };
 
+        } else {
+            throw error('Stuff missing. Check markup');
         }
 
         // bind events to card elements
@@ -62,9 +66,46 @@ var Header = (function() {
 
                 _this.handleNotificationPanel();
 
+                if (_this.notifications.states.settingsPanelOpen) {
+                    _this.handleSettingsPanel();
+                }
             });
 
+            this.notifications.close.addEventListener('click', function(event) {
+
+                _this.handleNotificationPanel();
+
+            });
+
+            this.notifications.settingsCta.addEventListener('click', function(event) {
+
+                _this.handleSettingsPanel();
+
+            });
+
+            this.notifications.settingsClose.addEventListener('click', function(event) {
+
+                _this.handleSettingsPanel();
+
+            });
         }
+
+
+    };
+
+    Header.prototype.handleSettingsPanel = function() {
+
+        // panel is open - close it
+        if (this.notifications.states.settingsPanelOpen) {
+            this.notifications.settingsPanel.classList.remove('is-open');
+        }
+
+        // panal is closed - open it
+        else {
+            this.notifications.settingsPanel.classList.add('is-open');
+        }
+
+        this.notifications.states.settingsPanelOpen = !this.notifications.states.settingsPanelOpen;
 
     };
 
@@ -96,6 +137,10 @@ var Header = (function() {
         this.notifications.states.notifyPanelOpen = !this.notifications.states.notifyPanelOpen;
 
     };
+
+    Header.prototype.getNotifications = function() {};
+
+    Header.prototype.handleNotifications = function() {};
 
     return Header;
 
