@@ -13,6 +13,7 @@ $gel-notify-color: #1886d1;
     position: relative;
     transition: margin 0.4s;
 
+
     // ------------------------------------------ //
 
     &__inner {
@@ -44,6 +45,7 @@ $gel-notify-color: #1886d1;
         display: flex;
         flex-basis: 40px;
         border-right: $gel-header-border;
+        flex-shrink: 0;
         a {
             flex-grow: 1;
             display: flex;
@@ -61,6 +63,7 @@ $gel-notify-color: #1886d1;
     &__notify {
         display: flex;
         flex-basis: 40px;
+        flex-shrink: 0;
         border-right: $gel-header-border;
         align-items: center;
         justify-content: center;
@@ -85,17 +88,14 @@ $gel-notify-color: #1886d1;
         right: 0;
         background: #fff;
         overflow: hidden;
-        // pointer-events: none;
-        // opacity: 0;
+        pointer-events: none;
+        opacity: 0;
         transition: opacity 0.7s 0s;
         &.is-open {
             transition: opacity 0.7s 0.3s;
             pointer-events: auto;
             opacity: 1;
         }
-
-        height: 400px;
-        z-index: 2;
     }
 
 
@@ -109,28 +109,67 @@ $gel-notify-color: #1886d1;
 
         &__menu-items {
             flex-grow: 1;
-            display: flex;
             margin: 0;
             padding: 0;
             list-style: none;
-            justify-content: flex-end;
         }
 
             &__menu-item {
-                flex-grow: 1;
+                &.hidden {
+                    display: none;
+                }
                 a {
-
+                    padding: 0 $base-spacing-unit;
                 }
-                display: none;
-                @include mq(map-get($break, m)) {
-                    display: block;
-                }
+                display: inline-block;
                 &--more {
-                    flex-grow: 0;
-                    display: block;
+                    float: right;
+                    display: inline-block;
                 }
             }
 
+
+    &__menu-panel {
+        background: red;
+        position: absolute;
+        top: 40px;
+        bottom: 0;
+        right: $half-spacing-unit;
+        left: $half-spacing-unit;
+        h2 {
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+        @include mq(map-get($break, s)) {
+            right: $base-spacing-unit;
+            left: $base-spacing-unit;
+        }
+
+    }
+        &__menu-panel-items {
+            margin: 0;
+            padding: $base-spacing-unit 0 0 0 ;
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+            margin-left: -$half-spacing-unit;
+        }
+
+            &__menu-panel-item {
+                margin-left: $half-spacing-unit;
+                flex-basis: calc(33.3333% - #{$half-spacing-unit});
+                margin-bottom: $base-spacing-unit;
+                background: green;
+                padding: $half-spacing-unit;
+                &.hidden {
+                    display: none;
+                }
+
+                &.visible:nth-of-type(1){
+                    margin-left: calc(33.333% + #{$half-spacing-unit});
+                }
+            }
 
     // ------------------------------------------ //
 
@@ -139,12 +178,13 @@ $gel-notify-color: #1886d1;
         display: flex;
         padding: 0;
         flex-basis: 40px;
+        flex-grow: 0;
+        flex-shrink: 0;
         align-items: stretch;
         border-left: $gel-header-border;
         border-right: $gel-header-border;
         input {
             flex-grow: 1;
-            display: none;
         }
         button {
             border: none;
@@ -156,6 +196,7 @@ $gel-notify-color: #1886d1;
             justify-content: center;
             flex-grow: 1;
             padding: 0;
+            width: 40px;
             i {
                 width: auto;
                 height: auto;
@@ -349,7 +390,7 @@ html, body, .gel-content-wrap {
 
 .gel-content,
 .gel-masthead {
-    display: none;
+    // display: none;
     &__inner {
     }
 }
@@ -428,38 +469,6 @@ html, body, .gel-content-wrap {
     src: url(http://clients.tuimedia.com/bbc-fonts/GillSansMT.ttf);
 }
 
-/* -------------------------------------------------------------------------------------------------------------------------
-CSS3 Ringing Bell animation
-Currently only works in WebKit browsers but let's hope others start implementing it soon!
----------------------------------------------------------------------------------------------------------------------------- */
-
-
-// @keyframes ring {
-//     0% { transform: rotate(0); }
-//     1% { transform: rotate(30deg); }
-//     3% { transform: rotate(-28deg); }
-//     5% { transform: rotate(34deg); }
-//     7% { transform: rotate(-32deg); }
-//     9% { transform: rotate(30deg); }
-//     11% { transform: rotate(-28deg); }
-//     13% { transform: rotate(26deg); }
-//     15% { transform: rotate(-24deg); }
-//     17% { transform: rotate(22deg); }
-//     19% { transform: rotate(-20deg); }
-//     21% { transform: rotate(18deg); }
-//     23% { transform: rotate(-16deg); }
-//     25% { transform: rotate(14deg); }
-//     27% { transform: rotate(-12deg); }
-//     29% { transform: rotate(10deg); }
-//     31% { transform: rotate(-8deg); }
-//     33% { transform: rotate(6deg); }
-//     35% { transform: rotate(-4deg); }
-//     37% { transform: rotate(2deg); }
-//     39% { transform: rotate(-1deg); }
-//     41% { transform: rotate(1deg); }
-//     43% { transform: rotate(0); }
-//     100% { transform: rotate(0); }
-// }
 
 @keyframes ring {
     0% { transform: rotate(0); }

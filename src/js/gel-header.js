@@ -9,7 +9,8 @@ var Header = (function() {
         }
 
         this.header = header;
-        console.log(header)
+
+        console.log(this, this.header)
         if (this.header) {
             this.init();
         }
@@ -18,12 +19,30 @@ var Header = (function() {
 
     Header.prototype.init = function(args) {
 
-        console.log('Header init()', this.header);
-
         var _this = this;
 
         // store attributes
         this.attrs = this.header.dataset;
+
+        if (this.header.querySelectorAll('.js-menu-primary')[0] && this.header.querySelectorAll('.js-menu-panel')[0]) {
+
+            this.menuEnabled = true;
+
+            this.menu = {
+                primary: this.header.querySelectorAll('.js-menu-primary')[0],
+                secondary: this.header.querySelectorAll('.js-menu-secondary')[0],
+                primaryItems: this.header.querySelectorAll('.js-menu-primary')[0].children,
+                panel: this.header.querySelectorAll('.js-menu-panel')[0],
+                panelItems: this.header.querySelectorAll('.js-menu-secondary')[0].children,
+                toggle: this.header.querySelectorAll('.js-menu-toggle')[0],
+                states: {
+                    panelOpen: false,
+                    expanding: false,
+                    contracting: false
+                }
+            };
+
+        }
 
         if (this.header.querySelectorAll('.js-notify')[0] && this.header.querySelectorAll('.js-notify-panel')[0]) {
 
@@ -39,14 +58,13 @@ var Header = (function() {
                 settingsPanel: this.header.querySelectorAll('.js-notify-settings-panel')[0],
                 settingsClose: this.header.querySelectorAll('.js-notify-settings-close')[0],
                 states: {
+                    menuPanelOpen: false,
                     notifyPanelOpen: false,
                     settingsPanelOpen: false,
                     newNotifications: false
                 }
             };
 
-        } else {
-            throw error('Stuff missing. Check markup');
         }
 
         // bind events to card elements
@@ -55,8 +73,6 @@ var Header = (function() {
     };
 
     Header.prototype.bindEvents = function() {
-
-        console.log('binding events for Header');
 
         var _this = this;
 
@@ -90,19 +106,141 @@ var Header = (function() {
             });
         }
 
+        if (this.menuEnabled) {
+
+            // initial menu link visibility
+            this.handleMenuLinks();
+
+            //
+            this.menu.toggle.addEventListener('click', function(event) {
+
+                _this.handleMenu();
+
+            });
+
+            // toggle menu link visibility on resize
+            window.addEventListener('resize', function() {
+
+                _this.menu.primary.style.visibility = 'hidden';
+
+                for (var i = 0; i < _this.menu.primaryItems.length; i++) {
+
+                    _this.menu.primaryItems[i].classList.remove('hidden');
+
+                }
+
+                console.log(_this.menu.states.panelOpen);
+
+                if (_this.menu.states.panelOpen) {
+
+                    console.log('here')
+                    _this.resizeMenu();
+
+                }
+
+                _this.handleMenuLinks();
+
+            }, false);
+
+        }
+
+    };
+
+    Header.prototype.handleMenu = function() {
+
+        console.log('menu')
+
+        var _this = this;
+
+        if (this.menu.states.panelOpen) {
+
+            this.header.style.marginBottom = '0px';
+
+        } else {
+
+            this.resizeMenu(true);
+
+        }
+
+        this.menu.states.panelOpen = !this.menu.states.panelOpen;
+
+    };
+
+    Header.prototype.resizeMenu = function(opening) {
+
+        var timer;
+
+        var _this = this,
+            secondaryMenuHeight;
+
+        if (opening) {
+            secondaryMenuHeight = _this.menu.secondary.clientHeight;
+            _this.header.style.marginBottom = secondaryMenuHeight + 'px';
+
+        } else {
+            timer = setTimeout(function() {
+                secondaryMenuHeight = _this.menu.secondary.clientHeight;
+                _this.header.style.marginBottom = secondaryMenuHeight + 'px';
+            }, 500);
+        }
+
+
+    };
+
+    Header.prototype.handleMenuLinks = function() {
+
+        var _this = this,
+            availableMenuSpace = this.menu.primary.clientWidth,
+            linkWidths = 0,
+            done = false;
+
+        for (var i = 0; i < this.menu.primaryItems.length; i++) {
+
+            linkWidths = linkWidths + this.menu.primaryItems[i].clientWidth;
+
+            if (linkWidths < availableMenuSpace) {
+
+                this.menu.primaryItems[i].classList.remove('hidden');
+
+                this.menu.panelItems[i].classList.remove('visible');
+                this.menu.panelItems[i].classList.add('hidden');
+
+            } else {
+
+                this.menu.primaryItems[i].classList.add('hidden');
+
+                this.menu.panelItems[i].classList.remove('hidden');
+                this.menu.panelItems[i].classList.add('visible');
+
+                if (!done) {
+
+                    this.menu.primaryItems[i - 1].classList.add('hidden');
+
+                    this.menu.panelItems[i - 1].classList.add('visible');
+                    this.menu.panelItems[i - 1].classList.remove('hidden');
+
+                    done = true;
+
+                }
+
+            }
+
+        };
+
+        this.menu.primary.style.visibility = 'visible';
 
     };
 
     Header.prototype.handleSettingsPanel = function() {
 
-        // panel is open - close it
         if (this.notifications.states.settingsPanelOpen) {
-            this.notifications.settingsPanel.classList.remove('is-open');
-        }
 
-        // panal is closed - open it
-        else {
+            this.notifications.settingsPanel.classList.remove('is-open');
+
+        } else {
+
             this.notifications.settingsPanel.classList.add('is-open');
+
         }
 
         this.notifications.states.settingsPanelOpen = !this.notifications.states.settingsPanelOpen;
