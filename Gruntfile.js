@@ -24,7 +24,7 @@ module.exports = function(grunt) {
             src: 'src',
             dist: 'dist',
             demo: 'demo',
-            namespace: 'change-this'
+            namespace: 'header'
         },
 
         // Watches files for changes and runs tasks based on the changed files

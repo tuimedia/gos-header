@@ -12,7 +12,9 @@ $gel-notify-color: #1886d1;
     border-bottom: $gel-header-border;
     position: relative;
     transition: margin 0.4s;
-
+    * {
+        box-sizing: border-box;
+    }
 
     // ------------------------------------------ //
 
@@ -115,13 +117,22 @@ $gel-notify-color: #1886d1;
         }
 
             &__menu-item {
+                border-right: $gel-header-border;
+                height: 40px;
+                display: flex;
+                align-items: stretch;
+                float: left;
                 &.hidden {
                     display: none;
                 }
                 a {
                     padding: 0 $base-spacing-unit;
+                    color: #000;
+                    text-decoration: none;
+                    font-weight: 700;
+                    display: flex;
+                    align-items: center;
                 }
-                display: inline-block;
                 &--more {
                     float: right;
                     display: inline-block;
@@ -144,6 +155,7 @@ $gel-notify-color: #1886d1;
         @include mq(map-get($break, s)) {
             right: $base-spacing-unit;
             left: $base-spacing-unit;
+
         }
 
     }
@@ -154,20 +166,52 @@ $gel-notify-color: #1886d1;
             display: flex;
             flex-wrap: wrap;
             margin-left: -$half-spacing-unit;
+            @include mq(map-get($break, s)) {
+                padding-left: calc(20% - #{$half-spacing-unit});
+            }
+
         }
 
             &__menu-panel-item {
                 margin-left: $half-spacing-unit;
                 flex-basis: calc(33.3333% - #{$half-spacing-unit});
                 margin-bottom: $base-spacing-unit;
-                background: green;
-                padding: $half-spacing-unit;
+                display: flex;
+                a {
+                    padding: $half-spacing-unit;
+                    flex-grow: 1;
+                    color: #000;
+                    text-decoration: none;
+                    font-weight: 700;
+                }
+                &:hover {
+                    background: #000;
+                    a {
+                        color: #fff;
+                    }
+                }
+                @include mq(map-get($break, xs)) {
+                }
+                @include mq(map-get($break, s)) {
+                    flex-basis: calc(25% - #{$half-spacing-unit});
+                }
+                @include mq(map-get($break, m)) {
+
+                }
+                @include mq(map-get($break, l)) {
+
+                }
+
                 &.hidden {
                     display: none;
                 }
 
                 &.visible.first {
                     margin-left: calc(33.333% + #{$half-spacing-unit});
+                    @include mq(map-get($break, s)) {
+                        margin-left: $half-spacing-unit;
+                    }
+
                 }
             }
 

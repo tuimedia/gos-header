@@ -7,6 +7,10 @@
   "authors": [
     "Euan Willcox <euan@tui.co.uk>"
   ],
+  "main": [
+    "dist/js/cards.js",
+    "dist/styles/cards.scss"
+  ],
   "moduleType": [
     "amd",
     "globals",
