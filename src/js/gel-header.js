@@ -168,9 +168,8 @@ var Header = (function() {
 
     Header.prototype.resizeMenu = function(opening) {
 
-        var timer;
-
         var _this = this,
+            timer,
             secondaryMenuHeight;
 
         if (opening) {
@@ -202,21 +201,21 @@ var Header = (function() {
 
                 this.menu.primaryItems[i].classList.remove('hidden');
 
-                this.menu.panelItems[i].classList.remove('visible');
+                this.menu.panelItems[i].classList.remove('visible', 'first');
                 this.menu.panelItems[i].classList.add('hidden');
 
             } else {
 
                 this.menu.primaryItems[i].classList.add('hidden');
 
-                this.menu.panelItems[i].classList.remove('hidden');
+                this.menu.panelItems[i].classList.remove('hidden', 'first');
                 this.menu.panelItems[i].classList.add('visible');
 
                 if (!done) {
 
                     this.menu.primaryItems[i - 1].classList.add('hidden');
 
-                    this.menu.panelItems[i - 1].classList.add('visible');
+                    this.menu.panelItems[i - 1].classList.add('visible', 'first');
                     this.menu.panelItems[i - 1].classList.remove('hidden');
 
                     done = true;

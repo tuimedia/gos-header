@@ -166,7 +166,7 @@ $gel-notify-color: #1886d1;
                     display: none;
                 }
 
-                &.visible:nth-of-type(1){
+                &.visible.first {
                     margin-left: calc(33.333% + #{$half-spacing-unit});
                 }
             }
