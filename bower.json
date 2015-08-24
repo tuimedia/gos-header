@@ -9,7 +9,7 @@
   ],
   "main": [
     "dist/scripts/header.js",
-    "dist/styles/cards.scss"
+    "dist/styles/_header.scss"
   ],
   "moduleType": [
     "amd",
