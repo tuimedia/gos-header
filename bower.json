@@ -8,7 +8,6 @@
     "Euan Willcox <euan@tui.co.uk>"
   ],
   "main": [
-    "dist/scripts/header.js",
     "dist/styles/_header.scss"
   ],
   "moduleType": [
