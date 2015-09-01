@@ -2,7 +2,9 @@
 $gel-header-border: 1px solid #ccc;
 $gel-notify-color: #1886d1;
 
-
+.gel-content-wrap {
+    transition: transform 0.4s;
+}
 // ------------------------------------------------------------------------------------ //
 
 .gel-header {

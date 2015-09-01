@@ -21,6 +21,8 @@ Header.prototype.init = function(args) {
     // store attributes
     this.attrs = this.header.dataset;
 
+    this.page = document.querySelectorAll('.js-content-wrap')[0];
+
     if (this.header.querySelectorAll('.js-menu-primary')[0] && this.header.querySelectorAll('.js-menu-panel')[0]) {
 
         this.menuEnabled = true;
@@ -258,18 +260,26 @@ Header.prototype.handleNotificationPanel = function() {
 
     // panel is open - close it
     if (this.notifications.states.notifyPanelOpen) {
-        this.header.style.marginBottom = '0px';
+        // this.header.style.marginBottom = '0px';
+        _this.page.style.transform = 'translateY(0px)';
+
         this.notifications.panel.classList.remove('is-open');
+
         for (var i = 0; i < this.notifications.items.childNodes.length; i++) {
             this.notifications.items.childNodes[i].isNew = false;
             this.notifications.items.childNodes[i].classList.remove('is-new');
         };
+
     }
 
     // panal is closed - open it
     else {
-        this.header.style.marginBottom = this.notificationPanelHeight + 'px';
+
+        _this.page.style.transform = 'translateY(' + this.notificationPanelHeight + 'px)';
+
+        // this.header.style.marginBottom = this.notificationPanelHeight + 'px';
         this.notifications.panel.classList.add('is-open');
+
     }
 
     this.notifications.states.notifyPanelOpen = !this.notifications.states.notifyPanelOpen;
@@ -323,6 +333,8 @@ Header.prototype.getNotifications = function() {
         for (var i = 0; i < items.length; i++) {
             setupNotification(items[i]);
         };
+
+        _this.notifications.cta.classList.add('has-notifications');
 
     }
 
