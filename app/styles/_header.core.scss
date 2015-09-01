@@ -90,9 +90,9 @@ $gel-notify-color: #1886d1;
         background: #fff;
         overflow: hidden;
         pointer-events: none;
-        opacity: 0;
-        transition: opacity 0.7s 0s;
+        // display: none;
         &.is-open {
+            display: block;
             transition: opacity 0.7s 0.3s;
             pointer-events: auto;
             opacity: 1;
@@ -151,7 +151,7 @@ $gel-notify-color: #1886d1;
 
 
     &__menu-panel {
-        background: red;
+        display: none;
         position: absolute;
         top: 40px;
         bottom: 0;
@@ -237,7 +237,12 @@ $gel-notify-color: #1886d1;
         align-items: stretch;
         border-left: $gel-header-border;
         border-right: $gel-header-border;
+        form {
+            display: flex;
+            align-items: stretch;
+        }
         input {
+            display: none;
             flex-grow: 1;
         }
         button {
