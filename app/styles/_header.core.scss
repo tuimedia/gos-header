@@ -107,6 +107,17 @@ $gel-notify-color: #1886d1;
         display: flex;
         align-items: center;
     }
+        &__menu-toggle {
+            display: flex;
+            align-items: stretch;
+            button {
+                padding: 0 $base-spacing-unit;
+                border: none;
+                background: none;
+                font-weight: 700;
+                outline: none;
+            }
+        }
 
         &__menu-items {
             flex-grow: 1;

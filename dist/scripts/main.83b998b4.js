@@ -1,0 +1,1 @@
+"use strict";var Header=require("./header"),headerEl=document.querySelectorAll(".js-header"),header;try{header=new Header(headerEl[0])}catch(e){"undefined"!=typeof console&&console.error(e.stack)}
