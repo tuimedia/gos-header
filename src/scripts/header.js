@@ -141,7 +141,8 @@ Header.prototype.handleMenu = function() {
 
     if (this.menu.states.panelOpen) {
 
-        this.header.style.marginBottom = '0px';
+        // this.header.style.marginBottom = '0px';
+        _this.page.style.transform = 'translateY(0px)';
 
     } else {
 
@@ -161,12 +162,14 @@ Header.prototype.resizeMenu = function(opening) {
 
     if (opening) {
         secondaryMenuHeight = _this.menu.secondary.clientHeight;
-        _this.header.style.marginBottom = secondaryMenuHeight + 'px';
+        // _this.header.style.marginBottom = secondaryMenuHeight + 'px';
+        _this.page.style.transform = 'translateY(' + secondaryMenuHeight + 'px)';
 
     } else {
         timer = setTimeout(function() {
             secondaryMenuHeight = _this.menu.secondary.clientHeight;
-            _this.header.style.marginBottom = secondaryMenuHeight + 'px';
+            // _this.header.style.marginBottom = secondaryMenuHeight + 'px';
+            _this.page.style.transform = 'translateY(' + secondaryMenuHeight + 'px)';
         }, 500);
     }
 
