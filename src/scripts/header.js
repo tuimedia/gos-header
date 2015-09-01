@@ -57,7 +57,6 @@ Header.prototype.init = function(args) {
             settingsPanel: this.header.querySelectorAll('.js-notify-settings-panel')[0],
             settingsClose: this.header.querySelectorAll('.js-notify-settings-close')[0],
             states: {
-                menuPanelOpen: false,
                 notifyPanelOpen: false,
                 settingsPanelOpen: false,
                 newNotifications: false
@@ -139,6 +138,11 @@ Header.prototype.handleMenu = function() {
 
     var _this = this;
 
+    if (this.notifications.states.notifyPanelOpen) {
+        this.notifications.states.notifyPanelOpen = false;
+        this.notifications.panel.style.opacity = 0;
+    }
+
     if (this.menu.states.panelOpen) {
 
         // this.header.style.marginBottom = '0px';
@@ -164,6 +168,7 @@ Header.prototype.resizeMenu = function(opening) {
         secondaryMenuHeight = _this.menu.secondary.clientHeight;
         // _this.header.style.marginBottom = secondaryMenuHeight + 'px';
         _this.page.style.transform = 'translateY(' + secondaryMenuHeight + 'px)';
+        this.menu.panel.style.opacity = 1;
 
     } else {
         timer = setTimeout(function() {
@@ -259,6 +264,11 @@ Header.prototype.handleNotificationPanel = function() {
         _this.notifications.panel.style.height = _this.notificationPanelHeight + 'px';
     }
 
+    if (this.menu.states.panelOpen) {
+        this.menu.states.panelOpen = false;
+        this.menu.panel.style.opacity = 0;
+    }
+
     setNotificationPanelHeight();
 
     // panel is open - close it
@@ -277,6 +287,8 @@ Header.prototype.handleNotificationPanel = function() {
 
     // panal is closed - open it
     else {
+
+        this.notifications.panel.style.opacity = 1;
 
         _this.page.style.transform = 'translateY(' + this.notificationPanelHeight + 'px)';
 
