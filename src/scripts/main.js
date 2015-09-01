@@ -6,6 +6,13 @@ var header;
 
 try {
   header = new Header(headerEl[0]);
+
+  setTimeout(function() {
+
+    header.getNotifications();
+
+  }, 100);
+
 } catch (e) {
   if (typeof console !== 'undefined') {
     console.error(e.stack);

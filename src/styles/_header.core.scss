@@ -73,6 +73,7 @@ $gel-notify-color: #1886d1;
         svg {
             margin-bottom: -3px;
         }
+        &.has-notifications,
         &:hover {
             border-bottom: 3px solid $gel-notify-color;
             svg {
