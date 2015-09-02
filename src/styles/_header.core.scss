@@ -1,16 +1,5 @@
 
 
-%gel-menu-link-hover {
-    position: relative;
-    &:after {
-        content: '';
-        position: absolute;
-        bottom: 0;
-        height: 4px;
-        left: 0;
-        right: 0;
-    }
-}
 
 .gel-content-wrap {
     transition: transform 0.4s;
@@ -166,13 +155,25 @@
                 display: flex;
                 align-items: stretch;
                 float: left;
+                position: relative;
                 &:after {
+                    opacity: 0;
+                    transition: opacity 0.1s;
+                    content: '';
+                    position: absolute;
+                    bottom: 0;
+                    height: 4px;
+                    left: 0;
+                    right: 0;
                 }
+
                 &--news:after   { background-color: map-get($brand-colors, bbc-news); }
                 &--sport:after  { background-color: map-get($brand-colors, bbc-sport); }
 
                 &:hover {
-                    @extend %gel-menu-link-hover;
+                    &:after {
+                        opacity: 1;
+                    }
                 }
 
                 &.hidden {

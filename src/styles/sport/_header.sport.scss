@@ -12,11 +12,9 @@
 }
 
 .gel-header__menu-item a {
-  color: #fff;
+  color: rgba(#fff, 0.8);
+  transition: color 0.1s;
+  &:hover {
+    color: rgba(#fff, 1);
+  }
 }
-
-// .gel-header__account {
-//   img {
-//     image-mask: #fff;
-//   }
-// }
