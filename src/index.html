@@ -21,6 +21,7 @@
   <body>
 
     <div class="gel-header js-header">
+
       <div class="gel-header__inner">
         <div class="gel-header__logo"><img src="http://clients.tui.co.uk/bbc-assets/logo.png"/></div>
         <div class="gel-header__account"><a href="#"><img src="http://static.bbci.co.uk/id/0.32.00/img/bbcid_orb_signin_dark.png"/></a><span>Sign In</span></div>
@@ -29,31 +30,7 @@
             <path fill-rule="evenodd" clip-rule="evenodd" d="M16.545,11.454V7.636c-0.146-2.934-2.29-5.352-5.091-5.918V0H8.909v1.718c-2.8,0.567-4.945,2.985-5.091,5.918v3.818L0,16.545h20.363L16.545,11.454z M7.636,20.363h5.091v-2.545H7.636V20.363z"></path>
           </svg>
         </div>
-        <div class="gel-header__notify-panel notify-panel js-notify-panel">
-          <div class="wrap">
-            <div class="notify-panel__header">
-              <h3>Notifications</h3>
-              <button class="icon icon--settings js-notify-settings"></button>
-              <button class="icon icon--close js-notify-close"></button>
-            </div>
-            <ul class="notify-panel__items js-notify-items">
-              <li class="notify-panel__item ' + handleNew(arr[i].isNew) + ' ' + handleExpiry(arr[i].isExpiring) + ' js-notify-item">
-                <div class="notify-panel__item-details">
-                  <h4>No new notifications</h4>
-                </div>
-              </li>
-            </ul>
-          </div>
-          <div class="notify-panel__settings js-notify-settings-panel">
-            <div class="wrap">
-              <div class="notify-panel__settings-header">
-                <h3>Preferences</h3>
-                <button class="icon icon--close js-notify-settings-close"></button>
-              </div>
-              <div class="notify-panel__settings-content"></div>
-            </div>
-          </div>
-        </div>
+
         <div class="gel-header__menu">
           <ul class="gel-header__menu-items js-menu-primary">
             <li class="gel-header__menu-item"><a href="#"><span>News</span></a></li>
@@ -102,6 +79,7 @@
             </ul>
           </div>
         </div>
+
         <div class="gel-header__search">
           <form>
             <input type="text" placeholder="Search the BBC..."/>
@@ -109,6 +87,41 @@
           </form>
         </div>
       </div>
+
+
+
+        <div class="gel-header__notify-panel notify-panel js-notify-panel">
+          <div class="notify-panel__header">
+            <div class="wrap">
+              <h3>Notifications</h3>
+              <button class="icon icon--settings js-notify-settings"></button>
+              <button class="icon icon--close js-notify-close"></button>
+            </div>
+          </div>
+          <div class="wrap">
+            <ul class="notify-panel__items js-notify-items">
+              <li class="notify-panel__item ' + handleNew(arr[i].isNew) + ' ' + handleExpiry(arr[i].isExpiring) + ' js-notify-item">
+                <div class="notify-panel__item-details">
+                  <h4>No new notifications</h4>
+                </div>
+              </li>
+            </ul>
+          </div>
+
+          <div class="notify-panel__settings js-notify-settings-panel">
+            <div class="wrap">
+              <div class="notify-panel__settings-header">
+                <h3>Preferences</h3>
+                <button class="icon icon--close js-notify-settings-close"></button>
+              </div>
+              <div class="notify-panel__settings-content"></div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
     </div>
     <div class="gel-content-wrap js-content-wrap">
       <div class="gel-masthead">
