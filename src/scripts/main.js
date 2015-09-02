@@ -10,7 +10,7 @@ try {
 
   setTimeout(function() {
     header.getNotifications();
-  }, 5000);
+  }, 500);
 
 } catch (e) {
   if (typeof console !== 'undefined') {

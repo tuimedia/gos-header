@@ -75,8 +75,12 @@ $gel-notify-color: #1886d1;
         svg {
             margin-bottom: -3px;
         }
-        &.has-notifications,
+
         &:hover {
+            border-bottom: 3px solid $gel-notify-color;
+        }
+
+        &.has-notifications{
             border-bottom: 3px solid $gel-notify-color;
             svg {
                 animation: ring 1s 0s ease-in-out;
@@ -93,12 +97,15 @@ $gel-notify-color: #1886d1;
         background: #fff;
         overflow: hidden;
         pointer-events: none;
-        // display: none;
+        opacity: 0;
+        visibility: hidden;
+        z-index: 0;
         &.is-open {
+            visibility: visible;
             display: block;
-            transition: opacity 0.4s;
             pointer-events: auto;
             opacity: 1;
+            z-index: 1;
         }
     }
 
@@ -154,12 +161,20 @@ $gel-notify-color: #1886d1;
 
 
     &__menu-panel {
-        // display: none;
         position: absolute;
         top: 40px;
         bottom: 0;
         right: $half-spacing-unit;
         left: $half-spacing-unit;
+
+        visibility: hidden;
+        &.is-open {
+            visibility: visible;
+            display: block;
+            pointer-events: auto;
+            opacity: 1;
+            z-index: 1;
+        }
         h2 {
             position: absolute;
             top: 0;

@@ -37,6 +37,11 @@
               <button class="icon icon--close js-notify-close"></button>
             </div>
             <ul class="notify-panel__items js-notify-items">
+              <li class="notify-panel__item ' + handleNew(arr[i].isNew) + ' ' + handleExpiry(arr[i].isExpiring) + ' js-notify-item">
+                <div class="notify-panel__item-details">
+                  <h4>No new notifications</h4>
+                </div>
+              </li>
             </ul>
           </div>
           <div class="notify-panel__settings js-notify-settings-panel">

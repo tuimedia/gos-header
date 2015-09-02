@@ -140,14 +140,19 @@ Header.prototype.handleMenu = function() {
 
     if (this.notifications.states.notifyPanelOpen) {
         this.notifications.states.notifyPanelOpen = false;
-        this.notifications.panel.style.opacity = 0;
+        this.notifications.panel.classList.remove('is-open');
+        // this.notifications.panel.style.opacity = 0;
     }
 
     if (this.menu.states.panelOpen) {
 
+        _this.menu.panel.classList.remove('is-open');
+
         _this.page.style.transform = 'translateY(0px)';
 
     } else {
+
+        _this.menu.panel.classList.add('is-open');
 
         this.resizeMenu(true);
 
@@ -164,9 +169,11 @@ Header.prototype.resizeMenu = function(opening) {
         secondaryMenuHeight;
 
     if (opening) {
+
         secondaryMenuHeight = _this.menu.secondary.clientHeight;
+
         _this.page.style.transform = 'translateY(' + secondaryMenuHeight + 'px)';
-        this.menu.panel.style.opacity = 1;
+
     } else {
         timer = setTimeout(function() {
             secondaryMenuHeight = _this.menu.secondary.clientHeight;
@@ -253,14 +260,22 @@ Header.prototype.handleNotificationPanel = function() {
 
     var _this = this;
 
+    console.log(_this.notifications.states.newNotifications);
+
     function setNotificationPanelHeight() {
-        _this.notificationPanelHeight = window.innerHeight * 0.75;
-        _this.notifications.panel.style.height = _this.notificationPanelHeight + 'px';
+
+        if (_this.notifications.states.newNotifications) {
+            _this.notificationPanelHeight = window.innerHeight * 0.75;
+            _this.notifications.panel.style.height = _this.notificationPanelHeight + 'px';
+        } else {
+
+        }
     }
 
+    // if menu is open when opening notifications panel then close menu
     if (this.menu.states.panelOpen) {
         this.menu.states.panelOpen = false;
-        this.menu.panel.style.opacity = 0;
+        this.menu.panel.classList.remove('is-open');
     }
 
     setNotificationPanelHeight();
@@ -282,7 +297,7 @@ Header.prototype.handleNotificationPanel = function() {
     // panal is closed - open it
     else {
 
-        this.notifications.panel.style.opacity = 1;
+        // this.notifications.panel.style.opacity = 1;
 
         _this.page.style.transform = 'translateY(' + this.notificationPanelHeight + 'px)';
 
@@ -304,8 +319,8 @@ Header.prototype.getNotifications = function() {
     xmlhttp.onreadystatechange = function() {
         if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
             var myArr = JSON.parse(xmlhttp.responseText);
-            templateNotifications(myArr);
             haveNew = true;
+            templateNotifications(myArr);
         }
     }
 
@@ -342,7 +357,7 @@ Header.prototype.getNotifications = function() {
             setupNotification(items[i]);
         };
 
-        _this.notifications.cta.classList.add('has-notifications');
+        setNotificationStatus();
 
     }
 
@@ -384,12 +399,16 @@ Header.prototype.getNotifications = function() {
         return ret;
     }
 
-    if (haveNew) {
-        this.notifications.states.newNotifications = true;
-        this.notifications.cta.classList.add('has-notifications');
-    } else {
-        this.notifications.states.newNotifications = false;
-        this.notifications.cta.classList.remove('has-notifications');
+    function setNotificationStatus() {
+        console.log(haveNew);
+        if (haveNew) {
+            _this.notifications.states.newNotifications = true;
+            _this.notifications.cta.classList.add('has-notifications');
+        } else {
+            _this.notifications.states.newNotifications = false;
+            _this.notifications.cta.classList.remove('has-notifications');
+        }
+
     }
 
 };
