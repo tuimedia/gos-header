@@ -145,7 +145,6 @@ Header.prototype.handleMenu = function() {
 
     if (this.menu.states.panelOpen) {
 
-        // this.header.style.marginBottom = '0px';
         _this.page.style.transform = 'translateY(0px)';
 
     } else {
@@ -166,18 +165,14 @@ Header.prototype.resizeMenu = function(opening) {
 
     if (opening) {
         secondaryMenuHeight = _this.menu.secondary.clientHeight;
-        // _this.header.style.marginBottom = secondaryMenuHeight + 'px';
         _this.page.style.transform = 'translateY(' + secondaryMenuHeight + 'px)';
         this.menu.panel.style.opacity = 1;
-
     } else {
         timer = setTimeout(function() {
             secondaryMenuHeight = _this.menu.secondary.clientHeight;
-            // _this.header.style.marginBottom = secondaryMenuHeight + 'px';
             _this.page.style.transform = 'translateY(' + secondaryMenuHeight + 'px)';
         }, 500);
     }
-
 
 };
 
@@ -238,7 +233,7 @@ Header.prototype.handleSettingsPanel = function() {
 };
 
 Header.prototype.getJSON = function() {
-    console.log('getting json')
+
     var xmlhttp = new XMLHttpRequest();
     var url = "/notifications.json";
 
@@ -256,7 +251,6 @@ Header.prototype.getJSON = function() {
 
 Header.prototype.handleNotificationPanel = function() {
 
-    // store panel height and set on load
     var _this = this;
 
     function setNotificationPanelHeight() {
@@ -273,7 +267,7 @@ Header.prototype.handleNotificationPanel = function() {
 
     // panel is open - close it
     if (this.notifications.states.notifyPanelOpen) {
-        // this.header.style.marginBottom = '0px';
+
         _this.page.style.transform = 'translateY(0px)';
 
         this.notifications.panel.classList.remove('is-open');
@@ -292,7 +286,6 @@ Header.prototype.handleNotificationPanel = function() {
 
         _this.page.style.transform = 'translateY(' + this.notificationPanelHeight + 'px)';
 
-        // this.header.style.marginBottom = this.notificationPanelHeight + 'px';
         this.notifications.panel.classList.add('is-open');
 
     }
@@ -321,7 +314,7 @@ Header.prototype.getNotifications = function() {
 
     function templateNotifications(arr) {
 
-        var out = "";
+        var out = '';
         var i;
 
         for (i = 0; i < arr.length; i++) {
@@ -355,7 +348,6 @@ Header.prototype.getNotifications = function() {
 
     function setupNotification(notification) {
 
-        console.log('item', notification);
         var optionsButton = notification.querySelectorAll('.js-notify-control');
         var deleteButton = notification.querySelectorAll('.js-notify-delete');
 
@@ -366,7 +358,6 @@ Header.prototype.getNotifications = function() {
         deleteButton[0].addEventListener('click', function(event) {
             deleteItem(notification);
         });
-
 
     }
 
@@ -400,6 +391,7 @@ Header.prototype.getNotifications = function() {
         this.notifications.states.newNotifications = false;
         this.notifications.cta.classList.remove('has-notifications');
     }
+
 };
 
 Header.prototype.handleNotifications = function(type) {};
