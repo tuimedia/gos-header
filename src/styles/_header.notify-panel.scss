@@ -8,13 +8,14 @@
         left: 0;
         right: 0;
         background: #fff;
+        z-index: 2;
         .wrap {
             display: flex;
             align-items: center;
         }
         height: 40px;
         z-index: 1;
-        box-shadow: 0px 0px 21px 4px rgba(0,0,0,0.39);
+        box-shadow: 0px 0px $half-spacing-unit $half-spacing-unit/2 rgba(0,0,0,0.39);
         h3 {
             flex-grow: 1;
             text-transform: uppercase;

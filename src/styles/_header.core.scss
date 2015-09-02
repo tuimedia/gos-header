@@ -1,6 +1,18 @@
 
-$gel-header-border: 1px solid #ccc;
-$gel-notify-color: #1886d1;
+$gel-header-border: 1px solid #ccc!default;
+$gel-notify-color: #1886d1!default;
+
+%gel-menu-link-hover {
+    position: relative;
+    &:after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        height: 4px;
+        left: 0;
+        right: 0;
+    }
+}
 
 .gel-content-wrap {
     transition: transform 0.4s;
@@ -8,7 +20,6 @@ $gel-notify-color: #1886d1;
 // ------------------------------------------------------------------------------------ //
 
 .gel-header {
-    background: #fff;
     height: 40px;
     border-bottom: $gel-header-border;
     position: relative;
@@ -24,21 +35,39 @@ $gel-notify-color: #1886d1;
         display: flex;
         align-items: stretch;
         height: 100%;
+        padding: 0;
     }
 
 
     // ------------------------------------------ //
 
     &__logo {
-        padding-right: $half-spacing-unit;
         border-right: $gel-header-border;
         display: flex;
         align-items: center;
-        img {
-            width: 84px;
-            height: auto;
-            display: block
+        font-family: 'gill';
+        text-align: center;
+        span {
+            border-left: $gel-header-border;
+            border-bottom: $gel-header-border;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            &:last-child {
+                // border: none;
+            }
+            i {
+                font-style: normal;
+                font-size: 24px;
+            }
         }
+        // img {
+        //     width: 84px;
+        //     height: auto;
+        //     display: block
+        // }
     }
 
 
@@ -71,9 +100,8 @@ $gel-notify-color: #1886d1;
         align-items: center;
         justify-content: center;
         cursor: pointer;
-        border-bottom: 3px solid transparent;
         svg {
-            margin-bottom: -3px;
+            width: 18px;
         }
 
         &:hover {
@@ -81,7 +109,6 @@ $gel-notify-color: #1886d1;
         }
 
         &.has-notifications{
-            border-bottom: 3px solid $gel-notify-color;
             svg {
                 animation: ring 1s 0s ease-in-out;
                 transform-origin: 50% 4px;
@@ -94,7 +121,6 @@ $gel-notify-color: #1886d1;
         top: 40px;
         left: 0;
         right: 0;
-        // background: #fff;
         overflow: hidden;
         pointer-events: none;
         opacity: 0;
@@ -142,14 +168,22 @@ $gel-notify-color: #1886d1;
                 display: flex;
                 align-items: stretch;
                 float: left;
+                &:after {
+                }
+                &--news:after   { background-color: map-get($brand-colors, bbc-news); }
+                &--sport:after  { background-color: map-get($brand-colors, bbc-sport); }
+
+                &:hover {
+                    @extend %gel-menu-link-hover;
+                }
+
                 &.hidden {
                     display: none;
                 }
                 a {
                     padding: 0 $base-spacing-unit;
-                    color: #000;
                     text-decoration: none;
-                    font-weight: 700;
+                    font-weight: 300;
                     display: flex;
                     align-items: center;
                 }

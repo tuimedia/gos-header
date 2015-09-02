@@ -1,3 +1,14 @@
+@if $gel-product == bbc-sport {
+  @import 'header.sport';
+}
+
+@if $gel-product == bbc-news {
+  @import 'header.news';
+}
+
 @import 'header.core';
 @import 'header.notify-panel';
+@import 'header.masthead';
+
+
 

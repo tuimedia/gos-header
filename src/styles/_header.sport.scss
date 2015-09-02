@@ -1,0 +1,22 @@
+
+$gel-header-border: 1px solid #212121;
+
+.gel-header {
+  background: #212121;
+}
+
+.gel-header__logo span {
+  background: map-get($brand-colors, bbc-sport);
+}
+
+.gel-header__notify svg {
+  fill: #fff;
+}
+.gel-header__menu-item a {
+  color: #fff;
+}
+.gel-header__account {
+  img {
+    image-mask: #fff;
+  }
+}

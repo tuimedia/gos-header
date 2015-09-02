@@ -324,6 +324,17 @@ module.exports = function(grunt) {
             'styles/fonts/{,*/}*.*'
           ]
         }]
+      },
+      demoJs: {
+        files: [{
+          expand: true,
+          dot: true,
+          cwd: '.tmp',
+          dest: '<%= config.dist %>',
+          src: [
+            'scripts/main.js'
+          ]
+        }]
       }
     },
 
@@ -385,10 +396,12 @@ module.exports = function(grunt) {
     'useminPrepare',
     'concurrent:dist',
     'postcss',
+    'browserify',
     'concat',
     'cssmin',
     'uglify',
     'copy:dist',
+    'copy:demoJs',
     'filerev',
     'usemin',
     'htmlmin'
