@@ -1,14 +1,47 @@
+
+// import header variable defaults
+// ---------------------------------------------------- //
+
+@import 'header.vars';
+
+// ----- //
+
+
+// override defaults depending on product
+// ---------------------------------------------------- //
+
 @if $gel-product == bbc-sport {
-  @import 'header.sport';
+  @import 'sport/header.sport.vars';
 }
 
 @if $gel-product == bbc-news {
-  @import 'header.news';
+  @import 'news/header.news.vars';
 }
 
-@import 'header.core';
-@import 'header.notify-panel';
-@import 'header.masthead';
+// ----- //
 
+
+// import header default styles
+// ---------------------------------------------------- //
+
+@import 'header.core';            // core layout for header modules
+@import 'header.notify-panel';    // notification panel
+@import 'header.masthead';        // page masthead (h1 etc)
+
+// ----- //
+
+
+// override defaults depending on product
+// ---------------------------------------------------- //
+
+@if $gel-product == bbc-sport {
+  @import 'sport/header.sport';
+}
+
+@if $gel-product == bbc-news {
+  @import 'news/header.news';
+}
+
+// ----- //
 
 
