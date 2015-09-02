@@ -1,6 +1,3 @@
-.wrap {
-    width: 100%;
-}
 .notify-panel {
 
     // ------------------------------------------ //
@@ -31,6 +28,10 @@
             border: none;
             background: #fff;
             cursor: pointer;
+            margin-right: $base-spacing-unit;
+            &:last-child {
+                margin-right: 0;
+            }
         }
     }
 
@@ -39,7 +40,7 @@
 
     &__items {
         margin: 0;
-        padding: 0 0 0 0;
+        padding: $base-spacing-unit 0;
         list-style: none;
         overflow-Y: scroll;
         position: absolute;
@@ -47,6 +48,7 @@
         right: $half-spacing-unit;
         bottom: 0;
         left: $half-spacing-unit;
+
         @include media-query(map-get($break, s)) {
             left: $base-spacing-unit;
             right: $base-spacing-unit;
@@ -54,8 +56,10 @@
     }
 
         &__item {
-            border-bottom: 1px solid #ccc;
             padding: $base-spacing-unit 0;
+            position: relative;
+            background: #fff;
+            margin-bottom: $half-spacing-unit;
             a {
                 display: flex;
                 text-decoration: none;
@@ -90,6 +94,11 @@
             &.is-alert {
 
             }
+            &.is-open {
+                .notify-panel__item-control--delete {
+                    transform: translateX(0);
+                }
+            }
         }
 
             &__item-attribution {
@@ -103,6 +112,31 @@
             &__item-details {
                 margin-left: $half-spacing-unit;
             }
+
+            &__item-controls {
+                position: absolute;
+                top: 0;
+                right: 0;
+                bottom: 0;
+                width: 140px;
+            }
+                &__item-control {
+                    position: absolute;
+                    width: 50%;
+                    top: 0;
+                    bottom: 0;
+                    &--options {
+                        background: #fff;
+                        right: 0;
+                        z-index: 1;
+                    }
+                    &--delete {
+                        background: #fff;
+                        // left: 50%;
+                        transform: translateX(100%);
+                        transition: all 0.4s;
+                    }
+                }
 
     &__settings {
         position: absolute;

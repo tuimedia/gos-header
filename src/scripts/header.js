@@ -337,12 +337,16 @@ Header.prototype.getNotifications = function() {
             out += '<li class="notify-panel__item ' + handleNew(arr[i].isNew) + ' ' + handleExpiry(arr[i].isExpiring) + ' js-notify-item"><a href="#">';
             out += '    <div class="notify-panel__item-attribution"><i class="icon icon--' + arr[i].type + '"></i></div>';
             out += '        <div class="notify-panel__item-controls">';
-            out += '            <button class="js-notify-delete">delete</button>';
+            out += '            <div class="notify-panel__item-control notify-panel__item-control--options">';
+            out += '                <button class="js-notify-control">options</button>';
+            out += '            </div>';
+            out += '            <div class="notify-panel__item-control notify-panel__item-control--delete">';
+            out += '                <button class="js-notify-delete">delete</button>';
+            out += '            </div>';
             out += '        </div>';
             out += '        <div class="notify-panel__item-details">';
             out += '            <h4>' + arr[i].title + '</h4>';
             out += '            <p>' + arr[i].desc + ' | ' + handleTimestamp(arr[i].time) + '</p>';
-            out += '            <button class="js-notify-control">options' + i + '</button>';
             out += '        </div>';
             out += '    </a>';
             out += '</li>';
@@ -377,6 +381,7 @@ Header.prototype.getNotifications = function() {
     }
 
     function handleNotificationPanel(notification) {
+        console.log(notification);
         notification.classList.toggle('is-open');
     }
 
@@ -393,10 +398,10 @@ Header.prototype.getNotifications = function() {
     }
 
     function handleTimestamp(timestamp) {
-
-        var ret = new Date(timestamp);
-        ret = ret.toLocaleString();
-        return ret;
+        // var ret = new Date(timestamp);
+        // ret = ret.toLocaleString();
+        // return ret;
+        return timestamp;
     }
 
     function setNotificationStatus() {
