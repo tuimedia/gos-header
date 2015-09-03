@@ -128,12 +128,16 @@
             }
             svg {
                 opacity: 1;
-                &.animate {
-                    animation: ring 1s 0s ease-in-out;
-                    transform-origin: 50% 4px;
-                }
             }
         }
+        &.animate {
+            svg {
+                opacity: 1;
+                animation: ring 1.5s 0s ease-in-out;
+                transform-origin: 50% 4px;
+            }
+        }
+
     }
 
     &__notify-panel {

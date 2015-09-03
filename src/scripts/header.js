@@ -367,11 +367,18 @@ Header.prototype.getNotifications = function() {
         return timestamp;
     }
 
+    var bellAnimationTimer;
+
     function setNotificationStatus() {
-        console.log(haveNew);
+
         if (haveNew) {
             _this.notifications.states.newNotifications = true;
-            _this.notifications.cta.classList.add('has-notifications');
+            _this.notifications.cta.classList.add('has-notifications', 'animate');
+
+            bellAnimationTimer = setInterval(function() {
+                animateBell();
+            }, 10000);
+
         } else {
             _this.notifications.states.newNotifications = false;
             _this.notifications.cta.classList.remove('has-notifications');
@@ -379,6 +386,16 @@ Header.prototype.getNotifications = function() {
 
     }
 
+    function animateBell() {
+        _this.notifications.cta.classList.add('animate');
+        setTimeout(function() {
+            _this.notifications.cta.classList.remove('animate');
+        }, 5000);
+    }
+
+    function myStopFunction() {
+        clearInterval(bellAnimationTimer);
+    }
 };
 
 Header.prototype.handleNotifications = function(type) {};
