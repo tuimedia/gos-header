@@ -127,9 +127,11 @@
                 background-color: rgba($gel-notify-color, 1);
             }
             svg {
-                animation: ring 1s 0s ease-in-out;
-                transform-origin: 50% 4px;
                 opacity: 1;
+                &.animate {
+                    animation: ring 1s 0s ease-in-out;
+                    transform-origin: 50% 4px;
+                }
             }
         }
     }
@@ -164,7 +166,7 @@
         &__menu-toggle {
             display: flex;
             align-items: stretch;
-            padding-right: 60px;
+            flex-grow: 1;
             button {
                 padding: 0 $base-spacing-unit;
                 border: none;
@@ -172,6 +174,8 @@
                 font-weight: 300;
                 outline: none;
                 font-size: 14px;
+                width: 100%;
+                text-align: left;
             }
         }
 
@@ -321,7 +325,6 @@
         align-items: stretch;
         border-left: $gel-header-border;
         border-right: $gel-header-border;
-        // max-width: 160px;
         @include media-query(palm) {
             flex-basis: 40px;
             flex-grow: 0;

@@ -2,7 +2,7 @@
 
 var Header = require('./header');
 var Masthead = require('./masthead');
-var header = document.querySelectorAll('.js-header');
+var pageHeader;
 var masthead = document.querySelectorAll('.js-masthead');
 
 try {
@@ -14,11 +14,14 @@ try {
 }
 
 try {
-  header = new Header(header[0]);
+
+  pageHeader = new Header({
+    el: document.querySelectorAll('.js-header')
+  });
 
   // spoof notifications
   setTimeout(function() {
-    header.getNotifications();
+    pageHeader.getNotifications();
   }, 500);
 
 } catch (e) {

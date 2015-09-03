@@ -1,16 +1,19 @@
 'use strict';
 
-var Header = module.exports = function Header(header) {
+var Header = module.exports = function Header(args) {
 
     if (!(this instanceof Header)) {
         return new Header(header);
     }
 
-    this.header = header;
-
-    if (this.header) {
-        this.init();
+    if (args.el.length > 1) {
+        console.error('More than one header element found');
+        return;
     }
+
+    this.header = args.el[0];
+
+    this.init();
 
 };
 
@@ -40,6 +43,8 @@ Header.prototype.init = function(args) {
                 contracting: false
             }
         };
+
+        this.gelMenu();
 
     }
 
@@ -101,131 +106,108 @@ Header.prototype.bindEvents = function() {
 
     }
 
-    if (this.menuEnabled) {
-
-        // initial menu link visibility
-        this.handleMenuLinks();
-
-        //
-        this.menu.toggle.addEventListener('click', function(event) {
-            _this.handleMenu();
-        });
-
-        // toggle menu link visibility on resize
-        window.addEventListener('resize', function() {
-
-            _this.menu.primary.style.visibility = 'hidden';
-
-            for (var i = 0; i < _this.menu.primaryItems.length; i++) {
-                _this.menu.primaryItems[i].classList.remove('hidden');
-            }
-
-            console.log(_this.menu.states.panelOpen);
-
-            if (_this.menu.states.panelOpen) {
-                _this.resizeMenu();
-            }
-
-            _this.handleMenuLinks();
-
-        }, false);
-
-    }
-
 };
 
-Header.prototype.handleMenu = function() {
+
+
+Header.prototype.gelMenu = function() {
 
     var _this = this;
 
-    if (this.notifications.states.notifyPanelOpen) {
-        this.notifications.states.notifyPanelOpen = false;
-        this.notifications.panel.classList.remove('is-open');
-        // this.notifications.panel.style.opacity = 0;
-    }
+    // initial menu link visibility
+    handleMenuLinks();
 
-    if (this.menu.states.panelOpen) {
+    //
+    this.menu.toggle.addEventListener('click', function(event) {
+        handleMenuPanel();
+    });
 
-        _this.menu.panel.classList.remove('is-open');
+    // toggle menu link visibility on resize
+    window.addEventListener('resize', function() {
 
-        _this.page.style.transform = 'translateY(0px)';
+        _this.menu.primary.style.visibility = 'hidden';
 
-    } else {
+        for (var i = 0; i < _this.menu.primaryItems.length; i++) {
+            _this.menu.primaryItems[i].classList.remove('hidden');
+        }
 
-        _this.menu.panel.classList.add('is-open');
+        if (_this.menu.states.panelOpen) {
+            resizeMenu();
+        }
 
-        this.resizeMenu(true);
+        handleMenuLinks();
 
-    }
+    }, false);
 
-    this.menu.states.panelOpen = !this.menu.states.panelOpen;
 
-};
+    function handleMenuPanel() {
 
-Header.prototype.resizeMenu = function(opening) {
+        if (_this.notifications.states.notifyPanelOpen) {
+            _this.notifications.states.notifyPanelOpen = false;
+            _this.notifications.panel.classList.remove('is-open');
+        }
 
-    var _this = this,
-        timer,
-        secondaryMenuHeight;
+        if (_this.menu.states.panelOpen) {
+            _this.menu.panel.classList.remove('is-open');
+            _this.page.style.transform = 'translateY(0px)';
+        } else {
+            _this.menu.panel.classList.add('is-open');
+            resizeMenu(true);
+        }
 
-    if (opening) {
+        _this.menu.states.panelOpen = !_this.menu.states.panelOpen;
 
-        secondaryMenuHeight = _this.menu.secondary.clientHeight;
+    };
 
-        _this.page.style.transform = 'translateY(' + secondaryMenuHeight + 'px)';
+    function handleMenuLinks() {
 
-    } else {
-        timer = setTimeout(function() {
+        var availableMenuSpace = _this.menu.primary.clientWidth,
+            linkWidths = 0,
+            done = false;
+
+        for (var i = 0; i < _this.menu.primaryItems.length; i++) {
+            linkWidths = linkWidths + _this.menu.primaryItems[i].clientWidth;
+            if (linkWidths < availableMenuSpace) {
+                _this.menu.primaryItems[i].classList.remove('hidden');
+                _this.menu.panelItems[i].classList.remove('visible', 'first');
+                _this.menu.panelItems[i].classList.add('hidden');
+            } else {
+                _this.menu.primaryItems[i].classList.add('hidden');
+                _this.menu.panelItems[i].classList.remove('hidden', 'first');
+                _this.menu.panelItems[i].classList.add('visible');
+                if (!done) {
+                    _this.menu.primaryItems[i - 1].classList.add('hidden');
+                    _this.menu.panelItems[i - 1].classList.add('visible', 'first');
+                    _this.menu.panelItems[i - 1].classList.remove('hidden');
+                    done = true;
+                }
+            }
+        }
+
+        _this.menu.primary.style.visibility = 'visible';
+
+    };
+
+    function resizeMenu(opening) {
+
+        var timer,
+            secondaryMenuHeight;
+
+        if (opening) {
             secondaryMenuHeight = _this.menu.secondary.clientHeight;
             _this.page.style.transform = 'translateY(' + secondaryMenuHeight + 'px)';
-        }, 500);
-    }
-
-};
-
-Header.prototype.handleMenuLinks = function() {
-
-    var _this = this,
-        availableMenuSpace = this.menu.primary.clientWidth,
-        linkWidths = 0,
-        done = false;
-
-    for (var i = 0; i < this.menu.primaryItems.length; i++) {
-
-        linkWidths = linkWidths + this.menu.primaryItems[i].clientWidth;
-
-        if (linkWidths < availableMenuSpace) {
-
-            this.menu.primaryItems[i].classList.remove('hidden');
-
-            this.menu.panelItems[i].classList.remove('visible', 'first');
-            this.menu.panelItems[i].classList.add('hidden');
-
         } else {
-
-            this.menu.primaryItems[i].classList.add('hidden');
-
-            this.menu.panelItems[i].classList.remove('hidden', 'first');
-            this.menu.panelItems[i].classList.add('visible');
-
-            if (!done) {
-
-                this.menu.primaryItems[i - 1].classList.add('hidden');
-
-                this.menu.panelItems[i - 1].classList.add('visible', 'first');
-                this.menu.panelItems[i - 1].classList.remove('hidden');
-
-                done = true;
-
-            }
-
+            timer = setTimeout(function() {
+                secondaryMenuHeight = _this.menu.secondary.clientHeight;
+                _this.page.style.transform = 'translateY(' + secondaryMenuHeight + 'px)';
+            }, 500);
         }
 
     };
 
-    this.menu.primary.style.visibility = 'visible';
-
 };
+
+
 
 Header.prototype.handleSettingsPanel = function() {
 
