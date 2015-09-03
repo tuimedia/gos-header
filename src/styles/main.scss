@@ -17,3 +17,25 @@ $gel-product: bbc-sport;
 body {
     background: #f7f7f7;
 }
+
+%responsive-menu-container {
+  display: block;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+%responsive-menu-item {
+    float: left;
+    display: flex;
+    position: relative;
+    &.is-hidden {
+        display: none;
+    }
+    a {
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+    }
+
+}

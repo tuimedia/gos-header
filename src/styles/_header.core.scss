@@ -4,6 +4,7 @@
 .gel-content-wrap {
     transition: transform 0.4s;
 }
+
 // ------------------------------------------------------------------------------------ //
 
 .gel-header {
@@ -124,7 +125,7 @@
                 border-radius: 50%;
             }
             &:after {
-                background-color: rgba($gel-notify-color, 1);
+                // background-color: rgba($gel-notify-color, 1);
             }
             svg {
                 opacity: 1;
@@ -184,20 +185,17 @@
         }
 
         &__menu-items {
+            @extend %responsive-menu-container;
             flex-grow: 1;
-            margin: 0;
-            padding: 0;
-            list-style: none;
         }
 
             &__menu-item {
+                @extend %responsive-menu-item;
+                padding: 0 $base-spacing-unit;
                 border-right: $gel-header-border;
                 height: 40px;
-                display: flex;
-                align-items: stretch;
-                float: left;
-                position: relative;
                 font-size: 14px;
+                font-weight: 300;
                 &:after {
                     opacity: 0;
                     transition: opacity 0.1s;
@@ -218,20 +216,6 @@
                     }
                 }
 
-                &.hidden {
-                    display: none;
-                }
-                a {
-                    padding: 0 $base-spacing-unit;
-                    text-decoration: none;
-                    font-weight: 300;
-                    display: flex;
-                    align-items: center;
-                }
-                &--more {
-                    float: right;
-                    display: inline-block;
-                }
             }
 
 

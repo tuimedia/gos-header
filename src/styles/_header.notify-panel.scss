@@ -1,4 +1,19 @@
+.gel-wrap {
+    height: 100%;
+}
 .notify-panel {
+    background: #fff;
+    &:after {
+        content: '';
+        box-shadow: 0px 0px $half-spacing-unit $half-spacing-unit/2 rgba(0,0,0,0.39);
+        position: absolute;
+        width: 100%;
+        height: 0;
+        z-index: 2;
+    }
+    &:after {
+        bottom: 0;
+    }
 
     // ------------------------------------------ //
 
@@ -7,14 +22,13 @@
         top: 0;
         left: 0;
         right: 0;
-        background: #fff;
-        z-index: 2;
-        .wrap {
+        background: $gel-notify-color;
+        z-index: 3;
+        .gel-wrap {
             display: flex;
             align-items: center;
         }
-        height: 40px;
-        z-index: 1;
+        height: 60px;
         box-shadow: 0px 0px $half-spacing-unit $half-spacing-unit/2 rgba(0,0,0,0.39);
         h3 {
             flex-grow: 1;
@@ -22,6 +36,7 @@
             margin: 0;
             font-family: 'gill';
             font-weight: 500;
+            color: #fff;
         }
         button {
             margin: 0;
@@ -41,15 +56,14 @@
 
     &__items {
         margin: 0;
-        padding: $base-spacing-unit 0;
+        padding: $half-spacing-unit 0;
         list-style: none;
         overflow-Y: scroll;
         position: absolute;
-        top: 40px;
-        right: $half-spacing-unit;
+        top: 60px;
+        right: 0;
         bottom: 0;
-        left: $half-spacing-unit;
-
+        left: 0;
         @include media-query(map-get($break, s)) {
             left: $base-spacing-unit;
             right: $base-spacing-unit;
@@ -57,10 +71,14 @@
     }
 
         &__item {
-            padding: $base-spacing-unit 0;
+            // padding: $base-spacing-unit 12px;
             position: relative;
             background: #fff;
-            margin-bottom: $half-spacing-unit;
+            border-bottom: 1px solid #949494;
+            @extend .gel-wrap;
+            height: auto;
+            padding-top: $base-spacing-unit;
+            padding-bottom: $base-spacing-unit;
             a {
                 display: flex;
                 text-decoration: none;
@@ -74,7 +92,9 @@
                 color: #949494;
                 margin: 0;
             }
-
+            &:last-child {
+                border-bottom: none;
+            }
             &.is-new {
                 h4 {
                     font-weight: 700;
@@ -146,7 +166,7 @@
         right: 0;
         bottom: 0;
         left: 0;
-        z-index: 2;
+        z-index: 4;
         display: none;
         &.is-open {
             display: block;
@@ -155,7 +175,7 @@
 
     &__settings-header {
         display: flex;
-        height: 40px;
+        height: 60px;
         z-index: 1;
         align-items: center;
 

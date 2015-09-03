@@ -128,7 +128,7 @@ Header.prototype.gelMenu = function() {
         _this.menu.primary.style.visibility = 'hidden';
 
         for (var i = 0; i < _this.menu.primaryItems.length; i++) {
-            _this.menu.primaryItems[i].classList.remove('hidden');
+            _this.menu.primaryItems[i].classList.remove('is-hidden');
         }
 
         if (_this.menu.states.panelOpen) {
@@ -168,17 +168,17 @@ Header.prototype.gelMenu = function() {
         for (var i = 0; i < _this.menu.primaryItems.length; i++) {
             linkWidths = linkWidths + _this.menu.primaryItems[i].clientWidth;
             if (linkWidths < availableMenuSpace) {
-                _this.menu.primaryItems[i].classList.remove('hidden');
-                _this.menu.panelItems[i].classList.remove('visible', 'first');
-                _this.menu.panelItems[i].classList.add('hidden');
+                _this.menu.primaryItems[i].classList.remove('is-hidden');
+                _this.menu.panelItems[i].classList.remove('is-visible', 'is-first');
+                _this.menu.panelItems[i].classList.add('is-hidden');
             } else {
-                _this.menu.primaryItems[i].classList.add('hidden');
-                _this.menu.panelItems[i].classList.remove('hidden', 'first');
-                _this.menu.panelItems[i].classList.add('visible');
+                _this.menu.primaryItems[i].classList.add('is-hidden');
+                _this.menu.panelItems[i].classList.remove('is-hidden', 'is-first');
+                _this.menu.panelItems[i].classList.add('is-visible');
                 if (!done) {
-                    _this.menu.primaryItems[i - 1].classList.add('hidden');
-                    _this.menu.panelItems[i - 1].classList.add('visible', 'first');
-                    _this.menu.panelItems[i - 1].classList.remove('hidden');
+                    _this.menu.primaryItems[i - 1].classList.add('is-hidden');
+                    _this.menu.panelItems[i - 1].classList.add('is-visible', 'is-first');
+                    _this.menu.panelItems[i - 1].classList.remove('is-hidden');
                     done = true;
                 }
             }

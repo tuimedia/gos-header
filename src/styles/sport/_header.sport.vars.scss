@@ -1,4 +1,5 @@
-// $base-spacing-unit: 14px;
+$base-spacing-unit: 24px;
+$half-spacing-unit: 12px;
 
 // override default menu settings
 
@@ -7,9 +8,9 @@ $masthead-theme: (
   primary-menu-bg: #fedd53,
   primary-m-menu-color: #ffffff,
   primary-menu-color: #333333,
-  primary-menu-hover-bg: #333333,
-  primary-menu-hover-color: #333333,
-  secondary-menu-bg: #333333,
+  primary-menu-hover-bg: #1D1D1D,
+  primary-menu-hover-color: #1D1D1D,
+  secondary-menu-bg: #2F2F2F,
   secondary-menu-color: #ffffff,
   secondary-menu-hover-bg: rgba(#666666, 0.5),
   flyout-bg: #494949,
