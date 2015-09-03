@@ -1,1 +1,25 @@
+// $base-spacing-unit: 14px;
+
+// override default menu settings
+
+$masthead-theme: (
+  bg: #fedd53,
+  primary-menu-bg: #fedd53,
+  primary-m-menu-color: #ffffff,
+  primary-menu-color: #333333,
+  primary-menu-hover-bg: #333333,
+  primary-menu-hover-color: #333333,
+  secondary-menu-bg: #333333,
+  secondary-menu-color: #ffffff,
+  secondary-menu-hover-bg: rgba(#666666, 0.5),
+  flyout-bg: #494949,
+  flyout-color: #ffffff,
+  flyout-hover-bg: rgba(#666666, 0.5),
+  h1-color: #333333,
+  h2-color: #ffffff,
+  h3-color: #ffffff,
+  border: 1px solid #666666
+);
+
+// override layout styles here...
 $gel-header-border: 1px solid #212121;

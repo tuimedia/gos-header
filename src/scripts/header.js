@@ -244,8 +244,6 @@ Header.prototype.handleNotificationPanel = function() {
 
     var _this = this;
 
-    console.log(_this.notifications.states.newNotifications);
-
     function setNotificationPanelHeight() {
 
         if (_this.notifications.states.newNotifications) {
@@ -269,23 +267,22 @@ Header.prototype.handleNotificationPanel = function() {
 
         _this.page.style.transform = 'translateY(0px)';
 
-        this.notifications.panel.classList.remove('is-open');
+        setTimeout(function() {
+            _this.notifications.panel.classList.remove('is-open');
+        }, 400);
+
 
         for (var i = 0; i < this.notifications.items.childNodes.length; i++) {
             this.notifications.items.childNodes[i].isNew = false;
             this.notifications.items.childNodes[i].classList.remove('is-new');
         };
 
-    }
-
-    // panal is closed - open it
-    else {
-
-        // this.notifications.panel.style.opacity = 1;
+    } else {
 
         _this.page.style.transform = 'translateY(' + this.notificationPanelHeight + 'px)';
 
         this.notifications.panel.classList.add('is-open');
+
 
     }
 

@@ -11,10 +11,29 @@
   fill: #fff;
 }
 
+::-webkit-input-placeholder,
+.gel-header__search button,
+.gel-header__menu-toggle button,
 .gel-header__menu-item a {
   color: rgba(#fff, 0.8);
+  font-weight: 300;
   transition: color 0.1s;
   &:hover {
     color: rgba(#fff, 1);
   }
 }
+
+.gel-header__search input {
+  color: #fff;
+  background: transparent;
+  &::-webkit-input-placeholder {
+    color: rgba(#fff, 0.8);
+    font-weight: 300;
+    transition: color 0.1s;
+  }
+  &:hover::-webkit-input-placeholder,
+  &:focus::-webkit-input-placeholder {
+    color: rgba(#fff, 1);
+  }
+}
+

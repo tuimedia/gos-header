@@ -1,3 +1,22 @@
+$masthead-theme: (
+  bg: #333333,
+  primary-menu-bg: #ffffff,
+  primary-m-menu-color: #ffffff,
+  primary-menu-color: #ffffff,
+  primary-menu-hover-bg: #333333,
+  primary-menu-hover-color: #333333,
+  secondary-menu-bg: #000000,
+  secondary-menu-color: #ffffff,
+  secondary-menu-hover-bg: rgba(#666666, 0.5),
+  flyout-bg: #000000,
+  flyout-color: #ffffff,
+  flyout-hover-bg: rgba(#666666, 0.5),
+  h1-color: #ffffff,
+  h2-color: #ffffff,
+  h3-color: #ffffff,
+  border: #000000
+) !default;
 
-$gel-header-border: 1px solid #ccc!default;
-$gel-notify-color: #1886d1!default;
+$gel-header-border: 1px solid #ccc !default;
+
+$gel-notify-color: #1886d1 !default;
