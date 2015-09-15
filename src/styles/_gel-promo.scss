@@ -9,6 +9,13 @@
   }
 }
 
+.gel-content {
+  padding-top: $base-spacing-unit;
+}
+
+
+
+// =============================================================== //
 
 .gel-promo {
   display: flex!important;
@@ -20,21 +27,18 @@
     flex-wrap: wrap;
     align-content: flex-start;
   }
-
   &__headline {
 
   }
-
   &__media {
     background-repeat: no-repeat;
     background-size: cover;
   }
-
   &__attribution {
     line-height: 1;
   }
-
 }
+
 
 .ratio--16-9,
 %ratio--16-9 {
@@ -44,13 +48,188 @@
 .ratio--square,
 %ratio--square {
   padding-bottom: 100%;
+  background-position: center;
 }
 
 .gel-promo-group__items {
   display: flex;
   flex-wrap: wrap;
   align-items: stretch;
+  position: relative;
 }
+
+
+
+.gel-promo-group--hero {
+  @extend .grid__item;
+  @extend .one-whole;
+  @extend .lap-one-whole;
+  @extend .desk-one-whole;
+  @extend .desk-wide-one-whole;
+  .gel-promo-group__inner {
+    @extend .grid;
+    .gel-promo-group__item {
+      @extend .grid__item;
+      @extend .one-whole;
+      @extend .lap-one-whole;
+      @extend .desk-one-third;
+      &:nth-child(1) {
+        @extend .one-whole;
+        @extend .lap-one-whole;
+        @extend .desk-one-half;
+        @extend .desk-wide-four-tenths;
+      }
+      &:nth-child(2),
+      &:nth-child(3) {
+        @extend .one-whole;
+        @extend .lap-one-half;
+        @extend .desk-one-half;
+        @extend .desk-wide-six-tenths;
+      }
+    }
+  }
+}
+
+.gel-promo-group--hero {
+
+  .gel-promo {
+    margin-bottom: $half-spacing-unit/2;
+    @include media-query(desk) {
+      margin-bottom: $half-spacing-unit;
+    }
+  }
+
+  .gel-promo__inner {
+    display: flex;
+    flex-wrap: wrap;
+    @include media-query(desk) {
+      margin-bottom: $half-spacing-unit/2;
+    }
+  }
+
+  .gel-promo__headline {
+    padding: $half-spacing-unit $half-spacing-unit 0 $half-spacing-unit;
+    flex-basis: 100%;
+  }
+
+  .gel-promo__media-wrap {
+    width: 100%;
+  }
+
+  .gel-promo__media {
+    @extend %ratio--16-9;
+  }
+
+  .gel-promo__attribution {
+    padding: 0 $half-spacing-unit $half-spacing-unit $half-spacing-unit;
+    flex-basis: 100%;
+  }
+
+  .gel-promo-group__item {
+
+    &:nth-child(1) {
+      .gel-promo__media {
+        @extend %ratio--square;
+      }
+      .gel-promo__attribution {
+        position: absolute;
+        bottom: $half-spacing-unit;
+        left: 0;
+      }
+      .gel-promo__headline {
+        position: absolute;
+        bottom: 30px;
+        left: 0;
+        right: 0;
+      }
+      @include media-query(desk) {
+        margin-bottom: 0;
+        .gel-promo__inner {
+          margin-bottom: 0;
+        }
+      }
+
+    }
+    &:nth-child(2),
+    &:nth-child(3) {
+      @include media-query(palm) {
+        .gel-promo__media-wrap {
+          flex-basis: 50%;
+        }
+        .gel-promo__media {
+          @extend %ratio--square;
+        }
+        .gel-promo__headline {
+          flex-basis: auto;
+        }
+        .gel-promo__attribution {
+          position: absolute;
+          bottom: 0;
+          left: 50%;
+        }
+      }
+      @include media-query(lap) {
+      }
+      @include media-query(desk) {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: calc(50% + #{$half-spacing-unit});
+        margin: 0;
+        .gel-promo__inner {
+          margin: 0;
+        }
+        .gel-promo__media-wrap {
+          flex-basis: 50%;
+          position: relative;
+        }
+        .gel-promo__media {
+          position: absolute;
+          width: 100%;
+          height: 100%;
+          padding: 0;
+        }
+        .gel-promo__headline {
+          flex-basis: auto;
+        }
+        .gel-promo__attribution {
+          position: absolute;
+          bottom: 0;
+          left: 50%;
+        }
+      }
+      @include media-query(desk-wide) {
+        .gel-promo__media {
+          position: absolute;
+          width: 100%;
+          height: 100%;
+          padding: 0;
+        }
+
+      }
+
+    }
+    &:nth-child(3) {
+      @include media-query(desk) {
+        bottom: 0;
+        top: calc(50% + #{$half-spacing-unit});
+        .gel-promo__inner {
+          margin: 0;
+        }
+      }
+    }
+  }
+}
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -89,7 +268,6 @@
     @include media-query(desk) {
       margin-bottom: $half-spacing-unit;
     }
-
   }
 
   .gel-promo__inner {
@@ -154,6 +332,16 @@
   }
 
 }
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -242,6 +430,15 @@
 
   }
 }
+
+
+
+
+
+
+
+
+
 
 
 
