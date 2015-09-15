@@ -1,5 +1,10 @@
 $gel-product: bbc-sport;
 
+$lap-start:         550px;
+$desk-start:        768px;
+$desk-wide-start:   1008px;
+$responsive-extra: true;
+
 // bower:scss
 @import "bower_components/gos-core/src/styles/main.scss";
 // endbower
@@ -8,15 +13,21 @@ $gel-product: bbc-sport;
 
 
 @import 'header';
+@import 'gel-promo';
 
 
 // TODO: add to core
 .wrap {
     width: 100%;
 }
+
 body {
-    background: #f7f7f7;
+    background: #cccccc;
 }
+.gel-content-wrap {
+    background: #E6E6E6;
+}
+
 
 %responsive-menu-container {
   display: block;

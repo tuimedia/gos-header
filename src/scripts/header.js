@@ -1,6 +1,7 @@
 'use strict';
+var Menu = require('./gel-menu');
 
-var Header = module.exports = function Header(args) {
+var GEL_Header = module.exports = function Header(args) {
 
     if (!(this instanceof Header)) {
         return new Header(header);
@@ -17,7 +18,7 @@ var Header = module.exports = function Header(args) {
 
 };
 
-Header.prototype.init = function(args) {
+GEL_Header.prototype.init = function(args) {
 
     var _this = this;
 
@@ -76,7 +77,7 @@ Header.prototype.init = function(args) {
     //
 };
 
-Header.prototype.bindEvents = function() {
+GEL_Header.prototype.bindEvents = function() {
 
     var _this = this;
 
@@ -110,7 +111,7 @@ Header.prototype.bindEvents = function() {
 
 
 
-Header.prototype.gelMenu = function() {
+GEL_Header.prototype.gelMenu = function() {
 
     var _this = this;
 
@@ -209,7 +210,7 @@ Header.prototype.gelMenu = function() {
 
 
 
-Header.prototype.handleSettingsPanel = function() {
+GEL_Header.prototype.handleSettingsPanel = function() {
 
     if (this.notifications.states.settingsPanelOpen) {
         this.notifications.settingsPanel.classList.remove('is-open');
@@ -222,7 +223,7 @@ Header.prototype.handleSettingsPanel = function() {
 };
 
 
-Header.prototype.handleNotificationPanel = function() {
+GEL_Header.prototype.handleNotificationPanel = function() {
 
     var _this = this;
 
@@ -272,7 +273,7 @@ Header.prototype.handleNotificationPanel = function() {
 
 };
 
-Header.prototype.getNotifications = function() {
+GEL_Header.prototype.getNotifications = function() {
 
     var xmlhttp = new XMLHttpRequest();
     var url = '/notifications.json';
@@ -396,6 +397,7 @@ Header.prototype.getNotifications = function() {
     function myStopFunction() {
         clearInterval(bellAnimationTimer);
     }
+
 };
 
-Header.prototype.handleNotifications = function(type) {};
+GEL_Header.prototype.handleNotifications = function(type) {};

@@ -239,7 +239,8 @@
             top: 0;
             left: $half-spacing-unit;
         }
-        @include media-query(map-get($break, s)) {
+        @include media-query(desk){
+        // @include media-query(map-get($break, s)) {
             right: $base-spacing-unit;
             left: $base-spacing-unit;
 
@@ -252,15 +253,9 @@
             list-style: none;
             display: flex;
             flex-wrap: wrap;
-            // margin-left: -$half-spacing-unit;
-            @include media-query(map-get($break, s)) {
-                // padding-left: calc(20% - #{$half-spacing-unit});
-            }
-
         }
 
             &__menu-panel-item {
-                // margin-left: $half-spacing-unit;
                 flex-basis: calc(33.3333% - #{$half-spacing-unit});
                 margin-bottom: $base-spacing-unit;
                 display: flex;
@@ -277,25 +272,29 @@
                         color: #fff;
                     }
                 }
-                @include media-query(map-get($break, xs)) {
+                @include media-query(palm){
+
                 }
-                @include media-query(map-get($break, s)) {
+
+                @include media-query(lap) {
                     flex-basis: calc(25% - #{$half-spacing-unit});
                 }
-                @include media-query(map-get($break, m)) {
+
+                @include media-query(portable){
 
                 }
-                @include media-query(map-get($break, l)) {
 
+                @include media-query(desk){
+                    flex-basis: calc(20% - #{$half-spacing-unit});
                 }
 
-                &.hidden {
+                &.is-hidden {
                     display: none;
                 }
 
                 &.visible.first {
                     margin-left: calc(33.333% - #{$half-spacing-unit});
-                    @include media-query(map-get($break, s)) {
+                    @include media-query(lap) {
                         margin-left: $half-spacing-unit;
                     }
 
