@@ -22,7 +22,7 @@ for (var i = 0; i < promoGroups.length; i++) {
     var args = {
       el: promoGroups[i],
       arg1: 'arg1'
-    }
+    };
     var promoGroupInstance = new Promos(args);
   } catch (e) {
     if (typeof console !== 'undefined') {

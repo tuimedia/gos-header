@@ -46,6 +46,10 @@
       "curly": 0,
       "no-unused-expressions": 0,
       "eol-last": 0,
+      "camelcase": 0,
+      "consistent-return": 0,
+      "no-loop-func": 0,
+      "no-shadow": 0,
       "quotes": [
         2,
         "single"

@@ -4,7 +4,7 @@ var Menu = require('./gel-menu');
 var GEL_Header = module.exports = function Header(args) {
 
     if (!(this instanceof Header)) {
-        return new Header(header);
+        return new Header(args);
     }
 
     if (args.el.length > 1) {

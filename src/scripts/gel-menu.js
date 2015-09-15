@@ -32,7 +32,6 @@ GEL_Menu.prototype.init = function() {
         this.gelMenu();
 
 
-        console.log(this)
     // // bind events to card elements
     // this.bindEvents();
 

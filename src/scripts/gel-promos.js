@@ -31,7 +31,6 @@ GEL_Promos.prototype.setupPromo = function(promo) {
         promo.querySelectorAll('.js-media')[0].style.backgroundImage = 'url(' + promo.dataset.bgImg + ')';
     }
 
-    console.log(this.promos)
 };
 
 

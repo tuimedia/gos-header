@@ -153,7 +153,7 @@ Masthead.prototype.initDrawerNav = function(el, index) {
 
     console.log('called');
 
-  }
+  };
 
   // clone all links into drawer
   for (var i = 0; i < this.drawerNavs[index].items.length; i++) {
