@@ -28,9 +28,9 @@ Masthead.prototype.init = function(args) {
 
     this.menu = new GEL_Menu({
       navWrap: this.masthead[0].querySelectorAll('.js-nav-wrap')[0],
-      primary: this.masthead[0].querySelectorAll('.js-nav-primary')[0],
-      primaryItems: this.masthead[0].querySelectorAll('.js-nav-primary')[0].children,
-      panel: this.masthead[0].querySelectorAll('.js-nav-panel')[0],
+      nav: this.masthead[0].querySelectorAll('.js-nav-primary')[0],
+      navItems: this.masthead[0].querySelectorAll('.js-nav-primary')[0].children,
+      panel: this.masthead[0].querySelectorAll('.gel-masthead__nav-panel--primary')[0],
       toggle: this.masthead[0].querySelectorAll('.js-nav-toggle')[0],
       mobileToggle: this.masthead[0].querySelectorAll('.js-m-nav-toggle')[0],
       states: {

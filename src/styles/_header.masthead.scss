@@ -4,7 +4,8 @@
 }
 
 
-// h1 brand name e.g. Sport, News, Internet Blog
+// BRANDING / PAGE TITLE
+// ================================================================== //
 
 .gel-masthead__branding {
   padding: $half-spacing-unit 0;
@@ -19,16 +20,50 @@
 }
 
 
-// desktop nav toggle
 
-.gel-masthead__nav-toggle {
+// NAVIGATION
+// ================================================================== //
+// The nav itself is handles by the GEL Menu component.
+//
+// The selectors below position the GEL Menu(s) within the GEL Masthead component
+
+
+// Wrap all menus. Used to toggle mobile menu
+// ------------------------------------------------- //
+
+.gel-masthead__nav-wrap {
   display: none;
+  &.is-open {
+    display: block;
+  }
   @include media-query(lap-and-up) {
     display: block;
   }
 }
 
-// mobile nav toggle
+
+
+// Desktop nav toggle
+// ------------------------------------------------- //
+
+.gel-masthead__nav-toggle {
+  display: none;
+  @include media-query(lap-and-up) {
+    display: block;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    &.is-hidden {
+      display: none;
+    }
+  }
+}
+
+
+
+// Mobile nav toggle
+// ------------------------------------------------- //
 
 .gel-masthead__m-nav-toggle {
   @include media-query(lap-and-up) {
@@ -38,36 +73,37 @@
 
 
 
-
-.gel-masthead__nav-panel {
-  display: none;
-  background: map-get($masthead-theme, secondary-menu-bg);
-  &.is-open {
-    display: block;
-  }
-}
-
-
-
-
-
-
-
-// generic nav styling (all menus)
-
-.gel-masthead__nav {
-  display: none;
-  &.is-open {
-    display: block;
-  }
-  @include media-query(lap-and-up) {
-    display: block;
-  }
-}
+// Primary nav wrapper
+// ------------------------------------------------- //
 
 .gel-masthead__nav-primary {
   background: map-get($masthead-theme, primary-menu-bg);
+  position: relative;
 }
+
+
+
+// Primary nav panel
+// ------------------------------------------------- //
+
+.gel-masthead__nav-panel {
+  display: none;
+  &.is-open {
+    display: block;
+  }
+  &--primary {
+    background: map-get($masthead-theme, primary-menu-bg);
+  }
+}
+
+
+
+
+
+
+
+
+
 
 
 
@@ -93,95 +129,6 @@
     display: block;
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// primary navigation
-
-.gel-masthead__nav-primary {
-  // ul {
-  //   display: flex;
-  //   flex-wrap: wrap;
-  //   li {
-  //     flex-basis: 40%;
-  //     flex-grow: 1;
-  //     &:nth-child(2),
-  //     &:nth-child(3) {
-  //       border: none;
-  //     }
-  //     &:hover,
-  //     &.is-active {
-  //       a {
-  //         text-decoration: none;
-  //       }
-  //       &:before {
-  //         position: absolute;
-  //         content: '';
-  //         background: map-get($masthead-theme, primary-menu-hover-bg);
-  //         width: 100%;
-  //         height: $half-spacing-unit/2;
-  //         bottom: 0;
-  //       }
-  //     }
-  //   }
-  // }
-
-  // @include media-query(palm) {
-  //   ul {
-  //     li {
-  //       a {
-  //         color: map-get($masthead-theme, primary-m-menu-color)
-  //       }
-  //       margin: 0 $half-spacing-unit;
-  //       border-top: map-get($masthead-theme, border);
-  //       &:first-child {
-  //         display: none;
-  //       }
-  //     }
-  //   }
-  // }
-
-  // @include media-query(lap-and-up) {
-  //   background: map-get($masthead-theme, primary-menu-bg);
-  //   padding-top: 0;
-  //   display: flex;
-  //   align-items: center;
-  //   ul {
-  //     flex-grow: 1;
-  //     @extend %responsive-menu-container;
-  //     li {
-  //       @extend %responsive-menu-item;
-  //       a {
-  //         margin: $half-spacing-unit/1.75 0;
-  //         padding: 0 $half-spacing-unit;
-  //       }
-  //     }
-  //   }
-  // }
-
-}
-
-
-
-
 
 
 

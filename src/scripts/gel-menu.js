@@ -15,52 +15,48 @@ var GEL_Menu = module.exports = function GEL_Menu(args) {
   // go
   this.init(args);
 
-
 };
 
 GEL_Menu.prototype.init = function(menu) {
 
   var _this = this;
 
-  console.log('GEL menu init');
-
   // clone primary items and append to panel
-  menu.secondary = menu.primary.cloneNode(true);
+  menu.secondary = menu.nav.cloneNode(true);
   menu.secondaryItems = menu.secondary.children;
   menu.panel.appendChild(menu.secondary);
+
+  // initial menu link visibility
+  handleMenuLinks();
 
   // open/close menu panel on click
   menu.toggle.addEventListener('click', function(event) {
     handleMenuPanel('panel');
   });
 
+  // mobile menu trigger
   menu.mobileToggle.addEventListener('click', function(event) {
     handleMenuPanel('mobile');
   });
 
-  // initial menu link visibility
-  handleMenuLinks();
-
   // toggle menu link visibility on resize
   window.addEventListener('resize', function() {
 
+    // store/update screen size
     _this.screenSize = utils.screenSize();
 
-    menu.primary.style.visibility = 'hidden'; // hide menu when recalculating visible links
+    // hide things while resizing
+    menu.nav.style.visibility = 'hidden'; // hide menu when recalculating visible links
 
-    // show all primary menu items so we can calculat available space
-    for (var i = 0; i < menu.primaryItems.length; i++) {
-      menu.primaryItems[i].classList.remove('is-hidden');
+    // show all primary menu items so we can calculate available space
+    for (var i = 0; i < menu.navItems.length; i++) {
+      menu.navItems[i].classList.remove('is-hidden');
     }
 
-    if (menu.states.panelOpen) {
-      resizeMenu();
-    }
-
+    // handle link visibility
     handleMenuLinks();
 
   }, false);
-
 
   // panel state controller
   function handleMenuPanel(type) {
@@ -75,6 +71,7 @@ GEL_Menu.prototype.init = function(menu) {
       break;
     }
 
+    // toggle menu panel open state
     menu.states.panelOpen = !menu.states.panelOpen;
 
   };
@@ -83,21 +80,24 @@ GEL_Menu.prototype.init = function(menu) {
   // if no space in primary emnu, show items in panel
   function handleMenuLinks() {
 
-    var availableMenuSpace = menu.primary.clientWidth,
+    var availableMenuSpace = menu.nav.clientWidth,
       linkWidths = 0,
       done = false;
 
     if(_this.screenSize !== 'palm') {
+      var visibleItems = 0;
 
-      for (var i = 0; i < menu.primaryItems.length; i++) {
+      for (var i = 0; i < menu.navItems.length; i++) {
 
-        linkWidths = linkWidths + menu.primaryItems[i].clientWidth;
+        linkWidths = linkWidths + menu.navItems[i].clientWidth;
 
         // if total width of links is less than available space
         if (linkWidths < availableMenuSpace) {
 
+          visibleItems ++;
+
           // show primary item
-          menu.primaryItems[i].classList.remove('is-hidden');
+          menu.navItems[i].classList.remove('is-hidden');
 
           // hide secondary item
           menu.secondaryItems[i].classList.remove('is-visible', 'is-first');
@@ -106,47 +106,42 @@ GEL_Menu.prototype.init = function(menu) {
         } else {
 
           // hide primary item
-          menu.primaryItems[i].classList.add('is-hidden');
+          menu.navItems[i].classList.add('is-hidden');
 
           // show secondary item
           menu.secondaryItems[i].classList.remove('is-hidden', 'is-first');
           menu.secondaryItems[i].classList.add('is-visible');
 
           if (!done) {
-            menu.primaryItems[i - 1].classList.add('is-hidden');
+            menu.navItems[i - 1].classList.add('is-hidden');
             menu.secondaryItems[i - 1].classList.add('is-visible', 'is-first');
             menu.secondaryItems[i - 1].classList.remove('is-hidden');
             done = true;
           }
+
         }
+
       }
+
+      // if all menu items are visible
+      if(visibleItems === menu.navItems.length)  {
+        menu.toggle.classList.add('is-hidden');
+      } else {
+        menu.toggle.classList.remove('is-hidden');
+      }
+
     } else {
 
-      for (var i = 0; i < menu.primaryItems.length; i++) {
-          menu.primaryItems[i].classList.remove('is-hidden');
+      for (var i = 0; i < menu.navItems.length; i++) {
+          menu.navItems[i].classList.remove('is-hidden');
       }
 
     }
 
-
-    menu.primary.style.visibility = 'visible';
+    menu.nav.style.visibility = 'visible';
 
   };
 
-  // function resizeMenu(opening) {
-
-  //   var timer,
-  //     secondaryMenuHeight;
-
-  //   if (opening) {
-  //     menu.panel.classList.add('is-open');
-  //     menu.panel.classList.remove('is-closed');
-  //   } else {
-  //     menu.panel.classList.remove('is-open');
-  //     menu.panel.classList.add('is-closed');
-  //   }
-
-  // };
 
 };
 
