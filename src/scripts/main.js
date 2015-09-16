@@ -12,17 +12,10 @@ var promoGroups = document.querySelectorAll('.js-promo-group');
 
 var mastheadArgs = {
   el: masthead,
-  primaryMenu: {
+  menus: [{
     type: '',
-    selectors = {
-      navWrap: '.js-nav-wrap',
-      nav: '.js-nav-primary',
-      navItems: '.js-nav-primary',
-      panel: '.gel-masthead__nav-panel--primary',
-      toggle: '.js-nav-toggle',
-      mobileToggle: '.js-m-nav-toggle'
-    }
-  }
+    selector: '.gel-masthead__nav-wrap'
+  }]
 }
 
 try {

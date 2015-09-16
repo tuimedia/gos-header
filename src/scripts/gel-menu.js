@@ -12,45 +12,57 @@ var GEL_Menu = module.exports = function GEL_Menu(args) {
   // store initial screen size. Update on window resize
   this.screenSize = utils.screenSize();
 
+  this.navWrap = document.querySelectorAll(args.selector)[0];
+  this.nav = this.navWrap.querySelectorAll('.js-nav')[0];
+  this.navItems = this.nav.children;
+  this.panel = this.navWrap.querySelectorAll('.js-nav-panel')[0];
+  this.toggle = this.navWrap.querySelectorAll('.js-nav-toggle')[0];
+
+  this.states = {
+    panelOpen: false,
+    expanding: false,
+    contracting: false
+  }
+
   // go
   this.init(args);
 
 };
 
-GEL_Menu.prototype.init = function(menu) {
+GEL_Menu.prototype.init = function() {
 
-  var _this = this;
+  var self = this;
 
   // clone primary items and append to panel
-  menu.secondary = menu.nav.cloneNode(true);
-  menu.secondaryItems = menu.secondary.children;
-  menu.panel.appendChild(menu.secondary);
+  this.secondary = self.nav.cloneNode(true);
+  this.secondaryItems = self.secondary.children;
+  this.panel.appendChild(self.secondary);
 
   // initial menu link visibility
   handleMenuLinks();
 
   // open/close menu panel on click
-  menu.toggle.addEventListener('click', function(event) {
+  this.toggle.addEventListener('click', function(event) {
     handleMenuPanel('panel');
   });
 
   // mobile menu trigger
-  menu.mobileToggle.addEventListener('click', function(event) {
-    handleMenuPanel('mobile');
-  });
+  // this.mobileToggle.addEventListener('click', function(event) {
+  //   handleMenuPanel('mobile');
+  // });
 
   // toggle menu link visibility on resize
   window.addEventListener('resize', function() {
 
     // store/update screen size
-    _this.screenSize = utils.screenSize();
+    self.screenSize = utils.screenSize();
 
     // hide things while resizing
-    menu.nav.style.visibility = 'hidden'; // hide menu when recalculating visible links
+    self.nav.style.visibility = 'hidden'; // hide menu when recalculating visible links
 
     // show all primary menu items so we can calculate available space
-    for (var i = 0; i < menu.navItems.length; i++) {
-      menu.navItems[i].classList.remove('is-hidden');
+    for (var i = 0; i < self.navItems.length; i++) {
+      self.navItems[i].classList.remove('is-hidden');
     }
 
     // handle link visibility
@@ -63,16 +75,16 @@ GEL_Menu.prototype.init = function(menu) {
 
     switch(type) {
       case 'panel':
-        menu.panel.classList.toggle('is-open');
+        self.panel.classList.toggle('is-open');
       break;
       case 'mobile':
-        menu.panel.classList.remove('is-open');
-        menu.navWrap.classList.toggle('is-open');
+        self.panel.classList.remove('is-open');
+        self.navWrap.classList.toggle('is-open');
       break;
     }
 
     // toggle menu panel open state
-    menu.states.panelOpen = !menu.states.panelOpen;
+    self.states.panelOpen = !self.states.panelOpen;
 
   };
 
@@ -80,16 +92,16 @@ GEL_Menu.prototype.init = function(menu) {
   // if no space in primary emnu, show items in panel
   function handleMenuLinks() {
 
-    var availableMenuSpace = menu.nav.clientWidth,
+    var availableMenuSpace = self.nav.clientWidth,
       linkWidths = 0,
       done = false;
 
-    if(_this.screenSize !== 'palm') {
+    if(self.screenSize !== 'palm') {
       var visibleItems = 0;
 
-      for (var i = 0; i < menu.navItems.length; i++) {
+      for (var i = 0; i < self.navItems.length; i++) {
 
-        linkWidths = linkWidths + menu.navItems[i].clientWidth;
+        linkWidths = linkWidths + self.navItems[i].clientWidth;
 
         // if total width of links is less than available space
         if (linkWidths < availableMenuSpace) {
@@ -97,25 +109,25 @@ GEL_Menu.prototype.init = function(menu) {
           visibleItems ++;
 
           // show primary item
-          menu.navItems[i].classList.remove('is-hidden');
+          self.navItems[i].classList.remove('is-hidden');
 
           // hide secondary item
-          menu.secondaryItems[i].classList.remove('is-visible', 'is-first');
-          menu.secondaryItems[i].classList.add('is-hidden');
+          self.secondaryItems[i].classList.remove('is-visible', 'is-first');
+          self.secondaryItems[i].classList.add('is-hidden');
 
         } else {
 
           // hide primary item
-          menu.navItems[i].classList.add('is-hidden');
+          self.navItems[i].classList.add('is-hidden');
 
           // show secondary item
-          menu.secondaryItems[i].classList.remove('is-hidden', 'is-first');
-          menu.secondaryItems[i].classList.add('is-visible');
+          self.secondaryItems[i].classList.remove('is-hidden', 'is-first');
+          self.secondaryItems[i].classList.add('is-visible');
 
           if (!done) {
-            menu.navItems[i - 1].classList.add('is-hidden');
-            menu.secondaryItems[i - 1].classList.add('is-visible', 'is-first');
-            menu.secondaryItems[i - 1].classList.remove('is-hidden');
+            self.navItems[i - 1].classList.add('is-hidden');
+            self.secondaryItems[i - 1].classList.add('is-visible', 'is-first');
+            self.secondaryItems[i - 1].classList.remove('is-hidden');
             done = true;
           }
 
@@ -124,21 +136,21 @@ GEL_Menu.prototype.init = function(menu) {
       }
 
       // if all menu items are visible
-      if(visibleItems === menu.navItems.length)  {
-        menu.toggle.classList.add('is-hidden');
+      if(visibleItems === self.navItems.length)  {
+        self.toggle.classList.add('is-hidden');
       } else {
-        menu.toggle.classList.remove('is-hidden');
+        self.toggle.classList.remove('is-hidden');
       }
 
     } else {
 
-      for (var i = 0; i < menu.navItems.length; i++) {
-          menu.navItems[i].classList.remove('is-hidden');
+      for (var i = 0; i < self.navItems.length; i++) {
+          self.navItems[i].classList.remove('is-hidden');
       }
 
     }
 
-    menu.nav.style.visibility = 'visible';
+    self.nav.style.visibility = 'visible';
 
   };
 

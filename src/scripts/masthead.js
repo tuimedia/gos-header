@@ -24,40 +24,14 @@ Masthead.prototype.init = function(args) {
 
   var _this = this;
 
-  // TODO: better checking
-  if (this.args.primaryMenu) {
+  this.menus = [];
 
-    var selectors = this.args.primaryMenu.selectors;
+  for (var i = 0; i < this.args.menus.length; i++) {
+    var menu = new GEL_Menu(this.args.menus[i]);
+    this.menus.push(menu);
+  };
 
-    this.menu = new GEL_Menu({
-      navWrap: this.masthead.querySelectorAll(selectors.navWrap)[0],
-      nav: this.masthead.querySelectorAll(selectors.nav)[0],
-      navItems: this.masthead.querySelectorAll(selectors.navItems)[0].children,
-      panel: this.masthead.querySelectorAll(selectors.panel)[0],
-      toggle: this.masthead.querySelectorAll(selectors.toggle)[0],
-      mobileToggle: this.masthead.querySelectorAll(selectors.mobileToggle)[0],
-      states: {
-        panelOpen: false,
-        expanding: false,
-        contracting: false
-      }
-    });
-
-  }
-
-  if (this.masthead[0].querySelectorAll('.js-drawer-nav')) {
-
-    // create object to store draw nav configs. Index used as key
-
-    this.drawerNavs = {};
-
-    for (var i = 0; i < this.masthead.querySelectorAll('.js-drawer-nav').length; i++) {
-      this.initDrawerNav(this.masthead.querySelectorAll('.js-drawer-nav')[i], i);
-    };
-
-  }
-
-  this.bindEvents();
+  // this.bindEvents();
 
 };
 
