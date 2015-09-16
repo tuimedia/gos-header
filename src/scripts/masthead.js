@@ -5,13 +5,14 @@ var utils = require('../../bower_components/gos-core/src/scripts/utils');
 
 var GEL_Menu = require('./gel-menu');
 
-var Masthead = module.exports = function Masthead(masthead) {
+var Masthead = module.exports = function Masthead(args) {
 
   if (!(this instanceof Masthead)) {
     return new Masthead(masthead);
   }
 
-  this.masthead = masthead;
+  this.masthead = args.el[0];
+  this.args = args;
 
   if (this.masthead) {
     this.init();
@@ -24,15 +25,17 @@ Masthead.prototype.init = function(args) {
   var _this = this;
 
   // TODO: better checking
-  if (this.masthead[0].querySelectorAll('.js-nav-primary')[0]) {
+  if (this.args.primaryMenu) {
+
+    var selectors = this.args.primaryMenu.selectors;
 
     this.menu = new GEL_Menu({
-      navWrap: this.masthead[0].querySelectorAll('.js-nav-wrap')[0],
-      nav: this.masthead[0].querySelectorAll('.js-nav-primary')[0],
-      navItems: this.masthead[0].querySelectorAll('.js-nav-primary')[0].children,
-      panel: this.masthead[0].querySelectorAll('.gel-masthead__nav-panel--primary')[0],
-      toggle: this.masthead[0].querySelectorAll('.js-nav-toggle')[0],
-      mobileToggle: this.masthead[0].querySelectorAll('.js-m-nav-toggle')[0],
+      navWrap: this.masthead.querySelectorAll(selectors.navWrap)[0],
+      nav: this.masthead.querySelectorAll(selectors.nav)[0],
+      navItems: this.masthead.querySelectorAll(selectors.navItems)[0].children,
+      panel: this.masthead.querySelectorAll(selectors.panel)[0],
+      toggle: this.masthead.querySelectorAll(selectors.toggle)[0],
+      mobileToggle: this.masthead.querySelectorAll(selectors.mobileToggle)[0],
       states: {
         panelOpen: false,
         expanding: false,
@@ -48,8 +51,8 @@ Masthead.prototype.init = function(args) {
 
     this.drawerNavs = {};
 
-    for (var i = 0; i < this.masthead[0].querySelectorAll('.js-drawer-nav').length; i++) {
-      this.initDrawerNav(this.masthead[0].querySelectorAll('.js-drawer-nav')[i], i);
+    for (var i = 0; i < this.masthead.querySelectorAll('.js-drawer-nav').length; i++) {
+      this.initDrawerNav(this.masthead.querySelectorAll('.js-drawer-nav')[i], i);
     };
 
   }
@@ -63,21 +66,6 @@ Masthead.prototype.init = function(args) {
 Masthead.prototype.bindEvents = function() {
 
   var _this = this;
-
-  if (this.menu.mobileTrigger) {
-
-    this.menu.mobileTrigger.addEventListener('click', function() {
-      _this.menu.menuWrap.classList.toggle('is-open');
-      _this.menu.states.isOpen = !_this.menu.states.isOpen;
-    }, false);
-
-
-    this.menu.desktopTrigger.addEventListener('click', function() {
-      _this.menu.menuWrap.classList.toggle('is-open');
-      _this.menu.states.isOpen = !_this.menu.states.isOpen;
-    }, false);
-
-  }
 
   // setup flyouts if they exist in the menu
   if (this.menu.flyouts) {
