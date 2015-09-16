@@ -14,7 +14,10 @@ var mastheadArgs = {
   el: masthead,
   menus: [{
     type: '',
-    selector: '.gel-masthead__nav-wrap'
+    selector: '.gel-masthead__nav-wrap--primary'
+  }, {
+    type: '',
+    selector: '.gel-masthead__nav-wrap--local'
   }]
 }
 

@@ -1,5 +1,6 @@
 'use strict';
 var utils = require('../../bower_components/gos-core/src/scripts/utils');
+
 var GEL_Menu = module.exports = function GEL_Menu(args) {
 
   if (!(this instanceof GEL_Menu)) {
@@ -43,6 +44,8 @@ GEL_Menu.prototype.init = function() {
 
   // open/close menu panel on click
   this.toggle.addEventListener('click', function(event) {
+    console.dir(this)
+    this.innerHTML = this.innerHTML === 'Menu' ? 'Close' : 'Menu';
     handleMenuPanel('panel');
   });
 
@@ -93,8 +96,7 @@ GEL_Menu.prototype.init = function() {
   function handleMenuLinks() {
 
     var availableMenuSpace = self.nav.clientWidth,
-      linkWidths = 0,
-      done = false;
+      linkWidths = 0;
 
     if(self.screenSize !== 'palm') {
       var visibleItems = 0;
@@ -104,7 +106,7 @@ GEL_Menu.prototype.init = function() {
         linkWidths = linkWidths + self.navItems[i].clientWidth;
 
         // if total width of links is less than available space
-        if (linkWidths < availableMenuSpace) {
+        if (linkWidths < availableMenuSpace - 100) {
 
           visibleItems ++;
 
@@ -117,19 +119,14 @@ GEL_Menu.prototype.init = function() {
 
         } else {
 
+          visibleItems --;
+
           // hide primary item
           self.navItems[i].classList.add('is-hidden');
 
           // show secondary item
           self.secondaryItems[i].classList.remove('is-hidden', 'is-first');
           self.secondaryItems[i].classList.add('is-visible');
-
-          if (!done) {
-            self.navItems[i - 1].classList.add('is-hidden');
-            self.secondaryItems[i - 1].classList.add('is-visible', 'is-first');
-            self.secondaryItems[i - 1].classList.remove('is-hidden');
-            done = true;
-          }
 
         }
 

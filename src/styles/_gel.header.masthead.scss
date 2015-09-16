@@ -79,11 +79,24 @@
 .gel-masthead__nav-primary {
   background: map-get($masthead-theme, primary-menu-bg);
   position: relative;
+  ul li a {
+    color: map-get($masthead-theme, primary-menu-color);
+  }
 }
 
 
+.gel-masthead__nav-local {
+  background: map-get($masthead-theme, secondary-menu-bg);
+  position: relative;
+}
 
-// Primary nav panel
+.gel-masthead__nav-wrap--local {
+  ul li a {
+    color: map-get($masthead-theme, secondary-menu-color);
+  }
+}
+
+// nav panels
 // ------------------------------------------------- //
 
 .gel-masthead__nav-panel {
@@ -94,7 +107,11 @@
   &--primary {
     background: map-get($masthead-theme, primary-menu-bg);
   }
+  &--local {
+    background: map-get($masthead-theme, secondary-menu-bg);
+  }
 }
+
 
 
 
@@ -115,6 +132,7 @@
   @extend .cf;
 }
 
+
 .gel-menu__item {
   float: left;
   a {
@@ -133,55 +151,28 @@
 
 
 
+// .gel-masthead__nav-local-toggle {
+//   flex-grow: 1;
+//   text-align: right;
+//   padding-right: $half-spacing-unit;
+//   color: map-get($masthead-theme, secondary-menu-color);
+// }
 
+// .gel-masthead__nav-local-drawer {
+//   flex-basis: 100%;
+//   display: none;
+// }
 
+// .gel-masthead__related-wrap {
+//   flex-basis: 100%;
+//   display: flex;
+//   flex-wrap: wrap;
+//   @include media-query(lap-and-up) {
+//     padding: $half-spacing-unit 0;
+//     border-top: map-get($masthead-theme, border);
 
-
-
-
-
-.gel-masthead__nav-local {
-  background: #000000;
-  .gel-wrap {
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-  }
-  ul {
-    @extend .cf;
-    @extend %responsive-menu-container;
-    li {
-      @extend %responsive-menu-item;
-      a {
-        color: #fff;
-        padding: $half-spacing-unit;
-      }
-    }
-  }
-}
-
-.gel-masthead__nav-local-toggle {
-  flex-grow: 1;
-  text-align: right;
-  padding-right: $half-spacing-unit;
-  color: map-get($masthead-theme, secondary-menu-color);
-}
-
-.gel-masthead__nav-local-drawer {
-  flex-basis: 100%;
-  display: none;
-}
-
-.gel-masthead__related-wrap {
-  flex-basis: 100%;
-  display: flex;
-  flex-wrap: wrap;
-  @include media-query(lap-and-up) {
-    padding: $half-spacing-unit 0;
-    border-top: map-get($masthead-theme, border);
-
-  }
-}
+//   }
+// }
 
 
 
