@@ -1,337 +1,407 @@
 
 .gel-masthead {
   padding: 0;
-
-  // h1 brand name e.g. Sport, News, Internet Blog
-
-  &__branding {
-    padding: $half-spacing-unit 0;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background: map-get($masthead-theme, bg);
-    h1 {
-      margin: 0;
-      color: map-get($masthead-theme, h1-color);
-    }
-  }
-
-  // desktop nav toggle
-
-  &__nav-toggle {
-    cursor: pointer;
-    @include media-query(lap-and-up) {
-      display: none;
-    }
-  }
-
-  // generic nav styling (all menus)
-
-  &__nav-wrap {
-    display: none;
-    background: map-get($masthead-theme, primary-menu-bg);
-
-    @include media-query(palm) {
-      background: map-get($masthead-theme, secondary-menu-bg);
-    }
-
-    @include media-query(lap-and-up) {
-      border-top: map-get($masthead-theme, border);
-    }
-
-    // generic nav list styling
-    ul {
-      list-style: none;
-      margin: 0;
-      padding: 0;
-      li {
-
-        a {
-          display: block;
-          color: map-get($masthead-theme, primary-menu-color);
-          @include media-query(palm) {
-            padding: $half-spacing-unit 0;
-          }
-        }
-
-        ul {
-          display: none;
-        }
-
-      }
-    }
-
-    &.is-open {
-      display: block;
-    }
-
-    @include media-query(lap-and-up) {
-      display: block;
-    }
-
-  }
-
-  // primary navigation
-
-  &__nav-primary {
-    padding-top: $half-spacing-unit;
-    // padding-left: $half-spacing-unit;
-    // padding-right: $half-spacing-unit;
-    ul {
-      display: flex;
-      flex-wrap: wrap;
-      li {
-        flex-basis: 40%;
-        flex-grow: 1;
-        &:nth-child(2),
-        &:nth-child(3) {
-          border: none;
-        }
-        &:hover,
-        &.is-active {
-          a {
-            text-decoration: none;
-          }
-          &:before {
-            position: absolute;
-            content: '';
-            background: map-get($masthead-theme, primary-menu-hover-bg);
-            width: 100%;
-            height: $half-spacing-unit/2;
-            bottom: 0;
-          }
-        }
-      }
-    }
-
-    @include media-query(palm) {
-      ul {
-        li {
-          a {
-            color: map-get($masthead-theme, primary-m-menu-color)
-          }
-          margin: 0 $half-spacing-unit;
-          border-top: map-get($masthead-theme, border);
-          &:first-child {
-            display: none;
-          }
-        }
-      }
-    }
-
-    @include media-query(lap-and-up) {
-      background: map-get($masthead-theme, primary-menu-bg);
-      padding-top: 0;
-      display: flex;
-      align-items: center;
-      ul {
-        flex-grow: 1;
-        @extend %responsive-menu-container;
-        li {
-          @extend %responsive-menu-item;
-          a {
-            margin: $half-spacing-unit/1.75 0;
-            padding: 0 $half-spacing-unit;
-          }
-        }
-      }
-    }
-
-  }
+}
 
 
-  // ???
+// h1 brand name e.g. Sport, News, Internet Blog
 
-  &__nav-primary-toggle {
-    display: none;
-    @include media-query(lap-and-up) {
-      display: block;
-    }
-
-  }
-
-  &__nav-panel {
-
-    @include media-query(lap-and-up) {
-      display: none;
-      background: map-get($masthead-theme, secondary-menu-bg);
-      .is-open & {
-        display: block;
-      }
-      ul {
-        li {
-          flex-basis: auto;
-          flex-grow: 0;
-          a {
-            color: map-get($masthead-theme, secondary-menu-color);
-          }
-        }
-      }
-    }
-
-  }
-
-  &__nav-local {
-    background: #000000;
-    .gel-wrap {
-      display: flex;
-      align-items: center;
-      flex-wrap: wrap;
-    }
-    ul {
-      @extend .cf;
-      @extend %responsive-menu-container;
-      li {
-        @extend %responsive-menu-item;
-        a {
-          color: #fff;
-          padding: $half-spacing-unit;
-        }
-      }
-    }
-  }
-  &__nav-local-toggle {
-    flex-grow: 1;
-    text-align: right;
-    padding-right: $half-spacing-unit;
-    color: map-get($masthead-theme, secondary-menu-color);
-  }
-  &__nav-local-drawer {
-    flex-basis: 100%;
-    display: none;
-  }
-
-
-  &__related-wrap {
-    flex-basis: 100%;
-    display: flex;
-    flex-wrap: wrap;
-    @include media-query(lap-and-up) {
-      padding: $half-spacing-unit 0;
-      border-top: map-get($masthead-theme, border);
-
-    }
-  }
-
-  &__flyout {
+.gel-masthead__branding {
+  padding: $half-spacing-unit 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: map-get($masthead-theme, bg);
+  h1 {
     margin: 0;
-    flex-basis: 100%;
+    color: map-get($masthead-theme, h1-color);
+  }
+}
 
-    h3 {
-      color: map-get($masthead-theme, h3-color);
-      margin: 0;
-      font: 1.2em/1.5 sans-serif;
-      @include media-query(palm) {
-        font: 1em/1.5 sans-serif;
+
+// desktop nav toggle
+
+.gel-masthead__nav-toggle {
+  display: none;
+  @include media-query(lap-and-up) {
+    display: block;
+  }
+}
+
+// mobile nav toggle
+
+.gel-masthead__m-nav-toggle {
+  @include media-query(lap-and-up) {
+    display: none;
+  }
+}
+
+
+
+
+.gel-masthead__nav-panel {
+  display: none;
+  background: map-get($masthead-theme, secondary-menu-bg);
+  &.is-open {
+    display: block;
+  }
+}
+
+
+
+
+
+
+
+// generic nav styling (all menus)
+
+.gel-masthead__nav {
+  display: none;
+  &.is-open {
+    display: block;
+  }
+  @include media-query(lap-and-up) {
+    display: block;
+  }
+}
+
+.gel-masthead__nav-primary {
+  background: map-get($masthead-theme, primary-menu-bg);
+}
+
+
+
+.gel-menu {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: block;
+  @extend .cf;
+}
+
+.gel-menu__item {
+  float: left;
+  a {
+    display: block;
+    color: map-get($masthead-theme, primary-menu-color);
+    padding: $half-spacing-unit;
+  }
+  &.is-hidden {
+    display: none;
+  }
+  &.is-visible {
+    display: block;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// primary navigation
+
+.gel-masthead__nav-primary {
+  // ul {
+  //   display: flex;
+  //   flex-wrap: wrap;
+  //   li {
+  //     flex-basis: 40%;
+  //     flex-grow: 1;
+  //     &:nth-child(2),
+  //     &:nth-child(3) {
+  //       border: none;
+  //     }
+  //     &:hover,
+  //     &.is-active {
+  //       a {
+  //         text-decoration: none;
+  //       }
+  //       &:before {
+  //         position: absolute;
+  //         content: '';
+  //         background: map-get($masthead-theme, primary-menu-hover-bg);
+  //         width: 100%;
+  //         height: $half-spacing-unit/2;
+  //         bottom: 0;
+  //       }
+  //     }
+  //   }
+  // }
+
+  // @include media-query(palm) {
+  //   ul {
+  //     li {
+  //       a {
+  //         color: map-get($masthead-theme, primary-m-menu-color)
+  //       }
+  //       margin: 0 $half-spacing-unit;
+  //       border-top: map-get($masthead-theme, border);
+  //       &:first-child {
+  //         display: none;
+  //       }
+  //     }
+  //   }
+  // }
+
+  // @include media-query(lap-and-up) {
+  //   background: map-get($masthead-theme, primary-menu-bg);
+  //   padding-top: 0;
+  //   display: flex;
+  //   align-items: center;
+  //   ul {
+  //     flex-grow: 1;
+  //     @extend %responsive-menu-container;
+  //     li {
+  //       @extend %responsive-menu-item;
+  //       a {
+  //         margin: $half-spacing-unit/1.75 0;
+  //         padding: 0 $half-spacing-unit;
+  //       }
+  //     }
+  //   }
+  // }
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.gel-masthead__nav-local {
+  background: #000000;
+  .gel-wrap {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  ul {
+    @extend .cf;
+    @extend %responsive-menu-container;
+    li {
+      @extend %responsive-menu-item;
+      a {
+        color: #fff;
+        padding: $half-spacing-unit;
       }
     }
+  }
+}
 
-    a {
-      display: flex;
-      flex-wrap: nowrap;
-      padding: $half-spacing-unit 0;
-      align-items: center;
-      color: map-get($masthead-theme, flyout-color);
-      span {
-        flex-grow: 1;
-      }
-      i {
-        width: 20px;
-        justify-content: space-between;
-      }
-    }
+.gel-masthead__nav-local-toggle {
+  flex-grow: 1;
+  text-align: right;
+  padding-right: $half-spacing-unit;
+  color: map-get($masthead-theme, secondary-menu-color);
+}
 
-    ul {
-      display: none;
-      li {
-        border-bottom: none;
-        margin: 0;
-      }
-    }
+.gel-masthead__nav-local-drawer {
+  flex-basis: 100%;
+  display: none;
+}
 
-    @include media-query(palm) {
-      border-top: map-get($masthead-theme, border);
-      ul {
-        flex-wrap: wrap;
-        li {
-          flex-basis: 100%;
-          border-top: map-get($masthead-theme, border);
-        }
-      }
-    }
-
-    @include media-query(lap-and-up) {
-      flex-basis: 20%;
-      flex-grow: 1;
-      h3 {
-        .icon {
-          display: none;
-        }
-      }
-      ul {
-        display: flex;
-        flex-wrap: wrap;
-        li {
-          flex-basis: 100%;
-        }
-      }
-    }
-
-    //use CSS cols for main flyout (A-Z)
-    &--main {
-
-      @include media-query(lap) {
-        ul {
-          -webkit-column-count: 3;
-          -webkit-column-gap: 0;
-        }
-      }
-
-      @include media-query(desk) {
-        ul {
-          -webkit-column-count: 5;
-          -webkit-column-gap: 0;
-        }
-      }
-
-      @include media-query(lap-and-up) {
-        flex-basis: auto;
-        border-top: none;
-        padding: $half-spacing-unit 0 0 0;
-        h3 { display: none; }
-        ul {
-          display: block;
-          li {
-            border-top: none;
-            // border-right: map-get($masthead-theme, border);
-            // padding-right: $half-spacing-unit;
-            // &:nth-last-child(-n+4) {
-            //   padding-right: 0;
-            //   border: none;
-            // }
-            a {
-              margin: 0;
-            }
-          }
-        }
-      }
-
-    }
-
-
-    // flyout open state
-    &.is-open {
-      background: map-get($masthead-theme, flyout-bg);
-      i {
-        transform: rotate(180deg);
-      }
-      ul {
-        display: flex;
-      }
-    }
+.gel-masthead__related-wrap {
+  flex-basis: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  @include media-query(lap-and-up) {
+    padding: $half-spacing-unit 0;
+    border-top: map-get($masthead-theme, border);
 
   }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  // .gel-masthead__flyout {
+  //   margin: 0;
+  //   flex-basis: 100%;
+
+  //   h3 {
+  //     color: map-get($masthead-theme, h3-color);
+  //     margin: 0;
+  //     font: 1.2em/1.5 sans-serif;
+  //     @include media-query(palm) {
+  //       font: 1em/1.5 sans-serif;
+  //     }
+  //   }
+
+  //   a {
+  //     display: flex;
+  //     flex-wrap: nowrap;
+  //     padding: $half-spacing-unit 0;
+  //     align-items: center;
+  //     color: map-get($masthead-theme, flyout-color);
+  //     span {
+  //       flex-grow: 1;
+  //     }
+  //     i {
+  //       width: 20px;
+  //       justify-content: space-between;
+  //     }
+  //   }
+
+  //   ul {
+  //     display: none;
+  //     li {
+  //       border-bottom: none;
+  //       margin: 0;
+  //     }
+  //   }
+
+  //   @include media-query(palm) {
+  //     border-top: map-get($masthead-theme, border);
+  //     ul {
+  //       flex-wrap: wrap;
+  //       li {
+  //         flex-basis: 100%;
+  //         border-top: map-get($masthead-theme, border);
+  //       }
+  //     }
+  //   }
+
+  //   @include media-query(lap-and-up) {
+  //     flex-basis: 20%;
+  //     flex-grow: 1;
+  //     h3 {
+  //       .icon {
+  //         display: none;
+  //       }
+  //     }
+  //     ul {
+  //       display: flex;
+  //       flex-wrap: wrap;
+  //       li {
+  //         flex-basis: 100%;
+  //       }
+  //     }
+  //   }
+
+  //   //use CSS cols for main flyout (A-Z)
+  //   &--main {
+
+  //     @include media-query(lap) {
+  //       ul {
+  //         -webkit-column-count: 3;
+  //         -webkit-column-gap: 0;
+  //       }
+  //     }
+
+  //     @include media-query(desk) {
+  //       ul {
+  //         -webkit-column-count: 5;
+  //         -webkit-column-gap: 0;
+  //       }
+  //     }
+
+  //     @include media-query(lap-and-up) {
+  //       flex-basis: auto;
+  //       border-top: none;
+  //       padding: $half-spacing-unit 0 0 0;
+  //       h3 { display: none; }
+  //       ul {
+  //         display: block;
+  //         li {
+  //           border-top: none;
+  //           // border-right: map-get($masthead-theme, border);
+  //           // padding-right: $half-spacing-unit;
+  //           // &:nth-last-child(-n+4) {
+  //           //   padding-right: 0;
+  //           //   border: none;
+  //           // }
+  //           a {
+  //             margin: 0;
+  //           }
+  //         }
+  //       }
+  //     }
+
+  //   }
+
+
+  //   // flyout open state
+  //   &.is-open {
+  //     background: map-get($masthead-theme, flyout-bg);
+  //     i {
+  //       transform: rotate(180deg);
+  //     }
+  //     ul {
+  //       display: flex;
+  //     }
+  //   }
+
+  // }
+// }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 // CORE
@@ -350,6 +420,7 @@
   margin: 0 auto;
   padding-left: $half-spacing-unit;
   padding-right: $half-spacing-unit;
+  position: relative;
   @include media-query(lap-and-up) {
     padding-left: 12px;
     padding-right: 12px;

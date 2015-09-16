@@ -2,7 +2,7 @@ $masthead-theme: (
   bg: #333333,
   primary-menu-bg: #ffffff,
   primary-m-menu-color: #ffffff,
-  primary-menu-color: #ffffff,
+  primary-menu-color: #000000,
   primary-menu-hover-bg: #333333,
   primary-menu-hover-color: #333333,
   secondary-menu-bg: #000000,
@@ -16,6 +16,8 @@ $masthead-theme: (
   h3-color: #ffffff,
   border: #000000
 ) !default;
+
+$gel-product: ''!default;
 
 $gel-header-border: 1px solid #ccc !default;
 

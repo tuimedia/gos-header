@@ -3,6 +3,8 @@
 var extend = require('extend');
 var utils = require('../../bower_components/gos-core/src/scripts/utils');
 
+var GEL_Menu = require('./gel-menu');
+
 var Masthead = module.exports = function Masthead(masthead) {
 
   if (!(this instanceof Masthead)) {
@@ -22,21 +24,21 @@ Masthead.prototype.init = function(args) {
   var _this = this;
 
   // TODO: better checking
-  if (this.masthead[0].querySelectorAll('.js-menu-primary')[0]) {
+  if (this.masthead[0].querySelectorAll('.js-nav-primary')[0]) {
 
-    this.menu = {
-      mobileTrigger: this.masthead[0].querySelectorAll('.js-m-menu-toggle')[0],
-      desktopTrigger: this.masthead[0].querySelectorAll('.js-menu-toggle')[0],
-      menuWrap: this.masthead[0].querySelectorAll('.js-masthead-nav')[0],
-      flyouts: this.masthead[0].querySelectorAll('.js-flyout'),
+    this.menu = new GEL_Menu({
+      navWrap: this.masthead[0].querySelectorAll('.js-nav-wrap')[0],
+      primary: this.masthead[0].querySelectorAll('.js-nav-primary')[0],
+      primaryItems: this.masthead[0].querySelectorAll('.js-nav-primary')[0].children,
+      panel: this.masthead[0].querySelectorAll('.js-nav-panel')[0],
+      toggle: this.masthead[0].querySelectorAll('.js-nav-toggle')[0],
+      mobileToggle: this.masthead[0].querySelectorAll('.js-m-nav-toggle')[0],
       states: {
-        isOpen: false
-      },
-      layouts: {
-        compact: false,
-        expanded: false
+        panelOpen: false,
+        expanding: false,
+        contracting: false
       }
-    };
+    });
 
   }
 
@@ -55,6 +57,8 @@ Masthead.prototype.init = function(args) {
   this.bindEvents();
 
 };
+
+
 
 Masthead.prototype.bindEvents = function() {
 
@@ -106,14 +110,9 @@ Masthead.prototype.bindEvents = function() {
 
 };
 
-// reset on window resize
-Masthead.prototype.resetMenus = function() {
 
-  // close flyouts
 
-  // close menu
 
-};
 
 Masthead.prototype.initDrawerNav = function(el, index) {
 
@@ -168,11 +167,7 @@ Masthead.prototype.initDrawerNav = function(el, index) {
 
   window.addEventListener('resize', function() {
     _this.drawerNavs[index].container.style.visibility = 'hidden';
-
-    // utils.debounce(function() {
     handleVisibleItems();
-    // });
-
   });
 
 };

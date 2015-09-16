@@ -1,4 +1,4 @@
-$gel-product: bbc-sport;
+// $gel-product: bbc-sport;
 
 $lap-start:         550px;
 $desk-start:        768px;
@@ -25,10 +25,10 @@ $responsive-extra: true;
 body {
     background: #cccccc;
 }
+
 .gel-content-wrap {
     background: #E6E6E6;
 }
-
 
 %responsive-menu-container {
   display: block;

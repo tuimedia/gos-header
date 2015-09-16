@@ -13,6 +13,7 @@ var GEL_Header = module.exports = function Header(args) {
     }
 
     this.header = args.el[0];
+    this.args = args;
 
     this.init();
 
@@ -20,7 +21,6 @@ var GEL_Header = module.exports = function Header(args) {
 
 GEL_Header.prototype.init = function(args) {
 
-    var _this = this;
 
     // store attributes
     this.attrs = this.header.dataset;
@@ -45,7 +45,7 @@ GEL_Header.prototype.init = function(args) {
             }
         };
 
-        this.gelMenu();
+        this.gelMenu(this.menu);
 
     }
 
@@ -71,10 +71,8 @@ GEL_Header.prototype.init = function(args) {
 
     }
 
-    // bind events to card elements
     this.bindEvents();
 
-    //
 };
 
 GEL_Header.prototype.bindEvents = function() {
@@ -111,28 +109,28 @@ GEL_Header.prototype.bindEvents = function() {
 
 
 
-GEL_Header.prototype.gelMenu = function() {
+GEL_Header.prototype.gelMenu = function(menu) {
 
     var _this = this;
 
     // initial menu link visibility
     handleMenuLinks();
 
-    //
-    this.menu.toggle.addEventListener('click', function(event) {
+    menu.toggle.addEventListener('click', function(event) {
+
         handleMenuPanel();
     });
 
     // toggle menu link visibility on resize
     window.addEventListener('resize', function() {
 
-        _this.menu.primary.style.visibility = 'hidden';
+        menu.primary.style.visibility = 'hidden';
 
-        for (var i = 0; i < _this.menu.primaryItems.length; i++) {
-            _this.menu.primaryItems[i].classList.remove('is-hidden');
+        for (var i = 0; i < menu.primaryItems.length; i++) {
+            menu.primaryItems[i].classList.remove('is-hidden');
         }
 
-        if (_this.menu.states.panelOpen) {
+        if (menu.states.panelOpen) {
             resizeMenu();
         }
 
@@ -148,44 +146,44 @@ GEL_Header.prototype.gelMenu = function() {
             _this.notifications.panel.classList.remove('is-open');
         }
 
-        if (_this.menu.states.panelOpen) {
-            _this.menu.panel.classList.remove('is-open');
+        if (menu.states.panelOpen) {
+            menu.panel.classList.remove('is-open');
             _this.page.style.transform = 'translateY(0px)';
         } else {
-            _this.menu.panel.classList.add('is-open');
+            menu.panel.classList.add('is-open');
             resizeMenu(true);
         }
 
-        _this.menu.states.panelOpen = !_this.menu.states.panelOpen;
+        menu.states.panelOpen = !menu.states.panelOpen;
 
     };
 
     function handleMenuLinks() {
 
-        var availableMenuSpace = _this.menu.primary.clientWidth,
+        var availableMenuSpace = menu.primary.clientWidth,
             linkWidths = 0,
             done = false;
 
-        for (var i = 0; i < _this.menu.primaryItems.length; i++) {
-            linkWidths = linkWidths + _this.menu.primaryItems[i].clientWidth;
+        for (var i = 0; i < menu.primaryItems.length; i++) {
+            linkWidths = linkWidths + menu.primaryItems[i].clientWidth;
             if (linkWidths < availableMenuSpace) {
-                _this.menu.primaryItems[i].classList.remove('is-hidden');
-                _this.menu.panelItems[i].classList.remove('is-visible', 'is-first');
-                _this.menu.panelItems[i].classList.add('is-hidden');
+                menu.primaryItems[i].classList.remove('is-hidden');
+                menu.panelItems[i].classList.remove('is-visible', 'is-first');
+                menu.panelItems[i].classList.add('is-hidden');
             } else {
-                _this.menu.primaryItems[i].classList.add('is-hidden');
-                _this.menu.panelItems[i].classList.remove('is-hidden', 'is-first');
-                _this.menu.panelItems[i].classList.add('is-visible');
+                menu.primaryItems[i].classList.add('is-hidden');
+                menu.panelItems[i].classList.remove('is-hidden', 'is-first');
+                menu.panelItems[i].classList.add('is-visible');
                 if (!done) {
-                    _this.menu.primaryItems[i - 1].classList.add('is-hidden');
-                    _this.menu.panelItems[i - 1].classList.add('is-visible', 'is-first');
-                    _this.menu.panelItems[i - 1].classList.remove('is-hidden');
+                    menu.primaryItems[i - 1].classList.add('is-hidden');
+                    menu.panelItems[i - 1].classList.add('is-visible', 'is-first');
+                    menu.panelItems[i - 1].classList.remove('is-hidden');
                     done = true;
                 }
             }
         }
 
-        _this.menu.primary.style.visibility = 'visible';
+        menu.primary.style.visibility = 'visible';
 
     };
 
@@ -237,6 +235,7 @@ GEL_Header.prototype.handleNotificationPanel = function() {
         }
     }
 
+
     // if menu is open when opening notifications panel then close menu
     if (this.menu.states.panelOpen) {
         this.menu.states.panelOpen = false;
@@ -262,10 +261,10 @@ GEL_Header.prototype.handleNotificationPanel = function() {
 
     } else {
 
+        // panel is opening. Trigger notification panel open event
         _this.page.style.transform = 'translateY(' + this.notificationPanelHeight + 'px)';
 
         this.notifications.panel.classList.add('is-open');
-
 
     }
 

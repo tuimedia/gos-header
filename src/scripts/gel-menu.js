@@ -1,170 +1,152 @@
 'use strict';
+var utils = require('../../bower_components/gos-core/src/scripts/utils');
+var GEL_Menu = module.exports = function GEL_Menu(args) {
 
-var GEL_Menu = module.exports = function Menu(args) {
+  if (!(this instanceof GEL_Menu)) {
+    return new GEL_Menu();
+  }
 
-    console.log('here1');
+  // store any arguments
+  this.args = args;
 
-    if (!(this instanceof Menu)) {
-        return new Menu();
+  // store initial screen size. Update on window resize
+  this.screenSize = utils.screenSize();
+
+  // go
+  this.init(args);
+
+
+};
+
+GEL_Menu.prototype.init = function(menu) {
+
+  var _this = this;
+
+  console.log('GEL menu init');
+
+  // clone primary items and append to panel
+  menu.secondary = menu.primary.cloneNode(true);
+  menu.secondaryItems = menu.secondary.children;
+  menu.panel.appendChild(menu.secondary);
+
+  // open/close menu panel on click
+  menu.toggle.addEventListener('click', function(event) {
+    handleMenuPanel('panel');
+  });
+
+  menu.mobileToggle.addEventListener('click', function(event) {
+    handleMenuPanel('mobile');
+  });
+
+  // initial menu link visibility
+  handleMenuLinks();
+
+  // toggle menu link visibility on resize
+  window.addEventListener('resize', function() {
+
+    _this.screenSize = utils.screenSize();
+
+    menu.primary.style.visibility = 'hidden'; // hide menu when recalculating visible links
+
+    // show all primary menu items so we can calculat available space
+    for (var i = 0; i < menu.primaryItems.length; i++) {
+      menu.primaryItems[i].classList.remove('is-hidden');
     }
 
-    this.args = args;
-
-    this.init();
-
-};
-
-GEL_Menu.prototype.init = function() {
-
-    var _this = this;
-
-    console.log('menu init');
-
-    // store attributes
-    // this.attrs = this.header.dataset;
-
-    // this.page = document.querySelectorAll('.js-content-wrap')[0];
-
-        this.menuEnabled = true;
-
-        this.menu = this.args;
-
-        this.gelMenu();
-
-
-    // // bind events to card elements
-    // this.bindEvents();
-
-};
-
-GEL_Menu.prototype.bindEvents = function() {
-
-    var _this = this;
-
-    if (this.notificationsEnabled) {
-
-        this.notifications.cta.addEventListener('click', function(event) {
-
-            _this.handleNotificationPanel();
-
-            if (_this.notifications.states.settingsPanelOpen) {
-                _this.handleSettingsPanel();
-            }
-
-        });
-
-        this.notifications.close.addEventListener('click', function(event) {
-            _this.handleNotificationPanel();
-        });
-
-        this.notifications.settingsCta.addEventListener('click', function(event) {
-            _this.handleSettingsPanel();
-        });
-
-        this.notifications.settingsClose.addEventListener('click', function(event) {
-            _this.handleSettingsPanel();
-        });
-
+    if (menu.states.panelOpen) {
+      resizeMenu();
     }
 
-};
-
-
-
-GEL_Menu.prototype.gelMenu = function() {
-
-    var _this = this;
-
-    // initial menu link visibility
     handleMenuLinks();
 
-    //
-    this.menu.toggle.addEventListener('click', function(event) {
-        handleMenuPanel();
-    });
-
-    // toggle menu link visibility on resize
-    window.addEventListener('resize', function() {
-
-        _this.menu.primary.style.visibility = 'hidden';
-
-        for (var i = 0; i < _this.menu.primaryItems.length; i++) {
-            _this.menu.primaryItems[i].classList.remove('is-hidden');
-        }
-
-        if (_this.menu.states.panelOpen) {
-            resizeMenu();
-        }
-
-        handleMenuLinks();
-
-    }, false);
+  }, false);
 
 
-    function handleMenuPanel() {
+  // panel state controller
+  function handleMenuPanel(type) {
 
-        if (_this.notifications.states.notifyPanelOpen) {
-            _this.notifications.states.notifyPanelOpen = false;
-            _this.notifications.panel.classList.remove('is-open');
-        }
+    switch(type) {
+      case 'panel':
+        menu.panel.classList.toggle('is-open');
+      break;
+      case 'mobile':
+        menu.panel.classList.remove('is-open');
+        menu.navWrap.classList.toggle('is-open');
+      break;
+    }
 
-        if (_this.menu.states.panelOpen) {
-            _this.menu.panel.classList.remove('is-open');
-            _this.page.style.transform = 'translateY(0px)';
+    menu.states.panelOpen = !menu.states.panelOpen;
+
+  };
+
+  // handle vidibility of menu items based on available space
+  // if no space in primary emnu, show items in panel
+  function handleMenuLinks() {
+
+    var availableMenuSpace = menu.primary.clientWidth,
+      linkWidths = 0,
+      done = false;
+
+    if(_this.screenSize !== 'palm') {
+
+      for (var i = 0; i < menu.primaryItems.length; i++) {
+
+        linkWidths = linkWidths + menu.primaryItems[i].clientWidth;
+
+        // if total width of links is less than available space
+        if (linkWidths < availableMenuSpace) {
+
+          // show primary item
+          menu.primaryItems[i].classList.remove('is-hidden');
+
+          // hide secondary item
+          menu.secondaryItems[i].classList.remove('is-visible', 'is-first');
+          menu.secondaryItems[i].classList.add('is-hidden');
+
         } else {
-            _this.menu.panel.classList.add('is-open');
-            resizeMenu(true);
+
+          // hide primary item
+          menu.primaryItems[i].classList.add('is-hidden');
+
+          // show secondary item
+          menu.secondaryItems[i].classList.remove('is-hidden', 'is-first');
+          menu.secondaryItems[i].classList.add('is-visible');
+
+          if (!done) {
+            menu.primaryItems[i - 1].classList.add('is-hidden');
+            menu.secondaryItems[i - 1].classList.add('is-visible', 'is-first');
+            menu.secondaryItems[i - 1].classList.remove('is-hidden');
+            done = true;
+          }
         }
+      }
+    } else {
 
-        _this.menu.states.panelOpen = !_this.menu.states.panelOpen;
+      for (var i = 0; i < menu.primaryItems.length; i++) {
+          menu.primaryItems[i].classList.remove('is-hidden');
+      }
 
-    };
+    }
 
-    function handleMenuLinks() {
 
-        var availableMenuSpace = _this.menu.primary.clientWidth,
-            linkWidths = 0,
-            done = false;
+    menu.primary.style.visibility = 'visible';
 
-        for (var i = 0; i < _this.menu.primaryItems.length; i++) {
-            linkWidths = linkWidths + _this.menu.primaryItems[i].clientWidth;
-            if (linkWidths < availableMenuSpace) {
-                _this.menu.primaryItems[i].classList.remove('is-hidden');
-                _this.menu.panelItems[i].classList.remove('is-visible', 'is-first');
-                _this.menu.panelItems[i].classList.add('is-hidden');
-            } else {
-                _this.menu.primaryItems[i].classList.add('is-hidden');
-                _this.menu.panelItems[i].classList.remove('is-hidden', 'is-first');
-                _this.menu.panelItems[i].classList.add('is-visible');
-                if (!done) {
-                    _this.menu.primaryItems[i - 1].classList.add('is-hidden');
-                    _this.menu.panelItems[i - 1].classList.add('is-visible', 'is-first');
-                    _this.menu.panelItems[i - 1].classList.remove('is-hidden');
-                    done = true;
-                }
-            }
-        }
+  };
 
-        _this.menu.primary.style.visibility = 'visible';
+  // function resizeMenu(opening) {
 
-    };
+  //   var timer,
+  //     secondaryMenuHeight;
 
-    function resizeMenu(opening) {
+  //   if (opening) {
+  //     menu.panel.classList.add('is-open');
+  //     menu.panel.classList.remove('is-closed');
+  //   } else {
+  //     menu.panel.classList.remove('is-open');
+  //     menu.panel.classList.add('is-closed');
+  //   }
 
-        var timer,
-            secondaryMenuHeight;
-
-        if (opening) {
-            secondaryMenuHeight = _this.menu.secondary.clientHeight;
-            _this.page.style.transform = 'translateY(' + secondaryMenuHeight + 'px)';
-        } else {
-            timer = setTimeout(function() {
-                secondaryMenuHeight = _this.menu.secondary.clientHeight;
-                _this.page.style.transform = 'translateY(' + secondaryMenuHeight + 'px)';
-            }, 500);
-        }
-
-    };
+  // };
 
 };
 
