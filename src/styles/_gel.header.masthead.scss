@@ -140,12 +140,30 @@
     color: map-get($masthead-theme, primary-menu-color);
     padding: $half-spacing-unit;
   }
+
   &.is-hidden {
     display: none;
   }
+
   &.is-visible {
     display: block;
   }
+
+  &.is-active {
+    .gel-masthead__nav-wrap--primary & {
+      background: map-get($masthead-theme, secondary-menu-bg);
+      a {
+        color: map-get($masthead-theme, secondary-menu-color);
+      }
+    }
+  }
+
+  .gel-masthead__nav-wrap--local & {
+    &.is-active {
+      background: red;
+    }
+  }
+
 }
 
 
