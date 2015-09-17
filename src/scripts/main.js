@@ -21,43 +21,46 @@ var mastheadArgs = {
   }]
 }
 
-try {
-  masthead = new Masthead(mastheadArgs);
-} catch (e) {
-  if (typeof console !== 'undefined') {
-    console.error(e.stack);
-  }
-}
-
-for (var i = 0; i < promoGroups.length; i++) {
+document.addEventListener("DOMContentLoaded", function(event) {
 
   try {
-    var args = {
-      el: promoGroups[i],
-      arg1: 'arg1'
-    };
-    var promoGroupInstance = new Promos(args);
+    masthead = new Masthead(mastheadArgs);
   } catch (e) {
     if (typeof console !== 'undefined') {
       console.error(e.stack);
     }
   }
 
-};
+  for (var i = 0; i < promoGroups.length; i++) {
 
-try {
+    try {
+      var args = {
+        el: promoGroups[i],
+        arg1: 'arg1'
+      };
+      var promoGroupInstance = new Promos(args);
+    } catch (e) {
+      if (typeof console !== 'undefined') {
+        console.error(e.stack);
+      }
+    }
 
-  pageHeader = new Header({
-    el: document.querySelectorAll('.js-header')
-  });
+  };
 
-  // spoof notifications
-  setTimeout(function() {
-    pageHeader.getNotifications();
-  }, 500);
+  try {
 
-} catch (e) {
-  if (typeof console !== 'undefined') {
-    console.error(e.stack);
+    pageHeader = new Header({
+      el: document.querySelectorAll('.js-header')
+    });
+
+    // spoof notifications
+    setTimeout(function() {
+      pageHeader.getNotifications();
+    }, 500);
+
+  } catch (e) {
+    if (typeof console !== 'undefined') {
+      console.error(e.stack);
+    }
   }
-}
+});

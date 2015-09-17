@@ -17,6 +17,17 @@ $masthead-theme: (
   border: #000000
 ) !default;
 
+$gel-header-theme: (
+  bg: #000000,
+  border-h: 1px solid #fff,
+  border-v: 1px solid #fff,
+  link-color: #fff,
+  link-hover-bg: #fff,
+  link-hover-color: #000
+)!default;
+
+
+
 $gel-product: ''!default;
 
 $gel-header-border: 1px solid #ccc !default;

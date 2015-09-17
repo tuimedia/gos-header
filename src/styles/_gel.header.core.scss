@@ -1,3 +1,5 @@
+
+
 .gel-content-wrap {
     transition: transform 0.4s;
 }
@@ -6,13 +8,13 @@
 
 .gel-header {
     height: 40px;
-    border-bottom: $gel-header-border;
+    border-bottom:  map-get($gel-header-theme, border-h);
     position: relative;
     transition: margin 0.4s;
+    background: map-get($gel-header-theme, bg);
     * {
         box-sizing: border-box;
     }
-
 }
 
 
@@ -21,7 +23,8 @@
 // ------------------------------------------ //
 
 .gel-header__inner {
-    @extend %gel-wrapper;
+    @extend .gel-wrap;
+    @extend .gel-wrap--padded;
     display: flex;
     align-items: stretch;
     height: 100%;
@@ -34,27 +37,17 @@
 // ------------------------------------------ //
 
 .gel-header__logo {
-    border-right: $gel-header-border;
+    border-right: map-get($gel-header-theme, border-v);
     display: flex;
     align-items: center;
-    font-family: 'gill';
-    text-align: center;
-    span {
-        border-left: $gel-header-border;
-        border-bottom: $gel-header-border;
-        width: 40px;
-        height: 40px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        &:first-child {
-            border-left: none;
-        }
-        i {
-            font-style: normal;
-            font-size: 26px;
-            line-height: 1;
-        }
+    padding-right: $base-spacing-unit;
+    .gel-header--dark & {
+        .light { display: block;}
+        .dark { display: none;}
+    }
+    .gel-header--light & {
+        .light { display: none;}
+        .dark { display: block;}
     }
 }
 
@@ -66,7 +59,7 @@
 .gel-header__account {
     display: flex;
     flex-basis: 40px;
-    border-right: $gel-header-border;
+    border-right: map-get($gel-header-theme, border-v);
     flex-shrink: 0;
     a {
         flex-grow: 1;
@@ -88,7 +81,7 @@
     display: flex;
     padding: 0 $base-spacing-unit;
     flex-shrink: 0;
-    border-right: $gel-header-border;
+    border-right: map-get($gel-header-theme, border-v);
     align-items: center;
     justify-content: center;
     cursor: pointer;
@@ -97,6 +90,7 @@
         width: 18px;
         opacity: 0.7;
         transition: opacity .1s;
+        fill: map-get($gel-header-theme, link-color);
     }
     &:after {
         content: '';
@@ -172,60 +166,84 @@
 // ------------------------------------------ //
 
 .gel-header__menu {
-    // flex-grow: 1;
     display: flex;
     align-items: center;
 }
 
-    .gel-header__menu-toggle {
-        display: flex;
-        align-items: stretch;
-        flex-grow: 1;
-        button {
-            padding: 0 $base-spacing-unit;
-            border: none;
-            background: none;
-            font-weight: 300;
-            outline: none;
-            font-size: 14px;
-            width: 100%;
-            text-align: left;
+
+
+// "More" CTA
+// ------------------------------------------ //
+
+.gel-header__menu-toggle {
+    display: flex;
+    align-items: stretch;
+    flex-grow: 1;
+    button {
+        padding: 0 $base-spacing-unit;
+        border: none;
+        background: none;
+        outline: none;
+        font-size: 14px;
+        width: 100%;
+        text-align: left;
+        color: map-get($gel-header-theme, link-color);
+        &:hover {
+            background: map-get($gel-header-theme, link-hover-bg);
+            color: map-get($gel-header-theme, link-hover-color);
+        }
+    }
+}
+
+
+
+// menu item wrap
+// ------------------------------------------ //
+
+.gel-header__menu-items {
+    @extend %responsive-menu-container;
+    flex-grow: 1;
+}
+
+
+
+// menu item
+// ------------------------------------------ //
+
+.gel-header__menu-item {
+    @extend %responsive-menu-item;
+    border-right: map-get($gel-header-theme, border-v);
+    height: 40px;
+    font-size: 14px;
+    &:after {
+        opacity: 0;
+        transition: opacity 0.1s;
+        content: '';
+        position: absolute;
+        bottom: 0;
+        height: 4px;
+        left: 0;
+        right: 0;
+    }
+    a {
+        padding: 0 $base-spacing-unit;
+        color: map-get($gel-header-theme, link-color);
+    }
+
+    // &--news:after   { background-color: map-get($brand-colors, bbc-news); }
+    // &--sport:after  { background-color: map-get($brand-colors, bbc-sport); }
+
+    &:hover {
+        background: map-get($gel-header-theme, link-hover-bg);
+        a {
+            color: map-get($gel-header-theme, link-hover-color);
+        }
+        &:after {
+            opacity: 1;
         }
     }
 
-    .gel-header__menu-items {
-        @extend %responsive-menu-container;
-        flex-grow: 1;
-    }
-
-        .gel-header__menu-item {
-            @extend %responsive-menu-item;
-            padding: 0 $base-spacing-unit;
-            border-right: $gel-header-border;
-            height: 40px;
-            font-size: 14px;
-            font-weight: 300;
-            &:after {
-                opacity: 0;
-                transition: opacity 0.1s;
-                content: '';
-                position: absolute;
-                bottom: 0;
-                height: 4px;
-                left: 0;
-                right: 0;
-            }
-
-            &--news:after   { background-color: map-get($brand-colors, bbc-news); }
-            &--sport:after  { background-color: map-get($brand-colors, bbc-sport); }
-
-            &:hover {
-                &:after {
-                    opacity: 1;
-                }
-            }
-
-        }
+}
 
 
 
@@ -238,7 +256,6 @@
     bottom: 0;
     right: 0;
     left: 0;
-
     visibility: hidden;
     &.is-open {
         visibility: visible;
@@ -258,59 +275,59 @@
     }
 
 }
-    .gel-header__menu-panel-items {
-        margin: 0;
-        padding: $base-spacing-unit 0 0 0 ;
-        list-style: none;
-        display: flex;
-        flex-wrap: wrap;
+
+
+
+// Collapsible menu panel items wrap
+// ------------------------------------------ //
+
+.gel-header__menu-panel-items {
+    margin: 0;
+    padding: $base-spacing-unit 0 0 0 ;
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+
+
+// Collapsible menu panel item
+// ------------------------------------------ //
+
+.gel-header__menu-panel-item {
+    flex-basis: calc(33.3333% - #{$half-spacing-unit});
+    margin-bottom: $base-spacing-unit;
+    display: flex;
+    a {
+        padding: $half-spacing-unit;
+        flex-grow: 1;
+        color: #000;
+        text-decoration: none;
+        font-weight: 700;
+    }
+    &:hover {
+        background: #000;
+        a {
+            color: #fff;
+        }
+    }
+    @include media-query(lap) {
+        flex-basis: calc(25% - #{$half-spacing-unit});
+    }
+    @include media-query(desk){
+        flex-basis: calc(20% - #{$half-spacing-unit});
+    }
+    &.is-hidden {
+        display: none;
+    }
+    &.visible.first {
+        margin-left: calc(33.333% - #{$half-spacing-unit});
+        @include media-query(lap) {
+            margin-left: $half-spacing-unit;
+        }
     }
 
-        .gel-header__menu-panel-item {
-            flex-basis: calc(33.3333% - #{$half-spacing-unit});
-            margin-bottom: $base-spacing-unit;
-            display: flex;
-            a {
-                padding: $half-spacing-unit;
-                flex-grow: 1;
-                color: #000;
-                text-decoration: none;
-                font-weight: 700;
-            }
-            &:hover {
-                background: #000;
-                a {
-                    color: #fff;
-                }
-            }
-            @include media-query(palm){
-
-            }
-
-            @include media-query(lap) {
-                flex-basis: calc(25% - #{$half-spacing-unit});
-            }
-
-            @include media-query(portable){
-
-            }
-
-            @include media-query(desk){
-                flex-basis: calc(20% - #{$half-spacing-unit});
-            }
-
-            &.is-hidden {
-                display: none;
-            }
-
-            &.visible.first {
-                margin-left: calc(33.333% - #{$half-spacing-unit});
-                @include media-query(lap) {
-                    margin-left: $half-spacing-unit;
-                }
-
-            }
-        }
+}
 
 
 

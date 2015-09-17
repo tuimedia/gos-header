@@ -8,8 +8,11 @@
 
     <link rel="shortcut icon" href="/favicon.ico">
     <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+
+
     <link rel="import" href="templates/promo.html">
+    <link rel="import" href="templates/header.html">
+    <link rel="import" href="templates/masthead.html">
 
     <!-- build:css(.) styles/vendor.css -->
     <!-- bower:css -->
@@ -21,212 +24,9 @@
   </head>
   <body>
 
-    <div class="gel-header js-header">
 
-      <div class="gel-header__inner">
-        <div class="gel-header__logo"><span><i>B</i></span><span><i>B</i></span><span><i>C</i></span></div>
-
-        <div class="gel-header__account">
-          <a href="#">
-            <img src="avatar.png"/>
-          </a>
-          <span>Sign In</span>
-        </div>
-
-        <div class="gel-header__notify js-notify">
-          <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="20.363px" height="20.363px" viewBox="0 0 20.363 20.363" xml:space="preserve">
-            <path fill-rule="evenodd" clip-rule="evenodd" d="M16.545,11.454V7.636c-0.146-2.934-2.29-5.352-5.091-5.918V0H8.909v1.718c-2.8,0.567-4.945,2.985-5.091,5.918v3.818L0,16.545h20.363L16.545,11.454z M7.636,20.363h5.091v-2.545H7.636V20.363z"></path>
-          </svg>
-        </div>
-
-        <div class="gel-header__menu">
-          <ul class="gel-header__menu-items js-menu-primary">
-            <li class="gel-header__menu-item gel-header__menu-item--news"><a href="#"><span>News</span></a></li>
-            <li class="gel-header__menu-item gel-header__menu-item--sport"><a href="#"><span>Sport</span></a></li>
-            <li class="gel-header__menu-item gel-header__menu-item--weather"><a href="#"><span>Weather</span></a></li>
-            <li class="gel-header__menu-item gel-header__menu-item--iplayer"><a href="#"><span>iPlayer</span></a></li>
-            <li class="gel-header__menu-item gel-header__menu-item--tv"><a href="#"><span>TV</span></a></li>
-            <li class="gel-header__menu-item gel-header__menu-item--radio"><a href="#"><span>Radio</span></a></li>
-            <li class="gel-header__menu-item gel-header__menu-item--cbbc"><a href="#"><span>CBBC</span></a></li>
-            <li class="gel-header__menu-item gel-header__menu-item--cbeebies"><a href="#"><span>CBeebies</span></a></li>
-            <li class="gel-header__menu-item gel-header__menu-item--arts"><a href="#"><span>Arts</span></a></li>
-            <li class="gel-header__menu-item gel-header__menu-item--ww1"><a href="#"><span>WW1</span></a></li>
-            <li class="gel-header__menu-item gel-header__menu-item--food"><a href="#"><span>Food</span></a></li>
-            <li class="gel-header__menu-item gel-header__menu-item--iwonder"><a href="#"><span>iWonder</span></a></li>
-            <li class="gel-header__menu-item gel-header__menu-item--bitesize"><a href="#"><span>Bitesize</span></a></li>
-            <li class="gel-header__menu-item gel-header__menu-item--music"><a href="#"><span>Music</span></a></li>
-            <li class="gel-header__menu-item gel-header__menu-item--earth"><a href="#"><span>Earth</span></a></li>
-            <li class="gel-header__menu-item gel-header__menu-item--local"><a href="#"><span>Local</span></a></li>
-            <li class="gel-header__menu-item gel-header__menu-item--travel"><a href="#"><span>Travel</span></a></li>
-          </ul>
-        </div>
-        <div class="gel-header__menu-toggle">
-          <button class="js-menu-toggle">More</button>
-        </div>
-        <div class="gel-header__menu-panel js-menu-panel">
-          <div class="wrap">
-            <h2>More</h2>
-            <ul class="gel-header__menu-panel-items js-menu-secondary">
-              <li class="gel-header__menu-panel-item"><a href="#">News</a></li>
-              <li class="gel-header__menu-panel-item"><a href="#">Sport</a></li>
-              <li class="gel-header__menu-panel-item"><a href="#">Weather</a></li>
-              <li class="gel-header__menu-panel-item"><a href="#">iPlayer</a></li>
-              <li class="gel-header__menu-panel-item"><a href="#">TV</a></li>
-              <li class="gel-header__menu-panel-item"><a href="#">Radio</a></li>
-              <li class="gel-header__menu-panel-item"><a href="#">CBBC</a></li>
-              <li class="gel-header__menu-panel-item"><a href="#">CBeebies</a></li>
-              <li class="gel-header__menu-panel-item"><a href="#">Arts</a></li>
-              <li class="gel-header__menu-panel-item"><a href="#">WW1</a></li>
-              <li class="gel-header__menu-panel-item"><a href="#">Food</a></li>
-              <li class="gel-header__menu-panel-item"><a href="#">iWonder</a></li>
-              <li class="gel-header__menu-panel-item"><a href="#">Bitesize</a></li>
-              <li class="gel-header__menu-panel-item"><a href="#">Music</a></li>
-              <li class="gel-header__menu-panel-item"><a href="#">Earth</a></li>
-              <li class="gel-header__menu-panel-item"><a href="#">Local</a></li>
-              <li class="gel-header__menu-panel-item"><a href="#">Travel</a></li>
-            </ul>
-          </div>
-        </div>
-
-        <div class="gel-header__search">
-          <form>
-            <input type="text" placeholder="Search the BBC..." />
-            <button type="submit"><i class="icon icon--search"></i></button>
-          </form>
-        </div>
-
-      </div>
-
-      <div class="gel-header__notify-panel notify-panel js-notify-panel">
-        <div class="notify-panel__header">
-          <div class="gel-wrap gel-wrap--padded">
-            <h3>Notifications</h3>
-            <button class="icon icon--settings js-notify-settings"></button>
-            <button class="icon icon--close js-notify-close"></button>
-          </div>
-        </div>
-        <ul class="notify-panel__items js-notify-items">
-          <li class="notify-panel__item ' + handleNew(arr[i].isNew) + ' ' + handleExpiry(arr[i].isExpiring) + ' js-notify-item">
-            <div class="notify-panel__item-details">
-              <h4>No new notifications</h4>
-            </div>
-          </li>
-        </ul>
-
-        <div class="notify-panel__settings js-notify-settings-panel">
-          <div class="gel-wrap">
-            <div class="notify-panel__settings-header">
-              <h3>Preferences</h3>
-              <button class="icon icon--close js-notify-settings-close"></button>
-            </div>
-            <div class="notify-panel__settings-content"></div>
-          </div>
-        </div>
-
-      </div>
-
-    </div>
 
     <div class="gel-content-wrap js-content-wrap">
-
-
-      <section class="gel-masthead js-masthead">
-
-        <div class="gel-masthead__branding">
-          <div class="gel-wrap gel-wrap--padded">
-            <h1>Sport</h1>
-            <button class="gel-masthead__m-nav-toggle js-m-nav-toggle">Menu2</button>
-
-          </div> <!-- / gel-wrap -->
-        </div>
-
-
-        <div class="gel-masthead__nav-wrap gel-masthead__nav-wrap--primary">
-
-          <div class="gel-masthead__nav-primary">
-
-            <div class="gel-wrap gel-wrap--no-padding">
-
-              <ul class="gel-menu js-nav">
-                <li class="gel-menu__item"><a href="#">link1</a></li>
-                <li class="gel-menu__item"><a href="#">link2</a></li>
-                <li class="gel-menu__item is-active"><a href="#">link3</a></li>
-                <li class="gel-menu__item"><a href="#">link4</a></li>
-                <li class="gel-menu__item"><a href="#">link5</a></li>
-                <li class="gel-menu__item"><a href="#">link6</a></li>
-                <li class="gel-menu__item"><a href="#">link7</a></li>
-                <li class="gel-menu__item"><a href="#">link8</a></li>
-                <li class="gel-menu__item"><a href="#">link9</a></li>
-                <li class="gel-menu__item"><a href="#">link10</a></li>
-                <li class="gel-menu__item"><a href="#">link11</a></li>
-                <li class="gel-menu__item"><a href="#">link12</a></li>
-                <li class="gel-menu__item"><a href="#">link13</a></li>
-                <li class="gel-menu__item"><a href="#">link14</a></li>
-                <li class="gel-menu__item"><a href="#">link15</a></li>
-                <li class="gel-menu__item"><a href="#">link16</a></li>
-                <li class="gel-menu__item"><a href="#">link17</a></li>
-                <li class="gel-menu__item"><a href="#">link18</a></li>
-                <li class="gel-menu__item"><a href="#">link19</a></li>
-                <li class="gel-menu__item"><a href="#">link20</a></li>
-              </ul>
-
-              <button class="gel-masthead__nav-toggle js-nav-toggle">Menu</button>
-
-            </div>
-
-          </div>
-
-          <div class="gel-wrap gel-wrap--no-padding">
-
-            <div class="gel-masthead__nav-panel gel-masthead__nav-panel--primary js-nav-panel">
-
-            </div>
-
-          </div>
-
-        </div>
-
-
-        <div class="gel-masthead__nav-wrap gel-masthead__nav-wrap--local">
-
-          <div class="gel-masthead__nav-local">
-
-            <div class="gel-wrap gel-wrap--no-padding">
-
-              <ul class="gel-menu js-nav">
-                <li class="gel-menu__item"><a href="#">link1</a></li>
-                <li class="gel-menu__item"><a href="#">link2</a></li>
-                <li class="gel-menu__item"><a href="#">link3</a></li>
-                <li class="gel-menu__item"><a href="#">link4</a></li>
-                <li class="gel-menu__item"><a href="#">link5</a></li>
-                <li class="gel-menu__item"><a href="#">link6</a></li>
-                <li class="gel-menu__item"><a href="#">link7</a></li>
-                <li class="gel-menu__item"><a href="#">link8</a></li>
-                <li class="gel-menu__item"><a href="#">link9</a></li>
-                <li class="gel-menu__item is-active"><a href="#">link10</a></li>
-                <li class="gel-menu__item"><a href="#">link11</a></li>
-                <li class="gel-menu__item"><a href="#">link12</a></li>
-                <li class="gel-menu__item"><a href="#">link13</a></li>
-              </ul>
-
-              <button class="gel-masthead__nav-toggle js-nav-toggle">Menu</button>
-
-            </div>
-
-          </div>
-
-          <div class="gel-wrap gel-wrap--no-padding">
-
-            <div class="gel-masthead__nav-panel gel-masthead__nav-panel--local js-nav-panel">
-
-            </div>
-
-          </div>
-
-        </div>
-
-
-      </section> <!-- / gel-masthead -->
 
 
       <section class="gel-content">
@@ -241,134 +41,32 @@
                 </div>
               </div>
 
-            </div><!--
+            </div>
 
-         --><div class="gel-promo-group gel-promo-group--duo js-promo-group">
-              <div class="gel-promo-group__inner">
+          </div>
 
-                <header class="gel-promo-group__header">
-                  <h2>Latest News</h2>
-                  <a href="#">More from BBC News</a>
-                </header>
-                <div class="gel-promo-group__items js-promo-items">
-                </div>
-              </div>
+        </div>
 
-            </div><!--
+      </section>
 
-         --><div class="gel-promo-group gel-promo-group--duo js-promo-group">
+      <section class="gel-footer">
 
-              <div class="gel-promo-group__inner">
+        <div class="gel-wrap gel-wrap--padded">
 
-                <header class="gel-promo-group__header">
-                  <h2>Latest News</h2>
-                  <a href="#">More from BBC News</a>
-                </header>
-                <div class="gel-promo-group__items js-promo-items">
-                </div>
-              </div>
+          <div class='gel-footer__promos'>
 
-            </div><!--
 
-         --><div class="gel-promo-group gel-promo-group--top js-promo-group">
-              <div class="gel-promo-group__inner">
+          </div>
 
-                <div class="gel-promo-group__header">
-                  <h2>Latest News</h2>
-                  <a href="#">More from BBC News</a>
-                </div>
-                <div class="gel-promo-group__items js-promo-items">
-                </div>
+          <div class='gel-footer__nav'>
 
-              </div>
+          </div>
 
-            </div><!--
+          <div class='gel-footer__links'>
 
-         --><div class="gel-promo-group gel-promo-group--middle js-promo-group">
-              <div class="gel-promo-group__inner">
+          </div>
 
-                <header class="gel-promo-group__header">
-                  <h2>Latest News</h2>
-                  <a href="#">More from BBC News</a>
-                </header>
-                <div class="gel-promo-group__items js-promo-items">
-
-                </div>
-
-              </div>
-
-            </div><!--
-
-         --><div class="gel-promo-group gel-promo-group--duo js-promo-group">
-              <div class="gel-promo-group__inner">
-
-                <header class="gel-promo-group__header">
-                  <h2>Latest News</h2>
-                  <a href="#">More from BBC News</a>
-                </header>
-                <div class="gel-promo-group__items js-promo-items">
-                </div>
-              </div>
-
-            </div><!--
-
-         --><div class="gel-promo-group gel-promo-group--duo js-promo-group">
-              <div class="gel-promo-group__inner">
-
-                <header class="gel-promo-group__header">
-                  <h2>Latest News</h2>
-                  <a href="#">More from BBC News</a>
-                </header>
-                <div class="gel-promo-group__items js-promo-items">
-                </div>
-              </div>
-
-            </div><!--
-
-         --><div class="gel-promo-group gel-promo-group--middle js-promo-group">
-              <div class="gel-promo-group__inner">
-
-                <header class="gel-promo-group__header">
-                  <h2>Latest News</h2>
-                  <a href="#">More from BBC News</a>
-                </header>
-                <div class="gel-promo-group__items js-promo-items">
-
-                </div>
-
-              </div>
-
-            </div><!--
-
-         --><div class="gel-promo-group gel-promo-group--top js-promo-group">
-              <div class="gel-promo-group__inner">
-
-                <div class="gel-promo-group__header">
-                  <h2>Latest News</h2>
-                  <a href="#">More from BBC News</a>
-                </div>
-                <div class="gel-promo-group__items js-promo-items">
-                </div>
-
-              </div>
-
-            </div><!--
-
-         --><div class="gel-promo-group gel-promo-group--top js-promo-group">
-              <div class="gel-promo-group__inner">
-
-                <div class="gel-promo-group__header">
-                  <h2>Latest News</h2>
-                  <a href="#">More from BBC News</a>
-                </div>
-                <div class="gel-promo-group__items js-promo-items">
-                </div>
-
-              </div>
-
-            </div><!--
-
-         -->
+          <div class='gel-footer__legal'>
 
           </div>
 
@@ -383,7 +81,12 @@
 
     <script>
 
-      var promoTpl = document.querySelectorAll('link[rel="import"]');
+      var promoTpl = document.querySelectorAll('link[href="templates/promo.html"]');
+      var headerTpl = document.querySelectorAll('link[href="templates/header.html"]');
+      var mastheadTpl = document.querySelectorAll('link[href="templates/masthead.html"]');
+
+      var body = document.querySelectorAll('body');
+      var contentWrap = document.querySelectorAll('.gel-content-wrap');
       var promoGroups = document.querySelectorAll('.js-promo-items');
 
       for (var i = 0; i < promoGroups.length; i++) {
@@ -392,18 +95,28 @@
 
       };
 
-      function templatePromo(group) {
+      function templateMasthead() {
+        var content = mastheadTpl[0].import;
+        el = content.querySelector('.gel-masthead');
+        contentWrap[0].insertBefore(el.cloneNode(true), contentWrap[0].childNodes[0]);
+      }
 
-        console.log(group)
+      function templateHeader() {
+        var content = headerTpl[0].import;
+        el = content.querySelector('.gel-header');
+        body[0].insertBefore(el.cloneNode(true), body[0].childNodes[0]);
+      }
+
+      function templatePromo(group) {
         for (var i = 0; i < 3; i++) {
           var content = promoTpl[0].import;
           el = content.querySelector('.js-promo');
           group.appendChild(el.cloneNode(true));
         };
-
       }
-      // Grab DOM from warning.html's document.
 
+      templateMasthead();
+      templateHeader();
 
     </script>
     <!-- build:js(.) scripts/vendor.js -->

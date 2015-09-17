@@ -169,32 +169,6 @@
 
 
 
-// .gel-masthead__nav-local-toggle {
-//   flex-grow: 1;
-//   text-align: right;
-//   padding-right: $half-spacing-unit;
-//   color: map-get($masthead-theme, secondary-menu-color);
-// }
-
-// .gel-masthead__nav-local-drawer {
-//   flex-basis: 100%;
-//   display: none;
-// }
-
-// .gel-masthead__related-wrap {
-//   flex-basis: 100%;
-//   display: flex;
-//   flex-wrap: wrap;
-//   @include media-query(lap-and-up) {
-//     padding: $half-spacing-unit 0;
-//     border-top: map-get($masthead-theme, border);
-
-//   }
-// }
-
-
-
-
 
 
 
@@ -351,58 +325,3 @@
 
 
 
-
-
-
-
-
-
-
-
-
-// CORE
-// ================================================================================ //
-
-// .gel-content {
-//   padding: $half-spacing-unit;
-//   @include media-query(lap-and-up) {
-//     padding: $base-spacing-unit;
-//   }
-// }
-
-.gel-wrap {
-  width: 100%;
-  max-width: 1400px;
-  margin: 0 auto;
-  padding-left: $half-spacing-unit;
-  padding-right: $half-spacing-unit;
-  position: relative;
-  @include media-query(lap-and-up) {
-    padding-left: 12px;
-    padding-right: 12px;
-  }
-  &--no-padding {
-    padding-left: 0;
-    padding-right: 0;
-    @include media-query(lap-and-up) {
-      padding-left: 0;
-      padding-right: 0;
-    }
-  }
-}
-
-a {
-  text-decoration: none;
-  &:hover {
-    text-decoration: underline;
-  }
-}
-
-.icon {
-  &--arrow-down {
-    font-family: 'bbcicons--core';
-    &:before {
-        content: '\E004';
-    }
-  }
-}
