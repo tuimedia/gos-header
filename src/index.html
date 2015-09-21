@@ -53,20 +53,48 @@
 
         <div class="gel-wrap gel-wrap--padded">
 
+          <h3>Explore the BBC</h3>
+
           <div class='gel-footer__promos'>
 
           </div>
 
           <div class='gel-footer__nav'>
-
+            <ul>
+              <li><a href="#">News</a></li>
+              <li><a href="#">Sport</a></li>
+              <li><a href="#">Weather</a></li>
+              <li><a href="#">iPlayer</a></li>
+              <li><a href="#">TV</a></li>
+              <li><a href="#">Radio</a></li>
+              <li><a href="#">CBBC</a></li>
+              <li><a href="#">CBeebies</a></li>
+              <li><a href="#">Arts</a></li>
+              <li><a href="#">Make it Digital</a></li>
+              <li><a href="#">Food</a></li>
+              <li><a href="#">iWonder</a></li>
+              <li><a href="#">Bitesize</a></li>
+              <li><a href="#">Music</a></li>
+              <li><a href="#">Earth</a></li>
+              <li><a href="#">Local</a></li>
+              <li><a href="#">Travel</a></li>
+            </ul>
           </div>
 
           <div class='gel-footer__links'>
-
+            <ul>
+              <li><a href="#">Terms of Use</a></li>
+              <li><a href="#">About the BBC</a></li>
+              <li><a href="#">Privacy Policy</a></li>
+              <li><a href="#">Cookies</a></li>
+              <li><a href="#">Accessibility Help</a></li>
+              <li><a href="#">Parental Guidance</a></li>
+              <li><a href="#">Contact the BBC</a></li>
+            </ul>
           </div>
 
           <div class='gel-footer__legal'>
-
+            <p><strong>Copyright © 2015 BBC</strong>. The BBC is not responsible for the content of external sites. <a href="#"><strong>Read about our approach to external linking</strong>.</a>
           </div>
 
         </div>
@@ -78,6 +106,46 @@
     <div class="size-indicator">
     </div>
 
+    <script>
+
+      var promoTpl = document.querySelectorAll('link[href="templates/promo.html"]');
+      var headerTpl = document.querySelectorAll('link[href="templates/header.html"]');
+      var mastheadTpl = document.querySelectorAll('link[href="templates/masthead.html"]');
+
+      var body = document.querySelectorAll('body');
+      var contentWrap = document.querySelectorAll('.gel-content-wrap');
+      var promoGroups = document.querySelectorAll('.js-promo-items');
+
+      for (var i = 0; i < promoGroups.length; i++) {
+
+        templatePromo(promoGroups[i]);
+
+      };
+
+      function templateMasthead() {
+        var content = mastheadTpl[0].import;
+        el = content.querySelector('.gel-masthead');
+        contentWrap[0].insertBefore(el.cloneNode(true), contentWrap[0].childNodes[0]);
+      }
+
+      function templateHeader() {
+        var content = headerTpl[0].import;
+        el = content.querySelector('.gel-header');
+        body[0].insertBefore(el.cloneNode(true), body[0].childNodes[0]);
+      }
+
+      function templatePromo(group) {
+        for (var i = 0; i < 3; i++) {
+          var content = promoTpl[0].import;
+          el = content.querySelector('.js-promo');
+          group.appendChild(el.cloneNode(true));
+        };
+      }
+
+      templateMasthead();
+      templateHeader();
+
+    </script>
     <!-- build:js(.) scripts/vendor.js -->
     <!-- bower:js -->
     <!-- endbower -->
