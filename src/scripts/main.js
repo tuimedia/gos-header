@@ -22,6 +22,7 @@ var mastheadArgs = {
   }, {
     type: 'local',
     selector: '.gel-masthead__nav-wrap--local',
+    activePrimaryLink: 'link3',
     toggle: {
       active: 'Hide',
       inactive: 'More'

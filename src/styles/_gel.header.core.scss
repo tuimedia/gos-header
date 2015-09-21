@@ -340,7 +340,7 @@
     padding: 0;
     flex-shrink: 0;
     flex-grow: 1;
-    align-items: stretch;
+    align-items: center;
     border-left: $gel-header-border;
     border-right: $gel-header-border;
     @include media-query(palm) {
@@ -353,7 +353,9 @@
         flex-grow: 1;
         align-items: stretch;
     }
+
     input {
+        padding: $half-spacing-unit/2 $half-spacing-unit;
         font-size: 14px;
         border: none;
         cursor: text;
@@ -363,6 +365,7 @@
         }
         flex-grow: 1;
     }
+
     button {
         border: none;
         margin: 0;
@@ -376,8 +379,10 @@
         i {
             width: auto;
             height: auto;
+            color: map-get($gel-header-theme, link-color);
         }
     }
+
     @include media-query(map-get($break, m)) {
         flex-basis: 200px;
     }

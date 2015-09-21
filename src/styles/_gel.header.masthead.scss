@@ -72,6 +72,13 @@
 // ------------------------------------------------- //
 
 .gel-masthead__m-nav-toggle {
+  height: $base-spacing-unit*2;
+  position: absolute;
+  top: 50%;
+  margin-top: -$base-spacing-unit;
+  right: $half-spacing-unit;
+  background: red;
+  border: none;
   @include media-query(lap-and-up) {
     display: none;
   }
@@ -192,17 +199,17 @@
 .gel-menu--cols {
   padding: $half-spacing-unit 0;
   @include media-query(lap) {
-    padding: $base-spacing-unit 0;
+    padding: $base-spacing-unit $half-spacing-unit;
     column-count: 2;
     column-rule: 1px solid red;
   }
   @include media-query(desk) {
-    padding: $base-spacing-unit 0;
+    padding: $base-spacing-unit $half-spacing-unit;
     column-count: 3;
     column-rule: 1px solid red;
   }
   @include media-query(desk-wide) {
-    padding: $base-spacing-unit 0;
+    padding: $base-spacing-unit $half-spacing-unit;
     column-count: 4;
     column-rule: 1px solid red;
   }

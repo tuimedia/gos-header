@@ -45,6 +45,9 @@ GEL_Menu.prototype.init = function() {
   }
 
   self.toggle.innerText = self.args.toggle.inactive;
+  // self.activePrimaryLink = this.navItems;
+
+  // console.log('self.activePrimaryLink', self.activePrimaryLink);
 
   // initial menu link visibility
   handleMenuLinks();
@@ -105,6 +108,7 @@ GEL_Menu.prototype.init = function() {
       linkWidths = 0;
 
     if(self.screenSize !== 'palm') {
+
       var visibleItems = 0;
 
       for (var i = 0; i < self.navItems.length; i++) {
@@ -118,6 +122,7 @@ GEL_Menu.prototype.init = function() {
 
           // show primary item
           self.navItems[i].classList.remove('is-hidden');
+
           if(self.args.type === 'local') {
             // hide secondary item
             self.secondaryItems[i].classList.remove('is-visible', 'is-first');
