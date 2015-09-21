@@ -28,6 +28,7 @@ var GEL_Menu = module.exports = function GEL_Menu(args) {
 
 };
 
+
 GEL_Menu.prototype.init = function() {
 
   var self = this;
@@ -37,8 +38,6 @@ GEL_Menu.prototype.init = function() {
 
       break;
     case 'local':
-
-      // clone primary items and append to panel
       this.secondary = self.nav.cloneNode(true);
       this.secondaryItems = self.secondary.children;
       this.panel.appendChild(self.secondary);

@@ -32,12 +32,18 @@
 // ------------------------------------------------- //
 
 .gel-masthead__nav-wrap {
-  display: none;
-  &.is-open {
-    display: block;
+  &--primary {
+    display: none;
+    &.is-open {
+      display: block;
+    }
+    @include media-query(lap-and-up) {
+      display: block;
+    }
   }
-  @include media-query(lap-and-up) {
-    display: block;
+
+  &--local {
+
   }
 }
 
@@ -88,6 +94,13 @@
 .gel-masthead__nav-local {
   background: map-get($masthead-theme, secondary-menu-bg);
   position: relative;
+  @include media-query(palm) {
+    .gel-menu { display: none; }
+    .gel-masthead__nav-toggle {
+      display: block;
+    }
+  }
+
 }
 
 .gel-masthead__nav-wrap--local {
@@ -108,9 +121,12 @@
     background: map-get($masthead-theme, primary-menu-bg);
   }
   &--local {
-    background: map-get($masthead-theme, secondary-menu-bg);
+    background: map-get($masthead-theme, secondary-menu-panel-bg);
   }
 }
+
+
+
 
 
 
@@ -130,6 +146,9 @@
   padding: 0 $half-spacing-unit;
   display: block;
   @extend .cf;
+  @include media-query(palm) {
+    padding: 0;
+  }
 }
 
 
@@ -164,6 +183,32 @@
     }
   }
 
+  @include media-query(palm) {
+    float: none;
+  }
+
+}
+
+.gel-menu--cols {
+  padding: $half-spacing-unit 0;
+  @include media-query(lap) {
+    padding: $base-spacing-unit 0;
+    column-count: 2;
+    column-rule: 1px solid red;
+  }
+  @include media-query(desk) {
+    padding: $base-spacing-unit 0;
+    column-count: 3;
+    column-rule: 1px solid red;
+  }
+  @include media-query(desk-wide) {
+    padding: $base-spacing-unit 0;
+    column-count: 4;
+    column-rule: 1px solid red;
+  }
+  .gel-menu__item {
+    float: none;
+  }
 }
 
 
@@ -186,135 +231,6 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-  // .gel-masthead__flyout {
-  //   margin: 0;
-  //   flex-basis: 100%;
-
-  //   h3 {
-  //     color: map-get($masthead-theme, h3-color);
-  //     margin: 0;
-  //     font: 1.2em/1.5 sans-serif;
-  //     @include media-query(palm) {
-  //       font: 1em/1.5 sans-serif;
-  //     }
-  //   }
-
-  //   a {
-  //     display: flex;
-  //     flex-wrap: nowrap;
-  //     padding: $half-spacing-unit 0;
-  //     align-items: center;
-  //     color: map-get($masthead-theme, flyout-color);
-  //     span {
-  //       flex-grow: 1;
-  //     }
-  //     i {
-  //       width: 20px;
-  //       justify-content: space-between;
-  //     }
-  //   }
-
-  //   ul {
-  //     display: none;
-  //     li {
-  //       border-bottom: none;
-  //       margin: 0;
-  //     }
-  //   }
-
-  //   @include media-query(palm) {
-  //     border-top: map-get($masthead-theme, border);
-  //     ul {
-  //       flex-wrap: wrap;
-  //       li {
-  //         flex-basis: 100%;
-  //         border-top: map-get($masthead-theme, border);
-  //       }
-  //     }
-  //   }
-
-  //   @include media-query(lap-and-up) {
-  //     flex-basis: 20%;
-  //     flex-grow: 1;
-  //     h3 {
-  //       .icon {
-  //         display: none;
-  //       }
-  //     }
-  //     ul {
-  //       display: flex;
-  //       flex-wrap: wrap;
-  //       li {
-  //         flex-basis: 100%;
-  //       }
-  //     }
-  //   }
-
-  //   //use CSS cols for main flyout (A-Z)
-  //   &--main {
-
-  //     @include media-query(lap) {
-  //       ul {
-  //         -webkit-column-count: 3;
-  //         -webkit-column-gap: 0;
-  //       }
-  //     }
-
-  //     @include media-query(desk) {
-  //       ul {
-  //         -webkit-column-count: 5;
-  //         -webkit-column-gap: 0;
-  //       }
-  //     }
-
-  //     @include media-query(lap-and-up) {
-  //       flex-basis: auto;
-  //       border-top: none;
-  //       padding: $half-spacing-unit 0 0 0;
-  //       h3 { display: none; }
-  //       ul {
-  //         display: block;
-  //         li {
-  //           border-top: none;
-  //           // border-right: map-get($masthead-theme, border);
-  //           // padding-right: $half-spacing-unit;
-  //           // &:nth-last-child(-n+4) {
-  //           //   padding-right: 0;
-  //           //   border: none;
-  //           // }
-  //           a {
-  //             margin: 0;
-  //           }
-  //         }
-  //       }
-  //     }
-
-  //   }
-
-
-  //   // flyout open state
-  //   &.is-open {
-  //     background: map-get($masthead-theme, flyout-bg);
-  //     i {
-  //       transform: rotate(180deg);
-  //     }
-  //     ul {
-  //       display: flex;
-  //     }
-  //   }
-
-  // }
-// }
 
 
 
