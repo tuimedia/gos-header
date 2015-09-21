@@ -20,13 +20,11 @@ var GEL_Menu = module.exports = function GEL_Menu(args) {
   this.toggle = this.navWrap.querySelectorAll('.js-nav-toggle')[0];
 
   this.states = {
-    panelOpen: false,
-    expanding: false,
-    contracting: false
+    panelOpen: false
   }
 
   // go
-  this.init(args);
+  this.init();
 
 };
 
@@ -34,25 +32,28 @@ GEL_Menu.prototype.init = function() {
 
   var self = this;
 
-  // clone primary items and append to panel
-  this.secondary = self.nav.cloneNode(true);
-  this.secondaryItems = self.secondary.children;
-  this.panel.appendChild(self.secondary);
+  switch(this.args.type) {
+    case 'all':
+
+      break;
+    case 'local':
+
+      // clone primary items and append to panel
+      this.secondary = self.nav.cloneNode(true);
+      this.secondaryItems = self.secondary.children;
+      this.panel.appendChild(self.secondary);
+      break;
+  }
+
+  self.toggle.innerText = self.args.toggle.inactive;
 
   // initial menu link visibility
   handleMenuLinks();
 
   // open/close menu panel on click
   this.toggle.addEventListener('click', function(event) {
-    console.dir(this)
-    this.innerHTML = this.innerHTML === 'Menu' ? 'Close' : 'Menu';
     handleMenuPanel('panel');
   });
-
-  // mobile menu trigger
-  // this.mobileToggle.addEventListener('click', function(event) {
-  //   handleMenuPanel('mobile');
-  // });
 
   // toggle menu link visibility on resize
   window.addEventListener('resize', function() {
@@ -75,6 +76,12 @@ GEL_Menu.prototype.init = function() {
 
   // panel state controller
   function handleMenuPanel(type) {
+
+    if(self.states.panelOpen) {
+      self.toggle.innerText = self.args.toggle.inactive;
+    } else {
+      self.toggle.innerText = self.args.toggle.active;
+    }
 
     switch(type) {
       case 'panel':
@@ -112,10 +119,11 @@ GEL_Menu.prototype.init = function() {
 
           // show primary item
           self.navItems[i].classList.remove('is-hidden');
-
-          // hide secondary item
-          self.secondaryItems[i].classList.remove('is-visible', 'is-first');
-          self.secondaryItems[i].classList.add('is-hidden');
+          if(self.args.type === 'local') {
+            // hide secondary item
+            self.secondaryItems[i].classList.remove('is-visible', 'is-first');
+            self.secondaryItems[i].classList.add('is-hidden');
+          }
 
         } else {
 
@@ -125,15 +133,17 @@ GEL_Menu.prototype.init = function() {
           self.navItems[i].classList.add('is-hidden');
 
           // show secondary item
-          self.secondaryItems[i].classList.remove('is-hidden', 'is-first');
-          self.secondaryItems[i].classList.add('is-visible');
+          if(self.args.type === 'local') {
+            self.secondaryItems[i].classList.remove('is-hidden', 'is-first');
+            self.secondaryItems[i].classList.add('is-visible');
+          }
 
         }
 
       }
 
       // if all menu items are visible
-      if(visibleItems === self.navItems.length)  {
+      if(visibleItems === self.navItems.length && self.args.type === 'local')  {
         self.toggle.classList.add('is-hidden');
       } else {
         self.toggle.classList.remove('is-hidden');

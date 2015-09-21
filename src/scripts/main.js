@@ -13,11 +13,19 @@ var promoGroups = document.querySelectorAll('.js-promo-group');
 var mastheadArgs = {
   el: masthead,
   menus: [{
-    type: '',
-    selector: '.gel-masthead__nav-wrap--primary'
+    type: 'all',
+    selector: '.gel-masthead__nav-wrap--primary',
+    toggle: {
+      active: 'Close',
+      inactive: 'Show All'
+    }
   }, {
-    type: '',
-    selector: '.gel-masthead__nav-wrap--local'
+    type: 'local',
+    selector: '.gel-masthead__nav-wrap--local',
+    toggle: {
+      active: 'Hide',
+      inactive: 'More'
+    }
   }]
 }
 
