@@ -3,7 +3,7 @@
   "dependencies": {
     "gos-core": "~0.1.0"
   },
-  "version": "0.0.0",
+  "version": "0.0.5",
   "authors": [
     "Euan Willcox <euan@tui.co.uk>"
   ],
