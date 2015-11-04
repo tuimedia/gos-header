@@ -1,0 +1,36 @@
+<!DOCTYPE html> <html> <head> <meta charset=utf-8> <title>gel component template</title> <meta name=description content=""> <meta name=viewport content="width=device-width,initial-scale=1"> <link rel="shortcut icon" href=/favicon.ico> <link rel=apple-touch-icon href=/apple-touch-icon.png> <link rel=import href=templates/promo.html> <link rel=import href=templates/header.html> <link rel=import href=templates/masthead.html> <link rel=stylesheet href=styles/main.css>  <body> <div class="gel-content-wrap js-content-wrap"> <section class=gel-content> <div class="gel-wrap gel-wrap--padded"> <div class=grid> <div class="gel-promo-group gel-promo-group--hero js-promo-group"> <div class=gel-promo-group__inner> <div class="gel-promo-group__items js-promo-items"> </div> </div> </div> </div> </div> </section> <section class=gel-footer> <div class="gel-wrap gel-wrap--padded"> <div class=gel-footer__promos> </div> <div class=gel-footer__nav> </div> <div class=gel-footer__links> </div> <div class=gel-footer__legal> </div> </div> </section> </div> <div class=size-indicator> </div> <script>var promoTpl = document.querySelectorAll('link[href="templates/promo.html"]');
+      var headerTpl = document.querySelectorAll('link[href="templates/header.html"]');
+      var mastheadTpl = document.querySelectorAll('link[href="templates/masthead.html"]');
+
+      var body = document.querySelectorAll('body');
+      var contentWrap = document.querySelectorAll('.gel-content-wrap');
+      var promoGroups = document.querySelectorAll('.js-promo-items');
+
+      for (var i = 0; i < promoGroups.length; i++) {
+
+        templatePromo(promoGroups[i]);
+
+      };
+
+      function templateMasthead() {
+        var content = mastheadTpl[0].import;
+        el = content.querySelector('.gel-masthead');
+        contentWrap[0].insertBefore(el.cloneNode(true), contentWrap[0].childNodes[0]);
+      }
+
+      function templateHeader() {
+        var content = headerTpl[0].import;
+        el = content.querySelector('.gel-header');
+        body[0].insertBefore(el.cloneNode(true), body[0].childNodes[0]);
+      }
+
+      function templatePromo(group) {
+        for (var i = 0; i < 3; i++) {
+          var content = promoTpl[0].import;
+          el = content.querySelector('.js-promo');
+          group.appendChild(el.cloneNode(true));
+        };
+      }
+
+      templateMasthead();
+      templateHeader();</script> <script src=scripts/main.js></script>  

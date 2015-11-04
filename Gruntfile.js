@@ -402,7 +402,7 @@ module.exports = function(grunt) {
     'uglify',
     'copy:dist',
     'copy:demoJs',
-    'filerev',
+    //'filerev',
     'usemin',
     'htmlmin'
   ]);

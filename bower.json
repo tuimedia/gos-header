@@ -8,7 +8,8 @@
     "Euan Willcox <euan@tui.co.uk>"
   ],
   "main": [
-    "src/styles/_header.scss"
+    "dist/styles/main.css",
+    "dist/scripts/main.js"
   ],
   "moduleType": [
     "amd",

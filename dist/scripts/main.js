@@ -3,10 +3,9 @@
 
 module.exports = {
   breakpoints: {
-      small: 240,
-      medium: 400,
-      large: 600,
-      huge: 900
+      'lap': 450,
+      'desk': 768,
+      'desk-wide': 1008
   },
   getAllElementsWithAttribute: function(attribute) {
     var matchingElements = [];
@@ -55,14 +54,14 @@ module.exports = {
     };
   },
   screenSize: function() {
-    if (window.innerWidth > this.breakpoints.huge) {
-        return 'huge';
-    } else if (window.innerWidth <= this.breakpoints.huge && window.innerWidth > this.breakpoints.large) {
-        return 'large';
-    } else if (window.innerWidth <= this.breakpoints.large && window.innerWidth > this.breakpoints.medium) {
-        return 'medium';
+    if (window.innerWidth >= this.breakpoints['desk-wide']) {
+        return 'desk-wide';
+    } else if (window.innerWidth < this.breakpoints['desk-wide'] && window.innerWidth >= this.breakpoints['desk']) {
+        return 'desk';
+    } else if (window.innerWidth < this.breakpoints['desk'] && window.innerWidth >= this.breakpoints['lap']) {
+        return 'lap';
     } else {
-        return 'small';
+        return 'palm';
     }
   }
 };
@@ -157,178 +156,178 @@ module.exports = function extend() {
 
 },{}],3:[function(require,module,exports){
 'use strict';
+var utils = require('../../bower_components/gos-core/src/scripts/utils');
 
-var GEL_Menu = module.exports = function Menu(args) {
+var GEL_Menu = module.exports = function GEL_Menu(args) {
 
-    console.log('here1');
+  if (!(this instanceof GEL_Menu)) {
+    return new GEL_Menu();
+  }
 
-    if (!(this instanceof Menu)) {
-        return new Menu();
-    }
+  // store any arguments
+  this.args = args;
 
-    this.args = args;
+  // store initial screen size. Update on window resize
+  this.screenSize = utils.screenSize();
 
-    this.init();
+  this.navWrap = document.querySelectorAll(args.selector)[0];
+  this.nav = this.navWrap.querySelectorAll('.js-nav')[0];
+  this.navItems = this.nav.children;
+  this.panel = this.navWrap.querySelectorAll('.js-nav-panel')[0];
+  this.toggle = this.navWrap.querySelectorAll('.js-nav-toggle')[0];
+
+  this.states = {
+    panelOpen: false
+  }
+
+  // go
+  this.init();
 
 };
+
 
 GEL_Menu.prototype.init = function() {
 
-    var _this = this;
+  var self = this;
 
-    console.log('menu init');
+  switch(this.args.type) {
+    case 'all':
 
-    // store attributes
-    // this.attrs = this.header.dataset;
+      break;
+    case 'local':
+      this.secondary = self.nav.cloneNode(true);
+      this.secondaryItems = self.secondary.children;
+      this.panel.appendChild(self.secondary);
+      break;
+  }
 
-    // this.page = document.querySelectorAll('.js-content-wrap')[0];
+  self.toggle.innerText = self.args.toggle.inactive;
+  // self.activePrimaryLink = this.navItems;
 
-        this.menuEnabled = true;
+  // console.log('self.activePrimaryLink', self.activePrimaryLink);
 
-        this.menu = this.args;
+  // initial menu link visibility
+  handleMenuLinks();
 
-        this.gelMenu();
+  // open/close menu panel on click
+  this.toggle.addEventListener('click', function(event) {
+    handleMenuPanel('panel');
+  });
 
+  // toggle menu link visibility on resize
+  window.addEventListener('resize', function() {
 
-    // // bind events to card elements
-    // this.bindEvents();
+    // store/update screen size
+    self.screenSize = utils.screenSize();
 
-};
+    // hide things while resizing
+    self.nav.style.visibility = 'hidden'; // hide menu when recalculating visible links
 
-GEL_Menu.prototype.bindEvents = function() {
+    // show all primary menu items so we can calculate available space
+    for (var i = 0; i < self.navItems.length; i++) {
+      self.navItems[i].classList.remove('is-hidden');
+    }
 
-    var _this = this;
+    // handle link visibility
+    handleMenuLinks();
 
-    if (this.notificationsEnabled) {
+  }, false);
 
-        this.notifications.cta.addEventListener('click', function(event) {
+  // panel state controller
+  function handleMenuPanel(type) {
 
-            _this.handleNotificationPanel();
+    if(self.states.panelOpen) {
+      self.toggle.innerText = self.args.toggle.inactive;
+    } else {
+      self.toggle.innerText = self.args.toggle.active;
+    }
 
-            if (_this.notifications.states.settingsPanelOpen) {
-                _this.handleSettingsPanel();
-            }
+    switch(type) {
+      case 'panel':
+        self.panel.classList.toggle('is-open');
+      break;
+      case 'mobile':
+        self.panel.classList.remove('is-open');
+        self.navWrap.classList.toggle('is-open');
+      break;
+    }
 
-        });
+    // toggle menu panel open state
+    self.states.panelOpen = !self.states.panelOpen;
 
-        this.notifications.close.addEventListener('click', function(event) {
-            _this.handleNotificationPanel();
-        });
+  };
 
-        this.notifications.settingsCta.addEventListener('click', function(event) {
-            _this.handleSettingsPanel();
-        });
+  // handle vidibility of menu items based on available space
+  // if no space in primary emnu, show items in panel
+  function handleMenuLinks() {
 
-        this.notifications.settingsClose.addEventListener('click', function(event) {
-            _this.handleSettingsPanel();
-        });
+    var availableMenuSpace = self.nav.clientWidth,
+      linkWidths = 0;
+
+    if(self.screenSize !== 'palm') {
+
+      var visibleItems = 0;
+
+      for (var i = 0; i < self.navItems.length; i++) {
+
+        linkWidths = linkWidths + self.navItems[i].clientWidth;
+
+        // if total width of links is less than available space
+        if (linkWidths < availableMenuSpace - 100) {
+
+          visibleItems ++;
+
+          // show primary item
+          self.navItems[i].classList.remove('is-hidden');
+
+          if(self.args.type === 'local') {
+            // hide secondary item
+            self.secondaryItems[i].classList.remove('is-visible', 'is-first');
+            self.secondaryItems[i].classList.add('is-hidden');
+          }
+
+        } else {
+
+          visibleItems --;
+
+          // hide primary item
+          self.navItems[i].classList.add('is-hidden');
+
+          // show secondary item
+          if(self.args.type === 'local') {
+            self.secondaryItems[i].classList.remove('is-hidden', 'is-first');
+            self.secondaryItems[i].classList.add('is-visible');
+          }
+
+        }
+
+      }
+
+      // if all menu items are visible
+      if(visibleItems === self.navItems.length && self.args.type === 'local')  {
+        self.toggle.classList.add('is-hidden');
+      } else {
+        self.toggle.classList.remove('is-hidden');
+      }
+
+    } else {
+
+      for (var i = 0; i < self.navItems.length; i++) {
+          self.navItems[i].classList.remove('is-hidden');
+      }
 
     }
 
-};
+    self.nav.style.visibility = 'visible';
 
+  };
 
-
-GEL_Menu.prototype.gelMenu = function() {
-
-    var _this = this;
-
-    // initial menu link visibility
-    handleMenuLinks();
-
-    //
-    this.menu.toggle.addEventListener('click', function(event) {
-        handleMenuPanel();
-    });
-
-    // toggle menu link visibility on resize
-    window.addEventListener('resize', function() {
-
-        _this.menu.primary.style.visibility = 'hidden';
-
-        for (var i = 0; i < _this.menu.primaryItems.length; i++) {
-            _this.menu.primaryItems[i].classList.remove('is-hidden');
-        }
-
-        if (_this.menu.states.panelOpen) {
-            resizeMenu();
-        }
-
-        handleMenuLinks();
-
-    }, false);
-
-
-    function handleMenuPanel() {
-
-        if (_this.notifications.states.notifyPanelOpen) {
-            _this.notifications.states.notifyPanelOpen = false;
-            _this.notifications.panel.classList.remove('is-open');
-        }
-
-        if (_this.menu.states.panelOpen) {
-            _this.menu.panel.classList.remove('is-open');
-            _this.page.style.transform = 'translateY(0px)';
-        } else {
-            _this.menu.panel.classList.add('is-open');
-            resizeMenu(true);
-        }
-
-        _this.menu.states.panelOpen = !_this.menu.states.panelOpen;
-
-    };
-
-    function handleMenuLinks() {
-
-        var availableMenuSpace = _this.menu.primary.clientWidth,
-            linkWidths = 0,
-            done = false;
-
-        for (var i = 0; i < _this.menu.primaryItems.length; i++) {
-            linkWidths = linkWidths + _this.menu.primaryItems[i].clientWidth;
-            if (linkWidths < availableMenuSpace) {
-                _this.menu.primaryItems[i].classList.remove('is-hidden');
-                _this.menu.panelItems[i].classList.remove('is-visible', 'is-first');
-                _this.menu.panelItems[i].classList.add('is-hidden');
-            } else {
-                _this.menu.primaryItems[i].classList.add('is-hidden');
-                _this.menu.panelItems[i].classList.remove('is-hidden', 'is-first');
-                _this.menu.panelItems[i].classList.add('is-visible');
-                if (!done) {
-                    _this.menu.primaryItems[i - 1].classList.add('is-hidden');
-                    _this.menu.panelItems[i - 1].classList.add('is-visible', 'is-first');
-                    _this.menu.panelItems[i - 1].classList.remove('is-hidden');
-                    done = true;
-                }
-            }
-        }
-
-        _this.menu.primary.style.visibility = 'visible';
-
-    };
-
-    function resizeMenu(opening) {
-
-        var timer,
-            secondaryMenuHeight;
-
-        if (opening) {
-            secondaryMenuHeight = _this.menu.secondary.clientHeight;
-            _this.page.style.transform = 'translateY(' + secondaryMenuHeight + 'px)';
-        } else {
-            timer = setTimeout(function() {
-                secondaryMenuHeight = _this.menu.secondary.clientHeight;
-                _this.page.style.transform = 'translateY(' + secondaryMenuHeight + 'px)';
-            }, 500);
-        }
-
-    };
 
 };
 
 
 
-},{}],4:[function(require,module,exports){
+},{"../../bower_components/gos-core/src/scripts/utils":1}],4:[function(require,module,exports){
 'use strict';
 
 var GEL_Promos = module.exports = function Promos(args) {
@@ -382,6 +381,7 @@ var GEL_Header = module.exports = function Header(args) {
     }
 
     this.header = args.el[0];
+    this.args = args;
 
     this.init();
 
@@ -389,7 +389,6 @@ var GEL_Header = module.exports = function Header(args) {
 
 GEL_Header.prototype.init = function(args) {
 
-    var _this = this;
 
     // store attributes
     this.attrs = this.header.dataset;
@@ -414,7 +413,7 @@ GEL_Header.prototype.init = function(args) {
             }
         };
 
-        this.gelMenu();
+        this.gelMenu(this.menu);
 
     }
 
@@ -440,10 +439,8 @@ GEL_Header.prototype.init = function(args) {
 
     }
 
-    // bind events to card elements
     this.bindEvents();
 
-    //
 };
 
 GEL_Header.prototype.bindEvents = function() {
@@ -480,28 +477,28 @@ GEL_Header.prototype.bindEvents = function() {
 
 
 
-GEL_Header.prototype.gelMenu = function() {
+GEL_Header.prototype.gelMenu = function(menu) {
 
     var _this = this;
 
     // initial menu link visibility
     handleMenuLinks();
 
-    //
-    this.menu.toggle.addEventListener('click', function(event) {
+    menu.toggle.addEventListener('click', function(event) {
+
         handleMenuPanel();
     });
 
     // toggle menu link visibility on resize
     window.addEventListener('resize', function() {
 
-        _this.menu.primary.style.visibility = 'hidden';
+        menu.primary.style.visibility = 'hidden';
 
-        for (var i = 0; i < _this.menu.primaryItems.length; i++) {
-            _this.menu.primaryItems[i].classList.remove('is-hidden');
+        for (var i = 0; i < menu.primaryItems.length; i++) {
+            menu.primaryItems[i].classList.remove('is-hidden');
         }
 
-        if (_this.menu.states.panelOpen) {
+        if (menu.states.panelOpen) {
             resizeMenu();
         }
 
@@ -517,44 +514,44 @@ GEL_Header.prototype.gelMenu = function() {
             _this.notifications.panel.classList.remove('is-open');
         }
 
-        if (_this.menu.states.panelOpen) {
-            _this.menu.panel.classList.remove('is-open');
+        if (menu.states.panelOpen) {
+            menu.panel.classList.remove('is-open');
             _this.page.style.transform = 'translateY(0px)';
         } else {
-            _this.menu.panel.classList.add('is-open');
+            menu.panel.classList.add('is-open');
             resizeMenu(true);
         }
 
-        _this.menu.states.panelOpen = !_this.menu.states.panelOpen;
+        menu.states.panelOpen = !menu.states.panelOpen;
 
     };
 
     function handleMenuLinks() {
 
-        var availableMenuSpace = _this.menu.primary.clientWidth,
+        var availableMenuSpace = menu.primary.clientWidth,
             linkWidths = 0,
             done = false;
 
-        for (var i = 0; i < _this.menu.primaryItems.length; i++) {
-            linkWidths = linkWidths + _this.menu.primaryItems[i].clientWidth;
+        for (var i = 0; i < menu.primaryItems.length; i++) {
+            linkWidths = linkWidths + menu.primaryItems[i].clientWidth;
             if (linkWidths < availableMenuSpace) {
-                _this.menu.primaryItems[i].classList.remove('is-hidden');
-                _this.menu.panelItems[i].classList.remove('is-visible', 'is-first');
-                _this.menu.panelItems[i].classList.add('is-hidden');
+                menu.primaryItems[i].classList.remove('is-hidden');
+                menu.panelItems[i].classList.remove('is-visible', 'is-first');
+                menu.panelItems[i].classList.add('is-hidden');
             } else {
-                _this.menu.primaryItems[i].classList.add('is-hidden');
-                _this.menu.panelItems[i].classList.remove('is-hidden', 'is-first');
-                _this.menu.panelItems[i].classList.add('is-visible');
+                menu.primaryItems[i].classList.add('is-hidden');
+                menu.panelItems[i].classList.remove('is-hidden', 'is-first');
+                menu.panelItems[i].classList.add('is-visible');
                 if (!done) {
-                    _this.menu.primaryItems[i - 1].classList.add('is-hidden');
-                    _this.menu.panelItems[i - 1].classList.add('is-visible', 'is-first');
-                    _this.menu.panelItems[i - 1].classList.remove('is-hidden');
+                    menu.primaryItems[i - 1].classList.add('is-hidden');
+                    menu.panelItems[i - 1].classList.add('is-visible', 'is-first');
+                    menu.panelItems[i - 1].classList.remove('is-hidden');
                     done = true;
                 }
             }
         }
 
-        _this.menu.primary.style.visibility = 'visible';
+        menu.primary.style.visibility = 'visible';
 
     };
 
@@ -606,6 +603,7 @@ GEL_Header.prototype.handleNotificationPanel = function() {
         }
     }
 
+
     // if menu is open when opening notifications panel then close menu
     if (this.menu.states.panelOpen) {
         this.menu.states.panelOpen = false;
@@ -631,10 +629,10 @@ GEL_Header.prototype.handleNotificationPanel = function() {
 
     } else {
 
+        // panel is opening. Trigger notification panel open event
         _this.page.style.transform = 'translateY(' + this.notificationPanelHeight + 'px)';
 
         this.notifications.panel.classList.add('is-open');
-
 
     }
 
@@ -781,59 +779,88 @@ var pageHeader;
 var masthead = document.querySelectorAll('.js-masthead');
 var promoGroups = document.querySelectorAll('.js-promo-group');
 
-// try {
-//   masthead = new Masthead(masthead);
-// } catch (e) {
-//   if (typeof console !== 'undefined') {
-//     console.error(e.stack);
-//   }
-// }
 
-for (var i = 0; i < promoGroups.length; i++) {
+
+var mastheadArgs = {
+  el: masthead,
+  menus: [{
+    type: 'all',
+    selector: '.gel-masthead__nav-wrap--primary',
+    toggle: {
+      active: 'Close',
+      inactive: 'Show All'
+    }
+  }, {
+    type: 'local',
+    selector: '.gel-masthead__nav-wrap--local',
+    activePrimaryLink: 'link3',
+    toggle: {
+      active: 'Hide',
+      inactive: 'More'
+    }
+  }]
+}
+
+document.addEventListener("DOMContentLoaded", function(event) {
 
   try {
-    var args = {
-      el: promoGroups[i],
-      arg1: 'arg1'
-    };
-    var promoGroupInstance = new Promos(args);
+    masthead = new Masthead(mastheadArgs);
   } catch (e) {
     if (typeof console !== 'undefined') {
       console.error(e.stack);
     }
   }
 
-};
+  for (var i = 0; i < promoGroups.length; i++) {
 
-// try {
+    try {
+      var args = {
+        el: promoGroups[i],
+        arg1: 'arg1'
+      };
+      var promoGroupInstance = new Promos(args);
+    } catch (e) {
+      if (typeof console !== 'undefined') {
+        console.error(e.stack);
+      }
+    }
 
-//   pageHeader = new Header({
-//     el: document.querySelectorAll('.js-header')
-//   });
+  };
 
-//   // spoof notifications
-//   setTimeout(function() {
-//     pageHeader.getNotifications();
-//   }, 500);
+  try {
 
-// } catch (e) {
-//   if (typeof console !== 'undefined') {
-//     console.error(e.stack);
-//   }
-// }
+    pageHeader = new Header({
+      el: document.querySelectorAll('.js-header')
+    });
+
+    // spoof notifications
+    setTimeout(function() {
+      pageHeader.getNotifications();
+    }, 500);
+
+  } catch (e) {
+    if (typeof console !== 'undefined') {
+      console.error(e.stack);
+    }
+  }
+});
+
 },{"./gel-promos":4,"./header":5,"./masthead":7}],7:[function(require,module,exports){
 'use strict';
 
 var extend = require('extend');
 var utils = require('../../bower_components/gos-core/src/scripts/utils');
 
-var Masthead = module.exports = function Masthead(masthead) {
+var GEL_Menu = require('./gel-menu');
+
+var Masthead = module.exports = function Masthead(args) {
 
   if (!(this instanceof Masthead)) {
     return new Masthead(masthead);
   }
 
-  this.masthead = masthead;
+  this.masthead = args.el[0];
+  this.args = args;
 
   if (this.masthead) {
     this.init();
@@ -845,159 +872,13 @@ Masthead.prototype.init = function(args) {
 
   var _this = this;
 
-  // TODO: better checking
-  if (this.masthead[0].querySelectorAll('.js-menu-primary')[0]) {
+  this.menus = [];
 
-    this.menu = {
-      mobileTrigger: this.masthead[0].querySelectorAll('.js-m-menu-toggle')[0],
-      desktopTrigger: this.masthead[0].querySelectorAll('.js-menu-toggle')[0],
-      menuWrap: this.masthead[0].querySelectorAll('.js-masthead-nav')[0],
-      flyouts: this.masthead[0].querySelectorAll('.js-flyout'),
-      states: {
-        isOpen: false
-      },
-      layouts: {
-        compact: false,
-        expanded: false
-      }
-    };
-
-  }
-
-  if (this.masthead[0].querySelectorAll('.js-drawer-nav')) {
-
-    // create object to store draw nav configs. Index used as key
-
-    this.drawerNavs = {};
-
-    for (var i = 0; i < this.masthead[0].querySelectorAll('.js-drawer-nav').length; i++) {
-      this.initDrawerNav(this.masthead[0].querySelectorAll('.js-drawer-nav')[i], i);
-    };
-
-  }
-
-  this.bindEvents();
-
-};
-
-Masthead.prototype.bindEvents = function() {
-
-  var _this = this;
-
-  if (this.menu.mobileTrigger) {
-
-    this.menu.mobileTrigger.addEventListener('click', function() {
-      _this.menu.menuWrap.classList.toggle('is-open');
-      _this.menu.states.isOpen = !_this.menu.states.isOpen;
-    }, false);
-
-
-    this.menu.desktopTrigger.addEventListener('click', function() {
-      _this.menu.menuWrap.classList.toggle('is-open');
-      _this.menu.states.isOpen = !_this.menu.states.isOpen;
-    }, false);
-
-  }
-
-  // setup flyouts if they exist in the menu
-  if (this.menu.flyouts) {
-
-    for (var i = 0; i < this.menu.flyouts.length; i++) {
-
-
-      _this.menu.flyouts[i].addEventListener('click', function() {
-
-        if (this.isOpen) {
-          this.classList.toggle('is-open');
-        } else {
-          closeOpenItems();
-          this.classList.toggle('is-open');
-        }
-
-        this.isOpen = !this.isOpen;
-
-      }, false);
-
-    };
-
-  }
-
-  function closeOpenItems() {
-    for (var i = 0; i < _this.menu.flyouts.length; i++) {
-      _this.menu.flyouts[i].classList.remove('is-open');
-    };
-  }
-
-};
-
-// reset on window resize
-Masthead.prototype.resetMenus = function() {
-
-  // close flyouts
-
-  // close menu
-
-};
-
-Masthead.prototype.initDrawerNav = function(el, index) {
-
-  var _this = this;
-
-  this.drawerNavs[index] = {
-    container: el.querySelectorAll('ul')[0],
-    items: el.querySelectorAll('li'),
-    toggle: el.querySelectorAll('.js-drawer-nav-toggle')[0],
-    drawer: el.querySelectorAll('.js-drawer-nav-drawer')[0]
+  for (var i = 0; i < this.args.menus.length; i++) {
+    var menu = new GEL_Menu(this.args.menus[i]);
+    this.menus.push(menu);
   };
 
-  var drawerList = document.createElement('ul');
-
-
-  var handleVisibleItems = function() {
-
-    var totalLinkWidth = 0;
-    var availableSpace = _this.drawerNavs[index].container.clientWidth;
-
-    for (var i = 0; i < _this.drawerNavs[index].items.length; i++) {
-
-      // incremement total width
-      totalLinkWidth = totalLinkWidth + _this.drawerNavs[index].items[i].clientWidth;
-
-      // if the links are wider than the available space...
-      if (totalLinkWidth > availableSpace - 100) {
-        _this.drawerNavs[index].drawerItems[i].classList.remove('is-hidden');
-        _this.drawerNavs[index].items[i].classList.add('is-hidden');
-      } else {
-        _this.drawerNavs[index].drawerItems[i].classList.add('is-hidden');
-        _this.drawerNavs[index].items[i].classList.remove('is-hidden');
-      }
-    }
-
-    _this.drawerNavs[index].container.style.visibility = 'visible';
-
-    console.log('called');
-
-  };
-
-  // clone all links into drawer
-  for (var i = 0; i < this.drawerNavs[index].items.length; i++) {
-    var clonedItem = this.drawerNavs[index].items[i].cloneNode(true);
-    drawerList.appendChild(clonedItem);
-  };
-
-  this.drawerNavs[index].drawer.appendChild(drawerList);
-  this.drawerNavs[index].drawerItems = this.drawerNavs[index].drawer.querySelectorAll('li');
-
-  handleVisibleItems();
-
-  window.addEventListener('resize', function() {
-    _this.drawerNavs[index].container.style.visibility = 'hidden';
-
-    // utils.debounce(function() {
-    handleVisibleItems();
-    // });
-
-  });
-
 };
-},{"../../bower_components/gos-core/src/scripts/utils":1,"extend":2}]},{},[3,4,5,6,7]);
+
+},{"../../bower_components/gos-core/src/scripts/utils":1,"./gel-menu":3,"extend":2}]},{},[3,4,5,6,7]);
